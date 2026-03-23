@@ -3620,6 +3620,11 @@
                 </div>
 
                 <div class="field">
+                  <label for="whatsapp" data-i18n="label_whatsapp"></label>
+                  <input id="whatsapp" name="whatsapp" type="tel" data-i18n-placeholder="ph_whatsapp" placeholder="" />
+                </div>
+
+                <div class="field">
                   <label for="company" data-i18n="label_company"></label>
                   <input id="company" name="company" type="text" data-i18n-placeholder="ph_company" placeholder="" />
                 </div>
@@ -3976,6 +3981,7 @@
         contact_desc: "Share a short brief and project context. The intake is designed for B2B discussions around delivery, automation, and mobile execution.",
         label_name: "Name",
         label_email: "Email",
+        label_whatsapp: "WhatsApp",
         label_company: "Company",
         label_type: "Project Type",
         label_deadline: "Timeline",
@@ -3983,6 +3989,7 @@
         label_desc: "Project Brief",
         ph_name: "Your name",
         ph_email: "Work email",
+        ph_whatsapp: "WhatsApp number (optional)",
         ph_company: "Company or organization",
         ph_deadline: "Expected timeline",
         ph_budget: "Budget range or engagement size",
@@ -4339,6 +4346,7 @@
         contact_desc: "Teilen Sie einen kurzen Brief und Projektrahmen. Das Intake ist auf B2B-Gespräche rund um Delivery, Automation und Mobile Execution ausgelegt.",
         label_name: "Name",
         label_email: "E-Mail",
+        label_whatsapp: "WhatsApp",
         label_company: "Unternehmen",
         label_type: "Projekttyp",
         label_deadline: "Zeitplan",
@@ -4346,6 +4354,7 @@
         label_desc: "Projektbrief",
         ph_name: "Ihr Name",
         ph_email: "Geschäftliche E-Mail",
+        ph_whatsapp: "WhatsApp-Nummer (optional)",
         ph_company: "Unternehmen oder Organisation",
         ph_deadline: "Geplanter Zeitrahmen",
         ph_budget: "Budgetrahmen oder Auftragsgröße",
@@ -4702,6 +4711,7 @@
         contact_desc: "Wyślij krótki brief i kontekst projektu. Ten intake jest przygotowany pod rozmowy B2B dotyczące delivery, automatyki i realizacji mobile.",
         label_name: "Imię i nazwisko",
         label_email: "Email",
+        label_whatsapp: "WhatsApp",
         label_company: "Firma",
         label_type: "Typ projektu",
         label_deadline: "Timeline",
@@ -4709,6 +4719,7 @@
         label_desc: "Brief projektu",
         ph_name: "Twoje imię i nazwisko",
         ph_email: "Email służbowy",
+        ph_whatsapp: "Numer WhatsApp (opcjonalnie)",
         ph_company: "Firma lub organizacja",
         ph_deadline: "Oczekiwany timeline",
         ph_budget: "Przedział budżetu lub skala współpracy",
@@ -5133,6 +5144,7 @@
 
         const name = document.getElementById("name")?.value.trim() || "";
         const email = document.getElementById("email")?.value.trim() || "";
+        const whatsapp = document.getElementById("whatsapp")?.value.trim() || "";
         const company = document.getElementById("company")?.value.trim() || "";
         const projectType = document.getElementById("projectType")?.value.trim() || "";
         const timeline = document.getElementById("timeline")?.value.trim() || "";
@@ -5157,7 +5169,7 @@
             apiKey: leadFormApiKey,
             name,
             email,
-            whatsapp: "",
+            whatsapp,
             company,
             projectType,
             timeline,
