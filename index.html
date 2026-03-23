@@ -5124,9 +5124,11 @@
     const nav = document.getElementById("primaryNav");
     const navToggle = document.getElementById("navToggle");
     const contactForm = document.getElementById("contactForm");
+    const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbw_b8t-Y_KZwG-hu3tRoslCfTHwea3yNosOQrhThQpX00qN0oxwUgqnL3CByJQESWuQEg/exec";
+    const leadFormApiKey = "khaledi_secret_2026";
 
     if (contactForm) {
-      contactForm.addEventListener("submit", event => {
+      contactForm.addEventListener("submit", async event => {
         event.preventDefault();
 
         const name = document.getElementById("name")?.value.trim() || "";
@@ -5136,25 +5138,53 @@
         const timeline = document.getElementById("timeline")?.value.trim() || "";
         const budget = document.getElementById("budget")?.value.trim() || "";
         const description = document.getElementById("description")?.value.trim() || "";
-
+        const submitBtn = contactForm.querySelector("button[type='submit']");
+        const originalBtnText = submitBtn?.textContent || "";
         const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
-        const subjectBase = { en: "Project Inquiry", de: "Projektanfrage", pl: "Zapytanie projektowe" }[currentLang] || "Project Inquiry";
-        const subject = [subjectBase, projectType || company].filter(Boolean).join(" — ");
+        const feedback = {
+          en: { sending: "Sending...", sent: "Your request was sent successfully.", error: "Could not send now. Please try again." },
+          de: { sending: "Wird gesendet...", sent: "Ihre Anfrage wurde erfolgreich gesendet.", error: "Senden nicht möglich. Bitte erneut versuchen." },
+          pl: { sending: "Wysyłanie...", sent: "Twoje zapytanie zostało wysłane.", error: "Nie udało się wysłać. Spróbuj ponownie." }
+        }[currentLang] || { sending: "Sending...", sent: "Your request was sent successfully.", error: "Could not send now. Please try again." };
 
-        const lines = [
-          `Name: ${name}`,
-          `Email: ${email}`,
-          `Company: ${company}`,
-          `Project Type: ${projectType}`,
-          `Timeline: ${timeline}`,
-          `Budget / Scope: ${budget}`,
-          "",
-          "Project Brief:",
-          description
-        ];
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = feedback.sending;
+        }
 
-        const body = encodeURIComponent(lines.join("\n"));
-        window.location.href = `mailto:info@khaledi.eu?subject=${encodeURIComponent(subject)}&body=${body}`;
+        try {
+          const payload = new URLSearchParams({
+            apiKey: leadFormApiKey,
+            name,
+            email,
+            whatsapp: "",
+            company,
+            projectType,
+            timeline,
+            budget,
+            description
+          });
+
+          await fetch(leadFormEndpoint, {
+            method: "POST",
+            mode: "no-cors",
+            body: payload
+          });
+
+          contactForm.reset();
+          const snackText = snackbar?.querySelector("span");
+          if (snackText) snackText.textContent = feedback.sent;
+          snackbar?.classList.add("show");
+        } catch (error) {
+          const snackText = snackbar?.querySelector("span");
+          if (snackText) snackText.textContent = feedback.error;
+          snackbar?.classList.add("show");
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+          }
+        }
       });
     }
 
