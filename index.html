@@ -3816,7 +3816,6 @@
     const catSignals = document.getElementById("catSignals");
     const catContactHeading = document.getElementById("catContactHeading");
     const catContact = document.getElementById("catContact");
-    const mediaDark = window.matchMedia("(prefers-color-scheme: dark)");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const translations = {
@@ -5100,14 +5099,19 @@
       if (persist) localStorage.setItem("theme", theme);
     }
 
+    function getThemeFromLocalTime(date = new Date()) {
+      const hour = date.getHours();
+      return hour >= 7 && hour < 19 ? "light" : "dark";
+    }
+
     const savedTheme = localStorage.getItem("theme");
-    const initialTheme = savedTheme || (mediaDark.matches ? "dark" : "light");
+    const initialTheme = savedTheme || getThemeFromLocalTime();
     setTheme(initialTheme, false);
 
     if (!savedTheme) {
-      mediaDark.addEventListener("change", e => {
-        setTheme(e.matches ? "dark" : "light", false);
-      });
+      window.setInterval(() => {
+        setTheme(getThemeFromLocalTime(), false);
+      }, 60000);
     }
 
     themeToggle.addEventListener("click", () => {
