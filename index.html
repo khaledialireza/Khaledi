@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KHALEDI | Independent Engineering Squad</title>
-  <meta name="description" content="Bavaria-based independent engineering squad for B2B delivery, industrial automation, and mobile product execution." />
-  <meta property="og:title" content="KHALEDI | Independent Engineering Squad" />
-  <meta property="og:description" content="B2B-ready engineering delivery across industrial automation and digital products." />
+  <title>KHALEDI | B2B Engineering Delivery</title>
+  <meta name="description" content="B2B engineering delivery for industrial automation, mobile products, and structured project execution." />
+  <meta property="og:title" content="KHALEDI | B2B Engineering Delivery" />
+  <meta property="og:description" content="A compact B2B engineering team for automation, digital product delivery, and execution support." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#1a73e8" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231a73e8'/%3E%3Cpath d='M18 20h28v6H35v18h-6V26H18z' fill='white'/%3E%3C/svg%3E" />
@@ -1576,6 +1576,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 18px;
+      position: relative;
     }
 
     .field {
@@ -1586,6 +1587,15 @@
 
     .field.full {
       grid-column: 1 / -1;
+    }
+
+    .field.hp-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      pointer-events: none;
     }
 
     .field label {
@@ -3609,6 +3619,8 @@
               <p class="section-note" data-i18n="contact_desc"></p>
 
               <form class="form" id="contactForm">
+                <input id="startedAt" name="startedAt" type="hidden" value="" />
+
                 <div class="field">
                   <label for="name" data-i18n="label_name"></label>
                   <input id="name" name="name" type="text" data-i18n-placeholder="ph_name" placeholder="" required />
@@ -3652,6 +3664,11 @@
                 <div class="field full">
                   <label for="description" data-i18n="label_desc"></label>
                   <textarea id="description" name="description" data-i18n-placeholder="ph_desc" placeholder=""></textarea>
+                </div>
+
+                <div class="field hp-field" aria-hidden="true">
+                  <label for="website">Website</label>
+                  <input id="website" name="website" type="text" autocomplete="off" tabindex="-1" />
                 </div>
 
                 <div class="field full">
@@ -3796,24 +3813,24 @@
 
     const translations = {
       en: {
-        brand_sub: "Independent Engineering Squad",
-        nav_team: "Team",
-        nav_services: "Services",
+        brand_sub: "B2B Engineering Delivery",
+        nav_team: "Experts",
+        nav_services: "Solutions",
         nav_stack: "Capabilities",
-        nav_portfolio: "Portfolio",
+        nav_portfolio: "Proof",
         nav_contact: "Contact",
         theme_dark: "Dark",
         theme_light: "Light",
-        cta_start: "Start a Project",
+        cta_start: "Book a Discovery Call",
         catalog_btn: "Catalog",
         catalog_print: "Print / Save PDF",
-        cta_explore: "Explore Services",
+        cta_explore: "See Solutions",
         bc_home: "Home",
-        bc_delivery: "Independent Engineering Squad",
+        bc_delivery: "B2B Engineering Delivery",
 
-        hero_kicker: "Bavaria-based · B2B ready",
-        hero_title: "Engineering Excellence. Delivered.",
-        hero_subtitle: "Independent Engineering Squad for Industrial Automation, Digital Product Execution, and Disciplined Delivery Management.",
+        hero_kicker: "Europe-based · B2B-ready",
+        hero_title: "We help B2B teams deliver automation, software, and mobile execution with less friction.",
+        hero_subtitle: "KHALEDI combines delivery coordination, industrial automation support, and mobile product implementation for companies that need clear ownership and reliable follow-through.",
         hero_panel_title: "Why clients engage us",
         hero_panel_1: "Structured delivery control across technical workstreams.",
         hero_panel_2: "Industrial automation support aligned with execution discipline.",
@@ -3825,17 +3842,17 @@
         hero_summary_label_3: "Engagement",
         hero_summary_value_3: "Project-based B2B",
 
-        trust_1_v: "10+ Years",
-        trust_1_l: "Software, coordination, and delivery support experience",
-        trust_2_v: "30% Improvement",
-        trust_2_l: "Measured performance gain in Python-based software work",
-        trust_3_v: "15% Faster",
-        trust_3_l: "Transaction processing improvement in e-commerce delivery",
-        trust_4_v: "30–40% Faster",
-        trust_4_l: "CRM data retrieval improvement through backend work",
+        trust_1_v: "3 Core Lines",
+        trust_1_l: "Delivery coordination, industrial automation, and mobile execution",
+        trust_2_v: "B2B Focus",
+        trust_2_l: "Built for practical execution, not generic agency packaging",
+        trust_3_v: "EU-based",
+        trust_3_l: "Remote-friendly collaboration for European project environments",
+        trust_4_v: "Direct Access",
+        trust_4_l: "You work with the actual people responsible for delivery",
 
-        team_kicker: "Core Team",
-        team_title: "Leadership and Delivery Coverage",
+        team_kicker: "Delivery Leads",
+        team_title: "The people clients actually work with",
         leader_flag: "Founder",
         member_1_badge: "Founder · Technical Project Coordinator",
         member_1_name: "Alireza Khaledi",
@@ -3877,21 +3894,21 @@
         member_3_t4: "Riverpod",
         team_view_profile: "View Profile",
 
-        services_kicker: "Services",
-        services_title: "What We Deliver",
-        svc_1_title: "Delivery Operations",
-        svc_1_desc: "Structured project coordination, stakeholder visibility, milestone control, and disciplined execution across technical workstreams.",
-        svc_2_title: "Industrial Automation",
-        svc_2_desc: "PLC-centered automation support for industrial systems, control logic, engineering workflows, and plant-side reliability.",
-        svc_3_title: "Mobile Product Execution",
-        svc_3_desc: "Clean, scalable mobile delivery with Flutter-based frontend systems and maintainable product architecture.",
+        services_kicker: "Solutions",
+        services_title: "What buyers bring us in for",
+        svc_1_title: "Delivery Coordination",
+        svc_1_desc: "Bring structure to technical workstreams with clearer ownership, stakeholder follow-up, milestone visibility, and practical reporting.",
+        svc_2_title: "Industrial Automation Support",
+        svc_2_desc: "Support PLC and commissioning environments with Siemens-focused automation experience, diagnostics, and plant-side execution discipline.",
+        svc_3_title: "Mobile Product Delivery",
+        svc_3_desc: "Ship maintainable Flutter-based products and internal apps with clean architecture and business-oriented implementation quality.",
 
         tools_kicker: "Tooling",
         tools_title: "Core Working Stack",
         tool_milestone: "Milestones",
 
         stack_kicker: "Capabilities",
-        stack_title: "Primary Capability Areas",
+        stack_title: "Execution areas we cover",
         stack_industrial: "Industrial Systems",
         stack_i_2: "PLC",
         stack_i_4: "Profinet / Profibus",
@@ -3900,27 +3917,27 @@
         stack_management: "Project Management",
         stack_m_4: "Tracking & Reporting",
 
-        board_kicker: "Execution Flow",
-        board_title: "How Work Moves",
+        board_kicker: "Engagement Model",
+        board_title: "How we keep delivery moving",
         board_todo: "Scope",
         board_todo_tag: "Plan",
-        board_todo_sub: "Define objectives, risks, and ownership.",
+        board_todo_sub: "Define scope, risks, owners, and delivery expectations.",
         board_progress: "Execute",
         board_progress_tag: "Run",
-        board_progress_sub: "Coordinate work and remove blockers.",
+        board_progress_sub: "Coordinate execution, unblock teams, and keep decisions visible.",
         board_done: "Handover",
         board_done_tag: "Close",
-        board_done_sub: "Deliver with clarity and documentation.",
+        board_done_sub: "Close with handover clarity, documented decisions, and next steps.",
 
-        process_kicker: "Method",
-        process_title: "Delivery Rhythm",
-        process_1: "Frame scope and critical constraints.",
-        process_2: "Assign ownership and align stakeholders.",
-        process_3: "Track execution with visible reporting.",
-        process_4: "Close cleanly with documented handover.",
+        process_kicker: "Process",
+        process_title: "Simple B2B intake to execution flow",
+        process_1: "Understand your scope, constraints, and project pressure points.",
+        process_2: "Match the right delivery, automation, or product support setup.",
+        process_3: "Run with visible progress, direct communication, and tighter follow-through.",
+        process_4: "Hand over cleanly or continue with the next defined phase.",
 
-        portfolio_kicker: "Portfolio",
-        portfolio_title: "Project Environments We Fit",
+        portfolio_kicker: "Proof",
+        portfolio_title: "Typical situations where we fit best",
         portfolio_intro: "A clearer view of the kinds of technical B2B work where the squad is useful: delivery-led execution, industrial coordination, internal software systems, and business-facing mobile implementation.",
         proj_1_date: "Industrial",
         proj_1_mini: "Plant-side execution",
@@ -3958,8 +3975,8 @@
         proj_3_c3: "Business Workflows",
         proj_3_c4: "Frontend Systems",
 
-        test_kicker: "Signals",
-        test_title: "What Clients Valued",
+        test_kicker: "Buyer Signals",
+        test_title: "What decision-makers tend to value",
         test_1: "“Clear coordination improved decision confidence across the project.”",
         test_1_name: "Program Director",
         test_1_role: "B2B Delivery",
@@ -3976,9 +3993,9 @@
         prev: "Prev",
         next: "Next",
 
-        contact_section_kicker: "Start a Project",
-        contact_title: "Start a Project Discussion",
-        contact_desc: "Share a short brief and project context. The intake is designed for B2B discussions around delivery, automation, and mobile execution.",
+        contact_section_kicker: "Contact",
+        contact_title: "Tell us what you need to deliver",
+        contact_desc: "Share the project context, delivery gap, or technical need. We will review fit and come back with the most practical next step.",
         label_name: "Name",
         label_email: "Email",
         label_whatsapp: "WhatsApp",
@@ -3998,14 +4015,14 @@
         opt_delivery: "Delivery Operations",
         opt_automation: "Industrial Automation",
         opt_mobile: "Mobile Product Execution",
-        contact_p1: "Share your scope, timeline, and current delivery context.",
-        contact_p2: "We review fit, dependencies, and the right engagement model.",
-        contact_p3: "A focused project discussion is scheduled with clear next steps.",
+        contact_p1: "Share your scope, current blockers, and expected timeline.",
+        contact_p2: "We review fit and suggest the right engagement path.",
+        contact_p3: "You get a focused follow-up with clear next steps.",
 
-        contact_info_kicker: "Direct Contact",
+        contact_info_kicker: "Business Contact",
         contact_subbrand: "Independent Engineering Squad",
-        contact_info_title: "Business Contact Hub",
-        contact_info_desc: "For technical B2B projects across delivery coordination, automation support, and digital product execution.",
+        contact_info_title: "Fast path for B2B project enquiries",
+        contact_info_desc: "Best suited for companies that need delivery coordination, automation support, or maintainable digital product execution.",
         loc_de_label: "Bavaria, Germany",
         loc_de_value: "+49 (0) 1XX XXX XXXX",
         loc_pl_label: "Łódź, Poland",
@@ -4013,9 +4030,9 @@
         digital_label: "Digital",
         messaging_label: "Messaging",
 
-        footer_main: "KHALEDI · Independent Engineering Squad",
-        footer_note: "Bavaria-based. B2B-ready. Delivery, automation, and mobile execution.",
-        footer_meta: "Engineering delivery across industrial and digital work.",
+        footer_main: "KHALEDI · B2B Engineering Delivery",
+        footer_note: "A compact engineering team for delivery coordination, automation support, and mobile execution.",
+        footer_meta: "Built for practical B2B collaboration across industrial and digital work.",
         snack: "Share a short project brief.",
         dismiss: "Dismiss",
 
@@ -4156,24 +4173,24 @@
       },
 
       de: {
-        brand_sub: "Independent Engineering Squad",
-        nav_team: "Team",
-        nav_services: "Leistungen",
+        brand_sub: "B2B Engineering Delivery",
+        nav_team: "Experten",
+        nav_services: "Lösungen",
         nav_stack: "Kompetenzen",
-        nav_portfolio: "Portfolio",
+        nav_portfolio: "Proof",
         nav_contact: "Kontakt",
         theme_dark: "Dunkel",
         theme_light: "Hell",
-        cta_start: "Projekt starten",
+        cta_start: "Discovery Call buchen",
         catalog_btn: "Katalog",
         catalog_print: "Drucken / als PDF",
-        cta_explore: "Leistungen ansehen",
+        cta_explore: "Lösungen ansehen",
         bc_home: "Start",
-        bc_delivery: "Independent Engineering Squad",
+        bc_delivery: "B2B Engineering Delivery",
 
-        hero_kicker: "Bayern-basiert · B2B-ready",
-        hero_title: "Engineering Delivery für industrielle Automatisierung und digitale Produkte.",
-        hero_subtitle: "KHALEDI unterstützt technische B2B-Teams bei der Umsetzung von Projekten mit stärkerer Koordination, Automatisierungs-Know-how und verlässlicher Product Delivery.",
+        hero_kicker: "Europa-basiert · B2B-ready",
+        hero_title: "Wir helfen B2B-Teams, Automatisierung, Software und Mobile Delivery mit weniger Reibung umzusetzen.",
+        hero_subtitle: "KHALEDI verbindet Delivery-Koordination, industrielle Automatisierungsunterstützung und Mobile-Produktumsetzung für Unternehmen, die klare Ownership und verlässliches Follow-through brauchen.",
         hero_panel_title: "Warum Kunden mit uns arbeiten",
         hero_panel_1: "Strukturierte Delivery-Kontrolle über technische Workstreams hinweg.",
         hero_panel_2: "Automatisierungsunterstützung mit klarer Ausführungsdisziplin.",
@@ -4238,7 +4255,7 @@
         team_view_profile: "Profil ansehen",
 
         services_kicker: "Leistungen",
-        services_title: "Was wir liefern",
+        services_title: "Wofür Kunden uns beauftragen",
         svc_1_title: "Delivery Operations",
         svc_1_desc: "Strukturierte Projektkoordination, Stakeholder-Transparenz, Meilensteinsteuerung und disziplinierte Umsetzung über technische Workstreams.",
         svc_2_title: "Industrielle Automatisierung",
@@ -4342,8 +4359,8 @@
         next: "Weiter",
 
         contact_section_kicker: "Projektstart",
-        contact_title: "Projektgespräch starten",
-        contact_desc: "Teilen Sie einen kurzen Brief und Projektrahmen. Das Intake ist auf B2B-Gespräche rund um Delivery, Automation und Mobile Execution ausgelegt.",
+        contact_title: "Sagen Sie uns, was Sie liefern müssen",
+        contact_desc: "Teilen Sie den Projektkontext, die Delivery-Lücke oder den technischen Bedarf. Wir prüfen den Fit und melden uns mit dem praktikabelsten nächsten Schritt zurück.",
         label_name: "Name",
         label_email: "E-Mail",
         label_whatsapp: "WhatsApp",
@@ -4521,24 +4538,24 @@
       },
 
       pl: {
-        brand_sub: "Independent Engineering Squad",
-        nav_team: "Zespół",
-        nav_services: "Usługi",
+        brand_sub: "B2B Engineering Delivery",
+        nav_team: "Eksperci",
+        nav_services: "Rozwiązania",
         nav_stack: "Kompetencje",
-        nav_portfolio: "Portfolio",
+        nav_portfolio: "Proof",
         nav_contact: "Kontakt",
         theme_dark: "Ciemny",
         theme_light: "Jasny",
-        cta_start: "Rozpocznij projekt",
+        cta_start: "Umów discovery call",
         catalog_btn: "Katalog",
         catalog_print: "Drukuj / Zapisz PDF",
-        cta_explore: "Zobacz usługi",
+        cta_explore: "Zobacz rozwiązania",
         bc_home: "Start",
-        bc_delivery: "Independent Engineering Squad",
+        bc_delivery: "B2B Engineering Delivery",
 
-        hero_kicker: "Bawaria · B2B ready",
-        hero_title: "Engineering delivery dla automatyki przemysłowej i produktów cyfrowych.",
-        hero_subtitle: "KHALEDI wspiera techniczne zespoły B2B w realizacji projektów dzięki lepszej koordynacji, kompetencjom automatyki i odpowiedzialnemu delivery produktów.",
+        hero_kicker: "Europa · B2B ready",
+        hero_title: "Pomagamy zespołom B2B dowozić automatykę, software i mobile delivery z mniejszym tarciem.",
+        hero_subtitle: "KHALEDI łączy koordynację delivery, wsparcie automatyki przemysłowej i wdrożenia mobile dla firm, które potrzebują jasnego ownership i rzetelnego follow-through.",
         hero_panel_title: "Dlaczego klienci z nami pracują",
         hero_panel_1: "Uporządkowana kontrola delivery w technicznych strumieniach prac.",
         hero_panel_2: "Wsparcie automatyki powiązane z dyscypliną wykonania.",
@@ -4603,7 +4620,7 @@
         team_view_profile: "Zobacz profil",
 
         services_kicker: "Usługi",
-        services_title: "Co dowozimy",
+        services_title: "Za co klienci nas zatrudniają",
         svc_1_title: "Delivery Operations",
         svc_1_desc: "Uporządkowana koordynacja projektu, widoczność dla interesariuszy, kontrola milestone’ów i zdyscyplinowana realizacja technicznych strumieni prac.",
         svc_2_title: "Automatyka przemysłowa",
@@ -4707,8 +4724,8 @@
         next: "Dalej",
 
         contact_section_kicker: "Start projektu",
-        contact_title: "Rozpocznij rozmowę o projekcie",
-        contact_desc: "Wyślij krótki brief i kontekst projektu. Ten intake jest przygotowany pod rozmowy B2B dotyczące delivery, automatyki i realizacji mobile.",
+        contact_title: "Powiedz nam, co musisz dowieźć",
+        contact_desc: "Opisz kontekst projektu, lukę delivery albo potrzebę techniczną. Sprawdzimy dopasowanie i wrócimy z najbardziej praktycznym następnym krokiem.",
         label_name: "Imię i nazwisko",
         label_email: "Email",
         label_whatsapp: "WhatsApp",
@@ -5136,28 +5153,74 @@
     const navToggle = document.getElementById("navToggle");
     const contactForm = document.getElementById("contactForm");
     const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbw_b8t-Y_KZwG-hu3tRoslCfTHwea3yNosOQrhThQpX00qN0oxwUgqnL3CByJQESWuQEg/exec";
-    const leadFormApiKey = "khaledi_secret_2026";
+    const startedAtInput = document.getElementById("startedAt");
+
+    if (startedAtInput) startedAtInput.value = String(Date.now());
 
     if (contactForm) {
       contactForm.addEventListener("submit", async event => {
         event.preventDefault();
 
         const name = document.getElementById("name")?.value.trim() || "";
-        const email = document.getElementById("email")?.value.trim() || "";
+        const emailInput = document.getElementById("email");
+        const email = emailInput?.value.trim() || "";
         const whatsapp = document.getElementById("whatsapp")?.value.trim() || "";
         const company = document.getElementById("company")?.value.trim() || "";
         const projectType = document.getElementById("projectType")?.value.trim() || "";
         const timeline = document.getElementById("timeline")?.value.trim() || "";
         const budget = document.getElementById("budget")?.value.trim() || "";
         const description = document.getElementById("description")?.value.trim() || "";
+        const website = document.getElementById("website")?.value.trim() || "";
+        const startedAt = Number(startedAtInput?.value || Date.now());
         const submitBtn = contactForm.querySelector("button[type='submit']");
         const originalBtnText = submitBtn?.textContent || "";
         const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
         const feedback = {
-          en: { sending: "Sending...", sent: "Your request was sent successfully.", error: "Could not send now. Please try again." },
-          de: { sending: "Wird gesendet...", sent: "Ihre Anfrage wurde erfolgreich gesendet.", error: "Senden nicht möglich. Bitte erneut versuchen." },
-          pl: { sending: "Wysyłanie...", sent: "Twoje zapytanie zostało wysłane.", error: "Nie udało się wysłać. Spróbuj ponownie." }
-        }[currentLang] || { sending: "Sending...", sent: "Your request was sent successfully.", error: "Could not send now. Please try again." };
+          en: {
+            sending: "Sending...",
+            sent: "Your request was sent successfully.",
+            error: "Could not send now. Please try again.",
+            invalidEmail: "Please enter a valid work email.",
+            spamBlocked: "Please wait a few seconds and submit again."
+          },
+          de: {
+            sending: "Wird gesendet...",
+            sent: "Ihre Anfrage wurde erfolgreich gesendet.",
+            error: "Senden nicht möglich. Bitte erneut versuchen.",
+            invalidEmail: "Bitte geben Sie eine gültige geschäftliche E-Mail ein.",
+            spamBlocked: "Bitte warten Sie einige Sekunden und senden Sie erneut."
+          },
+          pl: {
+            sending: "Wysyłanie...",
+            sent: "Twoje zapytanie zostało wysłane.",
+            error: "Nie udało się wysłać. Spróbuj ponownie.",
+            invalidEmail: "Podaj poprawny adres e-mail służbowy.",
+            spamBlocked: "Odczekaj kilka sekund i wyślij ponownie."
+          }
+        }[currentLang] || {
+          sending: "Sending...",
+          sent: "Your request was sent successfully.",
+          error: "Could not send now. Please try again.",
+          invalidEmail: "Please enter a valid work email.",
+          spamBlocked: "Please wait a few seconds and submit again."
+        };
+        const showSnack = message => {
+          const snackText = snackbar?.querySelector("span");
+          if (snackText) snackText.textContent = message;
+          snackbar?.classList.add("show");
+        };
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!emailPattern.test(email)) {
+          showSnack(feedback.invalidEmail);
+          emailInput?.focus();
+          return;
+        }
+
+        if (website || Date.now() - startedAt < 3500) {
+          showSnack(feedback.spamBlocked);
+          return;
+        }
 
         if (submitBtn) {
           submitBtn.disabled = true;
@@ -5166,7 +5229,6 @@
 
         try {
           const payload = new URLSearchParams({
-            apiKey: leadFormApiKey,
             name,
             email,
             whatsapp,
@@ -5174,7 +5236,10 @@
             projectType,
             timeline,
             budget,
-            description
+            description,
+            lang: currentLang,
+            website,
+            startedAt: String(startedAt)
           });
 
           await fetch(leadFormEndpoint, {
@@ -5184,13 +5249,10 @@
           });
 
           contactForm.reset();
-          const snackText = snackbar?.querySelector("span");
-          if (snackText) snackText.textContent = feedback.sent;
-          snackbar?.classList.add("show");
+          if (startedAtInput) startedAtInput.value = String(Date.now());
+          showSnack(feedback.sent);
         } catch (error) {
-          const snackText = snackbar?.querySelector("span");
-          if (snackText) snackText.textContent = feedback.error;
-          snackbar?.classList.add("show");
+          showSnack(feedback.error);
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
