@@ -887,19 +887,6 @@
       background: color-mix(in srgb, var(--bg-2) 95%, var(--bg-3));
     }
 
-    .leader-flag {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 4px 8px;
-      border-radius: 8px;
-      background: color-mix(in srgb, var(--blue) 10%, transparent);
-      border: 1px solid color-mix(in srgb, var(--blue) 18%, transparent);
-      color: var(--blue);
-    }
-
     .team-photo-ring {
       width: 128px;
       aspect-ratio: 3/4;
@@ -920,30 +907,6 @@
     .team-meta {
       display: grid;
       gap: 10px;
-    }
-
-    .team-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-self: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--blue);
-      background: color-mix(in srgb, var(--blue) 8%, transparent);
-      border: 1px solid color-mix(in srgb, var(--blue) 16%, transparent);
-    }
-
-    .team-badge::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--blue);
     }
 
     .team-name {
@@ -985,28 +948,6 @@
       background: var(--bg-3);
       color: var(--text);
       white-space: nowrap;
-    }
-
-    .team-cta {
-      margin-top: 2px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      justify-self: center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--bg-2) 92%, transparent);
-      color: var(--text);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .team-cta::after {
-      content: "↗";
-      font-size: 12px;
-      opacity: .75;
     }
 
     /* Founder spotlight */
@@ -1088,27 +1029,6 @@
 
     .founder-panel--soft {
       background: color-mix(in srgb, var(--blue) 4%, var(--bg-2));
-    }
-
-    .team-mini-proof {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-      justify-content: center;
-    }
-
-    .team-mini-proof span {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--blue) 8%, transparent);
-      border: 1px solid color-mix(in srgb, var(--blue) 16%, transparent);
-      color: var(--blue);
-      font-size: 12px;
-      line-height: 1;
-      font-weight: 700;
     }
 
     @media (max-width: 980px) {
@@ -3096,7 +3016,6 @@
             </div>
 
             <div class="team-meta">
-              <div class="team-badge" data-i18n="member_2_badge"></div>
               <div class="team-name" data-i18n="member_2_name"></div>
               <div class="team-role" data-i18n="member_2_role"></div>
               <div class="power-statement" data-i18n="member_2_short"></div>
@@ -3106,36 +3025,24 @@
                 <span class="chip" data-i18n="member_2_tag_2"></span>
                 <span class="chip" data-i18n="member_2_tag_3"></span>
               </div>
-              <div class="team-open-hint">Click to view profile</div>
             </div>
           </article>
 
           <article class="team-card leader" data-member="alireza" tabindex="0" role="button" aria-label="Open profile for Alireza Khaledi">
-            <div class="leader-flag" data-i18n="leader_flag"></div>
-
             <div class="team-photo-ring">
               <img class="team-photo" src="assets/Khaledi.jpg" alt="Alireza Khaledi" loading="lazy" />
             </div>
 
             <div class="team-meta">
-              <div class="team-badge" data-i18n="member_1_badge"></div>
               <div class="team-name" data-i18n="member_1_name"></div>
               <div class="team-role" data-i18n="member_1_role"></div>
               <div class="power-statement" data-i18n="member_1_short"></div>
-
-              <!-- Founder mini proof -->
-              <div class="team-mini-proof">
-                <span>10+ Years</span>
-                <span>Software + Delivery</span>
-                <span>Measured Outcomes</span>
-              </div>
 
               <div class="chip-row">
                 <span class="chip" data-i18n="member_1_tag_1"></span>
                 <span class="chip" data-i18n="member_1_tag_2"></span>
                 <span class="chip" data-i18n="member_1_tag_3"></span>
               </div>
-              <div class="team-open-hint">Click to view profile</div>
             </div>
           </article>
 
@@ -3145,7 +3052,6 @@
             </div>
 
             <div class="team-meta">
-              <div class="team-badge" data-i18n="member_3_badge"></div>
               <div class="team-name" data-i18n="member_3_name"></div>
               <div class="team-role" data-i18n="member_3_role"></div>
               <div class="power-statement" data-i18n="member_3_short"></div>
@@ -3155,7 +3061,6 @@
                 <span class="chip" data-i18n="member_3_tag_2"></span>
                 <span class="chip" data-i18n="member_3_tag_3"></span>
               </div>
-              <div class="team-open-hint">Click to view profile</div>
             </div>
           </article>
         </div>
@@ -3857,9 +3762,9 @@
         team_kicker: "Delivery Leads",
         team_title: "The people clients actually work with",
         leader_flag: "Founder",
-        member_1_badge: "Founder · Technical Project Coordinator",
+        member_1_badge: "Group Director",
         member_1_name: "Alireza Khaledi",
-        member_1_role: "Technical Project Coordinator",
+        member_1_role: "Group Director",
         member_1_power: "Combines software delivery understanding with structured coordination, execution follow-through, and practical stakeholder communication across technical B2B projects.",
         member_1_short: "Technical coordination with stronger delivery control and measurable follow-through.",
         member_1_tag_1: "Delivery Support",
@@ -3870,9 +3775,9 @@
         member_1_t3: "Agile Delivery",
         member_1_t4: "Risk Control",
 
-        member_2_badge: "Automation",
+        member_2_badge: "Head of Automation & Industrial Design",
         member_2_name: "Reza Mosalanezhad",
-        member_2_role: "Senior Automation & Control Engineer",
+        member_2_role: "Head of Automation & Industrial Design",
         member_2_power: "Brings plant-side automation depth through Siemens PLC engineering, commissioning, diagnostics, HMI / SCADA visibility, and industrial control execution across real operating environments.",
         member_2_short: "Plant-side automation support for Siemens-based industrial environments.",
         member_2_tag_1: "PLC",
@@ -3883,9 +3788,9 @@
         member_2_t3: "WinCC",
         member_2_t4: "IIoT",
 
-        member_3_badge: "Mobile Engineering",
+        member_3_badge: "Head of Mobile Design",
         member_3_name: "Ali Ghelej Beigi",
-        member_3_role: "Senior Software Engineer — Mobile & Frontend",
+        member_3_role: "Head of Mobile Design",
         member_3_power: "Delivers maintainable Flutter systems for business-facing products, combining responsive UI work, clean architecture, operational workflows, and disciplined implementation quality.",
         member_3_short: "Maintainable Flutter systems for operational and business-facing products.",
         member_3_tag_1: "Flutter",
@@ -4215,9 +4120,9 @@
         team_kicker: "Kernteam",
         team_title: "Leadership und Delivery Coverage",
         leader_flag: "Founder",
-        member_1_badge: "Founder · Technical Project Coordinator",
+        member_1_badge: "Group Director",
         member_1_name: "Alireza Khaledi",
-        member_1_role: "Technischer Projektkoordinator",
+        member_1_role: "Group Director",
         member_1_power: "Verbindet Softwareverständnis mit strukturierter Koordination, sauberem Follow-through und praxisnaher Stakeholder-Kommunikation in technischen B2B-Projekten.",
         member_1_short: "Technische Koordination mit stärkerer Delivery-Kontrolle und messbarem Follow-through.",
         member_1_tag_1: "Delivery Support",
@@ -4228,9 +4133,9 @@
         member_1_t3: "Agile Delivery",
         member_1_t4: "Risk Control",
 
-        member_2_badge: "Automation",
+        member_2_badge: "Head of Automation & Industrial Design",
         member_2_name: "Reza Mosalanezhad",
-        member_2_role: "Senior Automation & Control Engineer",
+        member_2_role: "Head of Automation & Industrial Design",
         member_2_power: "Bringt industrielle Tiefe über Siemens-PLC-Engineering, Commissioning, Diagnostics, HMI / SCADA-Transparenz und plant-nahe Control-Ausführung in realen Betriebsumgebungen ein.",
         member_2_short: "Plant-side-Automatisierungsunterstützung für Siemens-basierte Industrieumgebungen.",
         member_2_tag_1: "PLC",
@@ -4241,9 +4146,9 @@
         member_2_t3: "WinCC",
         member_2_t4: "IIoT",
 
-        member_3_badge: "Mobile Engineering",
+        member_3_badge: "Head of Mobile Design",
         member_3_name: "Ali Ghelej Beigi",
-        member_3_role: "Senior Software Engineer — Mobile & Frontend",
+        member_3_role: "Head of Mobile Design",
         member_3_power: "Liefert wartbare Flutter-Systeme für business-nahe Produkte mit responsiver UI, sauberer Architektur, operativen Workflows und disziplinierter Implementierungsqualität.",
         member_3_short: "Wartbare Flutter-Systeme für operative und business-nahe Produkte.",
         member_3_tag_1: "Flutter",
@@ -4578,9 +4483,9 @@
         team_kicker: "Zespół",
         team_title: "Leadership i Delivery Coverage",
         leader_flag: "Founder",
-        member_1_badge: "Founder · Technical Project Coordinator",
+        member_1_badge: "Group Director",
         member_1_name: "Alireza Khaledi",
-        member_1_role: "Technical Project Coordinator",
+        member_1_role: "Group Director",
         member_1_power: "Łączy zrozumienie software delivery z uporządkowaną koordynacją, egzekucją follow-through i praktyczną komunikacją ze stakeholderami w technicznych projektach B2B.",
         member_1_short: "Techniczna koordynacja z mocniejszą kontrolą delivery i mierzalnym follow-through.",
         member_1_tag_1: "Delivery Support",
@@ -4591,9 +4496,9 @@
         member_1_t3: "Agile Delivery",
         member_1_t4: "Risk Control",
 
-        member_2_badge: "Automation",
+        member_2_badge: "Head of Automation & Industrial Design",
         member_2_name: "Reza Mosalanezhad",
-        member_2_role: "Senior Automation & Control Engineer",
+        member_2_role: "Head of Automation & Industrial Design",
         member_2_power: "Projektuje i wspiera automatykę przemysłową, łącząc inżynierię PLC, logikę sterowania i niezawodne wykonanie po stronie zakładu.",
         member_2_short: "Wsparcie automatyki po stronie zakładu dla środowisk opartych na Siemens.",
         member_2_tag_1: "PLC",
@@ -4604,9 +4509,9 @@
         member_2_t3: "WinCC",
         member_2_t4: "IIoT",
 
-        member_3_badge: "Mobile Engineering",
+        member_3_badge: "Head of Mobile Design",
         member_3_name: "Ali Ghelej Beigi",
-        member_3_role: "Senior Software Engineer — Mobile & Frontend",
+        member_3_role: "Head of Mobile Design",
         member_3_power: "Buduje skalowalne produkty Flutter z czystą architekturą, dopracowanym UI i łatwym w utrzymaniu frontendem.",
         member_3_short: "Utrzymywalne systemy Flutter dla operacyjnych i biznesowych produktów.",
         member_3_tag_1: "Flutter",
