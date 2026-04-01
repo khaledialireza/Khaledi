@@ -225,7 +225,7 @@
 
     /* tighter controls for topbar buttons */
     .nav-actions .btn,
-    .nav-actions .lang-btn {
+    .nav-actions .lang-select {
       padding: 9px 12px;
       font-size: 13px;
       border-radius: 14px;
@@ -238,13 +238,11 @@
     }
 
     .lang-switch {
-      display: flex;
-      gap: 6px;
-      align-items: center;
+      position: relative;
     }
 
     .btn,
-    .lang-btn {
+    .lang-select {
       appearance: none;
       border: 1px solid var(--line);
       background: var(--bg-2);
@@ -258,20 +256,34 @@
     }
 
     .btn:hover,
-    .lang-btn:hover {
+    .lang-select:hover {
       transform: translateY(-1px);
     }
 
-    .lang-btn {
-      padding: 6px 10px;
+    .lang-select {
+      min-width: 132px;
+      padding: 9px 38px 9px 12px;
       font-size: 12px;
       color: var(--muted);
-      box-shadow: none;
+      box-shadow: var(--shadow);
     }
 
-    .lang-btn.active {
+    .lang-select:focus,
+    .lang-select:focus-visible {
       border-color: var(--blue);
       color: var(--text);
+      outline: none;
+    }
+
+    .lang-switch::after {
+      content: "▾";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 12px;
     }
 
     .btn {
@@ -3021,10 +3033,12 @@
 
       <div class="nav-actions">
         <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation"><span></span></button>
-        <div class="lang-switch" id="langSwitch" aria-label="Language switcher">
-          <button class="lang-btn" data-lang="en" type="button">EN</button>
-          <button class="lang-btn" data-lang="de" type="button">DE</button>
-          <button class="lang-btn" data-lang="pl" type="button">PL</button>
+        <div class="lang-switch" aria-label="Language switcher">
+          <select class="lang-select" id="langSwitch" aria-label="Language selector">
+            <option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="pl">🇵🇱 Polski</option>
+          </select>
         </div>
         <button class="btn" id="themeToggle" type="button" data-i18n="theme_dark"></button>
         <button class="btn secondary" id="catalogOpen" type="button" data-i18n="catalog_btn"></button>
@@ -5026,9 +5040,7 @@
     }
 
     function setLangButtons(lang) {
-      langSwitch.querySelectorAll(".lang-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.lang === lang);
-      });
+      if (langSwitch) langSwitch.value = lang;
     }
 
     function updateThemeButton(theme, lang) {
@@ -5106,10 +5118,8 @@
     const savedLang = localStorage.getItem("lang");
     applyLanguage(savedLang || getLangFromBrowser());
 
-    langSwitch.addEventListener("click", e => {
-      const btn = e.target.closest(".lang-btn");
-      if (!btn) return;
-      applyLanguage(btn.dataset.lang);
+    langSwitch.addEventListener("change", e => {
+      applyLanguage(e.target.value);
     });
 
     const snackbar = document.getElementById("snackbar");
