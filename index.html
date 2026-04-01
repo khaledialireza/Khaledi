@@ -28,7 +28,7 @@
       --shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
       --radius: 18px;
       --radius-lg: 28px;
-      --max: 1360px;
+      --max: min(1680px, calc(100vw - 32px));
       --hero-overlay: rgba(255,255,255,0.82);
       --panel-dark: rgba(11, 16, 24, 0.62);
     }
@@ -292,9 +292,10 @@
     }
 
     .container {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 20px 72px;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 18px 16px 72px;
       position: relative;
       z-index: 1;
     }
