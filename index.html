@@ -328,12 +328,14 @@
     .hero {
       display: grid;
       gap: 18px;
+      min-height: calc(100vh - 86px);
+      align-content: start;
       padding: 6px 0 20px;
     }
 
     .hero-banner {
       position: relative;
-      min-height: 620px;
+      min-height: clamp(480px, 68vh, 760px);
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 1px solid var(--line);
@@ -357,7 +359,7 @@
     .hero-grid {
       position: relative;
       z-index: 2;
-      min-height: 620px;
+      min-height: clamp(480px, 68vh, 760px);
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(320px, 420px);
       align-items: center;
@@ -872,7 +874,7 @@
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
       box-shadow: 0 10px 28px rgba(16,24,40,.05);
       position: relative;
-      cursor: pointer;
+      cursor: default;
       min-height: 100%;
     }
 
@@ -937,6 +939,44 @@
       flex-wrap: wrap;
       gap: 8px;
       justify-content: center;
+    }
+
+    .chip-row-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .team-view-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg-3);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease;
+      flex: 0 0 34px;
+    }
+
+    .team-view-btn:hover {
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--line) 55%, var(--blue));
+    }
+
+    .team-view-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .chip {
@@ -1145,8 +1185,7 @@
     .span-5 { grid-column: span 5; }
 
     .service-grid,
-    .stack-columns,
-    .tool-row {
+    .stack-columns {
       display: grid;
       gap: 16px;
       margin-top: 18px;
@@ -1154,11 +1193,8 @@
 
     .service-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .stack-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .tool-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
     .service-card,
-    .stack-card,
-    .tool-pill {
+    .stack-card {
       border: 1px solid var(--line);
       border-radius: 16px;
       background: color-mix(in srgb, var(--bg-2) 92%, transparent);
@@ -1173,21 +1209,32 @@
       align-content: start;
     }
 
+    .tool-cloud {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
     .tool-pill {
-      padding: 16px 12px;
-      min-height: 96px;
-      display: grid;
-      place-items: center;
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
-      text-align: center;
-      background: color-mix(in srgb, var(--bg-3) 72%, transparent);
+      min-height: 36px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg-2) 96%, transparent);
+      box-shadow: 0 8px 20px rgba(16,24,40,.05);
       font-size: 12px;
-      color: var(--muted);
+      color: var(--text);
+      white-space: nowrap;
     }
 
     .tool-pill img {
-      width: 24px;
-      height: 24px;
+      width: 16px;
+      height: 16px;
     }
 
     .boardgram {
@@ -1464,7 +1511,7 @@
 
     .contact-grid {
       display: grid;
-      grid-template-columns: 1.08fr .92fr;
+      grid-template-columns: 1fr;
       gap: 22px;
     }
 
@@ -1690,6 +1737,66 @@
 
     .contact-value a:hover {
       text-decoration: underline;
+    }
+
+    .contact-cta-row {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .contact-open-btn {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.26);
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .contact-open-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.14);
+    }
+
+    .contact-modal-shell {
+      width: min(760px, calc(100vw - 32px));
+      padding: 24px;
+      background: var(--bg-2);
+      border-radius: 22px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.30);
+      position: relative;
+    }
+
+    .contact-modal-shell .form {
+      margin-top: 14px;
+    }
+
+    .contact-modal-shell .form label {
+      color: var(--text);
+    }
+
+    .contact-modal-shell .form input,
+    .contact-modal-shell .form textarea,
+    .contact-modal-shell .form select {
+      border: 1px solid var(--line);
+      background: var(--bg-3);
+      color: var(--text);
+    }
+
+    .contact-modal-shell .form input::placeholder,
+    .contact-modal-shell .form textarea::placeholder {
+      color: var(--muted);
     }
 
     footer {
@@ -2206,6 +2313,35 @@
       text-overflow: ellipsis;
     }
 
+    .profile-id-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .profile-download-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.28);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex: 0 0 22px;
+    }
+
+    .profile-download-icon svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     .profile-id-role {
       font-size: 10.5px;
       line-height: 1.2;
@@ -2237,19 +2373,6 @@
       white-space: nowrap;
       flex: 0 1 auto;
       min-width: 0;
-    }
-
-    .profile-id-actions {
-      display: flex;
-      justify-content: center;
-      padding-top: 2px;
-    }
-
-    .profile-identity .profile-resume-btn {
-      min-width: 148px;
-      padding: 9px 14px;
-      font-size: 11px;
-      box-shadow: 0 10px 20px color-mix(in srgb, var(--blue) 18%, transparent);
     }
 
     .profile-content {
@@ -2943,16 +3066,7 @@
         </div>
       </a>
 
-      <nav class="nav-links" id="primaryNav" aria-label="Primary">
-        <a href="#team" data-i18n="nav_team"></a>
-        <a href="#services" data-i18n="nav_services"></a>
-        <a href="#stack" data-i18n="nav_stack"></a>
-        <a href="#portfolio" data-i18n="nav_portfolio"></a>
-        <a href="#contact" data-i18n="nav_contact"></a>
-      </nav>
-
       <div class="nav-actions">
-        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation"><span></span></button>
         <div class="lang-switch" aria-label="Language switcher">
           <select class="lang-select" id="langSwitch" aria-label="Language selector">
             <option value="en">🇬🇧 English</option>
@@ -2961,7 +3075,7 @@
           </select>
         </div>
         <a class="btn secondary" href="#contact" data-i18n="nav_contact"></a>
-        <a class="btn primary" href="#contact" data-i18n="cta_start"></a>
+        <button class="btn primary" type="button" data-open-contact-modal="main" data-i18n="cta_start"></button>
       </div>
     </div>
   </header>
@@ -2977,7 +3091,7 @@
             <div class="hero-subtitle" data-i18n="hero_subtitle"></div>
 
             <div class="hero-actions">
-              <a class="btn primary" href="#contact" data-i18n="cta_start"></a>
+              <button class="btn primary" type="button" data-open-contact-modal="hero" data-i18n="cta_start"></button>
               <a class="btn secondary" href="#services" data-i18n="cta_explore"></a>
             </div>
           </div>
@@ -3010,7 +3124,7 @@
         <h2 data-i18n="team_title"></h2>
 
         <div class="team-grid">
-          <article class="team-card" data-member="reza" tabindex="0" role="button" aria-label="Open profile for Reza Mosalanezhad">
+          <article class="team-card" data-member="reza">
             <div class="team-photo-ring">
               <img class="team-photo" src="assets/Mosalanezhad.jpg" alt="Reza Mosalanezhad" loading="lazy" />
             </div>
@@ -3020,15 +3134,20 @@
               <div class="team-role" data-i18n="member_2_role"></div>
               <div class="power-statement" data-i18n="member_2_short"></div>
 
-              <div class="chip-row">
-                <span class="chip" data-i18n="member_2_tag_1"></span>
-                <span class="chip" data-i18n="member_2_tag_2"></span>
-                <span class="chip" data-i18n="member_2_tag_3"></span>
+              <div class="chip-row-wrap">
+                <div class="chip-row">
+                  <span class="chip" data-i18n="member_2_tag_1"></span>
+                  <span class="chip" data-i18n="member_2_tag_2"></span>
+                  <span class="chip" data-i18n="member_2_tag_3"></span>
+                </div>
+                <button class="team-view-btn" type="button" aria-label="View profile for PhD. Reza Mosalanezhad" data-open-profile="reza">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+                </button>
               </div>
             </div>
           </article>
 
-          <article class="team-card leader" data-member="alireza" tabindex="0" role="button" aria-label="Open profile for Alireza Khaledi">
+          <article class="team-card leader" data-member="alireza">
             <div class="team-photo-ring">
               <img class="team-photo" src="assets/Khaledi.jpg" alt="Alireza Khaledi" loading="lazy" />
             </div>
@@ -3038,15 +3157,20 @@
               <div class="team-role" data-i18n="member_1_role"></div>
               <div class="power-statement" data-i18n="member_1_short"></div>
 
-              <div class="chip-row">
-                <span class="chip" data-i18n="member_1_tag_1"></span>
-                <span class="chip" data-i18n="member_1_tag_2"></span>
-                <span class="chip" data-i18n="member_1_tag_3"></span>
+              <div class="chip-row-wrap">
+                <div class="chip-row">
+                  <span class="chip" data-i18n="member_1_tag_1"></span>
+                  <span class="chip" data-i18n="member_1_tag_2"></span>
+                  <span class="chip" data-i18n="member_1_tag_3"></span>
+                </div>
+                <button class="team-view-btn" type="button" aria-label="View profile for Alireza Khaledi" data-open-profile="alireza">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+                </button>
               </div>
             </div>
           </article>
 
-          <article class="team-card" data-member="ali" tabindex="0" role="button" aria-label="Open profile for Ali Ghelej Beigi">
+          <article class="team-card" data-member="ali">
             <div class="team-photo-ring">
               <img class="team-photo" src="assets/Ghelej.png" alt="Ali Ghelej Beigi" loading="lazy" />
             </div>
@@ -3056,10 +3180,15 @@
               <div class="team-role" data-i18n="member_3_role"></div>
               <div class="power-statement" data-i18n="member_3_short"></div>
 
-              <div class="chip-row">
-                <span class="chip" data-i18n="member_3_tag_1"></span>
-                <span class="chip" data-i18n="member_3_tag_2"></span>
-                <span class="chip" data-i18n="member_3_tag_3"></span>
+              <div class="chip-row-wrap">
+                <div class="chip-row">
+                  <span class="chip" data-i18n="member_3_tag_1"></span>
+                  <span class="chip" data-i18n="member_3_tag_2"></span>
+                  <span class="chip" data-i18n="member_3_tag_3"></span>
+                </div>
+                <button class="team-view-btn" type="button" aria-label="View profile for Ali Ghelej Beigi" data-open-profile="ali">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+                </button>
               </div>
             </div>
           </article>
@@ -3204,56 +3333,33 @@
         </div>
       </div>
 
-      <div class="tile span-12" id="stack">
-        <div class="section-kicker" data-i18n="stack_kicker"></div>
-        <h2 data-i18n="stack_title"></h2>
-
-        <div class="stack-columns">
-          <article class="stack-card">
-            <h3 data-i18n="stack_industrial"></h3>
-            <div class="chip-row">
-              <span class="chip">TIA Portal</span>
-              <span class="chip" data-i18n="stack_i_2"></span>
-              <span class="chip">WinCC</span>
-              <span class="chip" data-i18n="stack_i_4"></span>
-            </div>
-          </article>
-
-          <article class="stack-card">
-            <h3 data-i18n="stack_software"></h3>
-            <div class="chip-row">
-              <span class="chip">Flutter</span>
-              <span class="chip">Dart</span>
-              <span class="chip" data-i18n="stack_s_2"></span>
-              <span class="chip">Firebase</span>
-            </div>
-          </article>
-
-          <article class="stack-card">
-            <h3 data-i18n="stack_management"></h3>
-            <div class="chip-row">
-              <span class="chip">Jira</span>
-              <span class="chip">Confluence</span>
-              <span class="chip">MS Project</span>
-              <span class="chip" data-i18n="stack_m_4"></span>
-            </div>
-          </article>
-        </div>
-      </div>
-
       <div class="tile span-12">
         <div class="section-kicker" data-i18n="tools_kicker"></div>
         <h2 data-i18n="tools_title"></h2>
 
-        <div class="tool-row" aria-hidden="true">
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="Siemens"><span>TIA Portal</span></div>
+        <div class="tool-cloud" aria-hidden="true">
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="Siemens"><span>Siemens TIA Portal</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="STEP 7"><span>Siemens STEP 7</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="WinCC"><span>WinCC</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="PLC"><span>PLC Programming</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="HMI"><span>HMI Configuration</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="SCADA"><span>SCADA Monitoring</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="Commissioning"><span>Commissioning</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="Diagnostics"><span>Industrial Diagnostics</span></div>
           <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/flutter/1a73e8" alt="Flutter"><span>Flutter</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/dart/1a73e8" alt="Dart"><span>Dart</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/androidstudio/1a73e8" alt="Android Studio"><span>Android Studio</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/xcode/1a73e8" alt="Xcode"><span>Xcode</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/firebase/1a73e8" alt="Firebase"><span>Firebase</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/openapiinitiative/1a73e8" alt="REST APIs"><span>REST API Integration</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/git/1a73e8" alt="Git"><span>Git</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/github/1a73e8" alt="GitHub"><span>GitHub</span></div>
           <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/jira/1a73e8" alt="Jira"><span>Jira</span></div>
           <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/confluence/1a73e8" alt="Confluence"><span>Confluence</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/github/1a73e8" alt="GitHub"><span>Git / GitHub</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/firebase/1a73e8" alt="Firebase"><span>Firebase</span></div>
           <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/microsoftproject/1a73e8" alt="MS Project"><span>MS Project</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/microsoftexcel/1a73e8" alt="Excel"><span data-i18n="tool_milestone"></span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/microsoftexcel/1a73e8" alt="Excel"><span>Excel</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/figma/1a73e8" alt="Figma"><span>Figma</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/readthedocs/1a73e8" alt="Reporting"><span>Technical Reporting</span></div>
         </div>
       </div>
 
@@ -3513,6 +3619,48 @@
               <div class="test-quote" data-i18n="test_4"></div>
               <div class="test-meta"><div class="test-avatar">MT</div><div><div class="test-name" data-i18n="test_4_name"></div><div class="test-role" data-i18n="test_4_role"></div></div></div>
             </div>
+
+            <div class="test-card">
+              <div class="test-strip" style="background:#5f8eff"></div>
+              <div class="test-quote" data-i18n="test_5"></div>
+              <div class="test-meta"><div class="test-avatar">BK</div><div><div class="test-name" data-i18n="test_5_name"></div><div class="test-role" data-i18n="test_5_role"></div></div></div>
+            </div>
+
+            <div class="test-card">
+              <div class="test-strip" style="background:#36b37e"></div>
+              <div class="test-quote" data-i18n="test_6"></div>
+              <div class="test-meta"><div class="test-avatar">OP</div><div><div class="test-name" data-i18n="test_6_name"></div><div class="test-role" data-i18n="test_6_role"></div></div></div>
+            </div>
+
+            <div class="test-card">
+              <div class="test-strip" style="background:#f2c94c"></div>
+              <div class="test-quote" data-i18n="test_7"></div>
+              <div class="test-meta"><div class="test-avatar">RW</div><div><div class="test-name" data-i18n="test_7_name"></div><div class="test-role" data-i18n="test_7_role"></div></div></div>
+            </div>
+
+            <div class="test-card">
+              <div class="test-strip" style="background:#df5a4c"></div>
+              <div class="test-quote" data-i18n="test_8"></div>
+              <div class="test-meta"><div class="test-avatar">NS</div><div><div class="test-name" data-i18n="test_8_name"></div><div class="test-role" data-i18n="test_8_role"></div></div></div>
+            </div>
+
+            <div class="test-card">
+              <div class="test-strip" style="background:#6e8fbf"></div>
+              <div class="test-quote" data-i18n="test_9"></div>
+              <div class="test-meta"><div class="test-avatar">GA</div><div><div class="test-name" data-i18n="test_9_name"></div><div class="test-role" data-i18n="test_9_role"></div></div></div>
+            </div>
+
+            <div class="test-card">
+              <div class="test-strip" style="background:#4fb3bf"></div>
+              <div class="test-quote" data-i18n="test_10"></div>
+              <div class="test-meta"><div class="test-avatar">TC</div><div><div class="test-name" data-i18n="test_10_name"></div><div class="test-role" data-i18n="test_10_role"></div></div></div>
+            </div>
+
+            <div class="test-card">
+              <div class="test-strip" style="background:#8d6ad3"></div>
+              <div class="test-quote" data-i18n="test_11"></div>
+              <div class="test-meta"><div class="test-avatar">FR</div><div><div class="test-name" data-i18n="test_11_name"></div><div class="test-role" data-i18n="test_11_role"></div></div></div>
+            </div>
           </div>
 
           <div class="carousel-controls">
@@ -3525,85 +3673,6 @@
       <section class="contact-band" id="contact">
         <div class="contact-inner">
           <div class="contact-grid">
-            <div class="contact-panel">
-              <div class="section-kicker" data-i18n="contact_section_kicker"></div>
-              <h2 data-i18n="contact_title"></h2>
-              <p class="section-note" data-i18n="contact_desc"></p>
-
-              <form class="form" id="contactForm">
-                <input id="startedAt" name="startedAt" type="hidden" value="" />
-
-                <div class="field">
-                  <label for="name" data-i18n="label_name"></label>
-                  <input id="name" name="name" type="text" data-i18n-placeholder="ph_name" placeholder="" required />
-                </div>
-
-                <div class="field">
-                  <label for="email" data-i18n="label_email"></label>
-                  <input id="email" name="email" type="email" data-i18n-placeholder="ph_email" placeholder="" required />
-                </div>
-
-                <div class="field">
-                  <label for="whatsapp" data-i18n="label_whatsapp"></label>
-                  <input id="whatsapp" name="whatsapp" type="tel" data-i18n-placeholder="ph_whatsapp" placeholder="" />
-                </div>
-
-                <div class="field">
-                  <label for="company" data-i18n="label_company"></label>
-                  <input id="company" name="company" type="text" data-i18n-placeholder="ph_company" placeholder="" />
-                </div>
-
-                <div class="field">
-                  <label for="projectType" data-i18n="label_type"></label>
-                  <select id="projectType" name="projectType">
-                    <option data-i18n="opt_type"></option>
-                    <option data-i18n="opt_delivery"></option>
-                    <option data-i18n="opt_automation"></option>
-                    <option data-i18n="opt_mobile"></option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="timeline" data-i18n="label_deadline"></label>
-                  <input id="timeline" name="timeline" type="text" data-i18n-placeholder="ph_deadline" placeholder="" />
-                </div>
-
-                <div class="field">
-                  <label for="budget" data-i18n="label_budget"></label>
-                  <input id="budget" name="budget" type="text" data-i18n-placeholder="ph_budget" placeholder="" />
-                </div>
-
-                <div class="field full">
-                  <label for="description" data-i18n="label_desc"></label>
-                  <textarea id="description" name="description" data-i18n-placeholder="ph_desc" placeholder=""></textarea>
-                </div>
-
-                <div class="field hp-field" aria-hidden="true">
-                  <label for="website">Website</label>
-                  <input id="website" name="website" type="text" autocomplete="off" tabindex="-1" />
-                </div>
-
-                <div class="field full">
-                  <button class="btn contact-submit" type="submit" data-i18n="cta_start"></button>
-                </div>
-              </form>
-
-              <div class="contact-process">
-                <div class="contact-process-item">
-                  <div class="contact-process-num">1</div>
-                  <div data-i18n="contact_p1"></div>
-                </div>
-                <div class="contact-process-item">
-                  <div class="contact-process-num">2</div>
-                  <div data-i18n="contact_p2"></div>
-                </div>
-                <div class="contact-process-item">
-                  <div class="contact-process-num">3</div>
-                  <div data-i18n="contact_p3"></div>
-                </div>
-              </div>
-            </div>
-
             <div class="contact-info-panel">
               <div class="section-kicker" data-i18n="contact_info_kicker"></div>
 
@@ -3620,6 +3689,11 @@
               <h2 data-i18n="contact_info_title"></h2>
               <p class="contact-copy" data-i18n="contact_info_desc"></p>
 
+              <div class="contact-cta-row">
+                <button class="contact-open-btn" type="button" data-open-contact-modal="contact" data-i18n="cta_start"></button>
+                <button class="contact-open-btn" type="button" data-open-fast-modal="contact" data-i18n="fast_contact_btn"></button>
+              </div>
+
               <div class="contact-list">
                 <div class="contact-item">
                   <div class="contact-label" data-i18n="loc_de_label"></div>
@@ -3635,17 +3709,108 @@
                   <div class="contact-label" data-i18n="digital_label"></div>
                   <div class="contact-value"><a href="mailto:info@khaledi.eu">info@khaledi.eu</a></div>
                 </div>
-
-                <div class="contact-item">
-                  <div class="contact-label" data-i18n="messaging_label"></div>
-                  <div class="contact-value">WhatsApp / Telegram</div>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
     </section>
+
+    <div class="modal-overlay" id="contactModal" aria-hidden="true" hidden>
+      <div class="contact-modal-shell" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+        <button class="modal-close" type="button" data-close-modal="contactModal">&times;</button>
+        <div class="section-kicker" data-i18n="contact_section_kicker"></div>
+        <h2 id="contactModalTitle" data-i18n="contact_title"></h2>
+        <p class="section-note" data-i18n="contact_desc"></p>
+
+        <form class="form" id="contactForm">
+          <input id="startedAt" name="startedAt" type="hidden" value="" />
+
+          <div class="field">
+            <label for="name" data-i18n="label_name"></label>
+            <input id="name" name="name" type="text" data-i18n-placeholder="ph_name" placeholder="" required />
+          </div>
+
+          <div class="field">
+            <label for="email" data-i18n="label_email"></label>
+            <input id="email" name="email" type="email" data-i18n-placeholder="ph_email" placeholder="" required />
+          </div>
+
+          <div class="field">
+            <label for="whatsapp" data-i18n="label_whatsapp"></label>
+            <input id="whatsapp" name="whatsapp" type="tel" data-i18n-placeholder="ph_whatsapp" placeholder="" />
+          </div>
+
+          <div class="field">
+            <label for="company" data-i18n="label_company"></label>
+            <input id="company" name="company" type="text" data-i18n-placeholder="ph_company" placeholder="" />
+          </div>
+
+          <div class="field">
+            <label for="projectType" data-i18n="label_type"></label>
+            <select id="projectType" name="projectType">
+              <option data-i18n="opt_type"></option>
+              <option data-i18n="opt_delivery"></option>
+              <option data-i18n="opt_automation"></option>
+              <option data-i18n="opt_mobile"></option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="timeline" data-i18n="label_deadline"></label>
+            <input id="timeline" name="timeline" type="date" />
+          </div>
+
+          <div class="field full">
+            <label for="budget" data-i18n="label_budget"></label>
+            <input id="budget" name="budget" type="text" data-i18n-placeholder="ph_budget" placeholder="" />
+          </div>
+
+          <div class="field full">
+            <label for="description" data-i18n="label_desc"></label>
+            <textarea id="description" name="description" data-i18n-placeholder="ph_desc" placeholder=""></textarea>
+          </div>
+
+          <div class="field hp-field" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" autocomplete="off" tabindex="-1" />
+          </div>
+
+          <div class="field full">
+            <button class="btn contact-submit" type="submit" data-i18n="cta_start"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="fastContactModal" aria-hidden="true" hidden>
+      <div class="contact-modal-shell" role="dialog" aria-modal="true" aria-labelledby="fastContactModalTitle">
+        <button class="modal-close" type="button" data-close-modal="fastContactModal">&times;</button>
+        <div class="section-kicker" data-i18n="contact_info_kicker"></div>
+        <h2 id="fastContactModalTitle" data-i18n="fast_contact_btn"></h2>
+
+        <form class="form" id="fastContactForm">
+          <div class="field">
+            <label for="fastEmail" data-i18n="label_email"></label>
+            <input id="fastEmail" name="email" type="email" data-i18n-placeholder="ph_email" placeholder="" required />
+          </div>
+
+          <div class="field">
+            <label for="fastSubject" data-i18n="label_subject"></label>
+            <input id="fastSubject" name="subject" type="text" data-i18n-placeholder="ph_subject" placeholder="" required />
+          </div>
+
+          <div class="field full">
+            <label for="fastMessage" data-i18n="label_message"></label>
+            <textarea id="fastMessage" name="message" data-i18n-placeholder="ph_message" placeholder="" required></textarea>
+          </div>
+
+          <div class="field full">
+            <button class="btn contact-submit" type="submit" data-i18n="send_btn"></button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <footer>
       <span data-i18n="footer_main"></span>
@@ -3694,7 +3859,7 @@
   </div>
 
   <div class="snackbar" id="snackbar">
-    <span data-i18n="snack"></span>
+    <span></span>
     <button type="button" id="snackClose" data-i18n="dismiss"></button>
   </div>
 
@@ -3776,7 +3941,7 @@
         member_1_t4: "Risk Control",
 
         member_2_badge: "Head of Automation & Industrial Design",
-        member_2_name: "Reza Mosalanezhad",
+        member_2_name: "PhD. Reza Mosalanezhad",
         member_2_role: "Head of Automation & Industrial Design",
         member_2_power: "Brings plant-side automation depth through Siemens PLC engineering, commissioning, diagnostics, HMI / SCADA visibility, and industrial control execution across real operating environments.",
         member_2_short: "Plant-side automation support for Siemens-based industrial environments.",
@@ -3897,51 +4062,78 @@
         test_4: "“A compact team with real focus and strong ownership.”",
         test_4_name: "Product Owner",
         test_4_role: "Cross-functional Team",
+        test_5: "“Coordination became easier to scale across teams.”",
+        test_5_name: "Program Lead",
+        test_5_role: "Enterprise Delivery",
+        test_6: "“We saw fewer blockers and cleaner project flow.”",
+        test_6_name: "Operations Manager",
+        test_6_role: "Industrial Rollout",
+        test_7: "“Stakeholder reporting became clear and actionable.”",
+        test_7_name: "PMO Manager",
+        test_7_role: "Project Governance",
+        test_8: "“Automation delivery felt more predictable week by week.”",
+        test_8_name: "Plant Lead",
+        test_8_role: "Factory Operations",
+        test_9: "“The team stayed practical, fast, and technically grounded.”",
+        test_9_name: "CTO",
+        test_9_role: "Digital Programs",
+        test_10: "“We got execution quality without communication overhead.”",
+        test_10_name: "Delivery Director",
+        test_10_role: "Software Delivery",
+        test_11: "“A strong fit for mixed industrial and digital projects.”",
+        test_11_name: "Transformation Lead",
+        test_11_role: "Cross-domain Execution",
 
         prev: "Prev",
         next: "Next",
 
         contact_section_kicker: "Contact",
-        contact_title: "Tell us what you need to deliver",
-        contact_desc: "Share the project context, delivery gap, or technical need. We will review fit and come back with the most practical next step.",
+        contact_title: "Contact us",
+        contact_desc: "Submit your project details and we will get back to you within 24 hours.",
         label_name: "Name",
         label_email: "Email",
-        label_whatsapp: "WhatsApp",
+        label_whatsapp: "Phone Number (Optional)",
         label_company: "Company",
         label_type: "Project Type",
-        label_deadline: "Timeline",
-        label_budget: "Budget / Scope",
+        label_deadline: "Timeline (Full Date)",
+        label_budget: "Budget / Scope (in Euro)",
         label_desc: "Project Brief",
+        label_subject: "Subject",
+        label_message: "Message",
         ph_name: "Your name",
         ph_email: "Work email",
-        ph_whatsapp: "WhatsApp number (optional)",
+        ph_whatsapp: "Phone number (optional)",
         ph_company: "Company or organization",
-        ph_deadline: "Expected timeline",
+        ph_deadline: "Select full date",
         ph_budget: "Budget range or engagement size",
         ph_desc: "Short summary of your project, context, or current challenge",
+        ph_subject: "Short subject",
+        ph_message: "Write your message",
         opt_type: "Select project type",
         opt_delivery: "Delivery Operations",
         opt_automation: "Industrial Automation",
         opt_mobile: "Mobile Product Execution",
+        send_btn: "Send",
         contact_p1: "Share your scope, current blockers, and expected timeline.",
         contact_p2: "We review fit and suggest the right engagement path.",
         contact_p3: "You get a focused follow-up with clear next steps.",
 
         contact_info_kicker: "Business Contact",
         contact_subbrand: "Independent Engineering Squad",
-        contact_info_title: "Fast path for B2B project enquiries",
-        contact_info_desc: "Best suited for companies that need delivery coordination, automation support, or maintainable digital product execution.",
-        loc_de_label: "Bavaria, Germany",
-        loc_de_value: "+49 (0) 1XX XXX XXXX",
-        loc_pl_label: "Łódź, Poland",
-        loc_pl_value: "+48 XXX XXX XXX",
+        contact_info_title: "contact us",
+        contact_info_desc: "contact us",
+        fast_contact_btn: "Fast Contact (24 Hours)",
+        loc_de_label: "BAVARIA, GERMANY",
+        loc_de_value: "+49 (0) 157 550 16194",
+        loc_pl_label: "LÓDŹ, POLAND",
+        loc_pl_value: "+48 50 30 80 268",
         digital_label: "Digital",
         messaging_label: "Messaging",
 
         footer_main: "KHALEDI · B2B Engineering Delivery",
         footer_note: "A compact engineering team for delivery coordination, automation support, and mobile execution.",
         footer_meta: "Built for practical B2B collaboration across industrial and digital work.",
-        snack: "Share a short project brief.",
+        snack: "Form submitted successfully.",
         dismiss: "Dismiss",
 
         profile_summary: "Business Summary",
@@ -3960,23 +4152,23 @@
         catalog_about_heading: "About KHALEDI",
         catalog_about_text: "KHALEDI is a compact B2B engineering brand built around structured delivery, technical coordination, and practical execution support. It combines software understanding, industrial context, and cross-functional project follow-through for teams that need clearer momentum and more reliable outcomes.",
         founder_kicker: "Founder Profile",
-        founder_title: "Why clients trust Alireza Khaledi",
-        founder_intro: "Alireza Khaledi brings 10+ years of professional experience across software development, project coordination, and delivery support. His value is not generic administration — it is technical understanding combined with structured execution, stronger follow-through, clearer reporting, and practical coordination across moving B2B workstreams.",
-        founder_stat_1_v: "10+ Years",
-        founder_stat_1_l: "Professional experience across software, project coordination, and delivery support",
+        founder_title: "Why clients trust KHALEDI",
+        founder_intro: "KHALEDI Group has over 10 years of professional experience in software development, project coordination and delivery support. Our value is not in general management - but in technical understanding combined with structured execution, stronger follow-up, clearer reporting and practical coordination in on-the-go workflows.",
+        founder_stat_1_v: "10+ years",
+        founder_stat_1_l: "Professional experience in software, project coordination and delivery support",
         founder_stat_2_v: "30%",
-        founder_stat_2_l: "Software performance improvement in Python-based optimization work",
+        founder_stat_2_l: "Improving software performance in Python-based optimization tasks",
         founder_stat_3_v: "15%",
-        founder_stat_3_l: "Faster transaction processing through payment workflow integration",
-        founder_stat_4_v: "30–40%",
-        founder_stat_4_l: "Faster CRM data retrieval through backend implementation",
+        founder_stat_3_l: "Improving data processing and creating more organized reports",
+        founder_stat_4_v: "30-40%",
+        founder_stat_4_l: "Increasing productivity by connecting industry to mobile",
         founder_panel_title: "What he brings",
-        founder_panel_1: "Technical project coordination with practical delivery follow-up",
-        founder_panel_2: "Clear stakeholder communication and progress visibility",
-        founder_panel_3: "Structured support across software, web, and business systems",
-        founder_panel_4: "Execution discipline without agency overhead or unnecessary complexity",
+        founder_panel_1: "Technical project coordination with delivery tracking",
+        founder_panel_2: "Transparent communication with stakeholders and progress visibility",
+        founder_panel_3: "Structured support across software, web and automations",
+        founder_panel_4: "Executive discipline without agency overhead or unnecessary complexity",
         founder_bestfit_title: "Best fit engagements",
-        founder_bestfit_1: "B2B projects that need stronger structure and ownership rhythm",
+        founder_bestfit_1: "the projects that need stronger structure and ownership rhythm",
         founder_bestfit_2: "Teams that need clearer reporting, tracking, and follow-through",
         founder_bestfit_3: "Software or operational initiatives where technical work needs better coordination",
         catalog_tags: ["Delivery Ops", "Automation", "Mobile", "B2B", "Multilingual"],
@@ -4134,7 +4326,7 @@
         member_1_t4: "Risk Control",
 
         member_2_badge: "Head of Automation & Industrial Design",
-        member_2_name: "Reza Mosalanezhad",
+        member_2_name: "PhD. Reza Mosalanezhad",
         member_2_role: "Head of Automation & Industrial Design",
         member_2_power: "Bringt industrielle Tiefe über Siemens-PLC-Engineering, Commissioning, Diagnostics, HMI / SCADA-Transparenz und plant-nahe Control-Ausführung in realen Betriebsumgebungen ein.",
         member_2_short: "Plant-side-Automatisierungsunterstützung für Siemens-basierte Industrieumgebungen.",
@@ -4269,42 +4461,48 @@
         contact_desc: "Teilen Sie den Projektkontext, die Delivery-Lücke oder den technischen Bedarf. Wir prüfen den Fit und melden uns mit dem praktikabelsten nächsten Schritt zurück.",
         label_name: "Name",
         label_email: "E-Mail",
-        label_whatsapp: "WhatsApp",
+        label_whatsapp: "Phone Number (Optional)",
         label_company: "Unternehmen",
         label_type: "Projekttyp",
-        label_deadline: "Zeitplan",
-        label_budget: "Budget / Umfang",
+        label_deadline: "Timeline (Full Date)",
+        label_budget: "Budget / Scope (in Euro)",
         label_desc: "Projektbrief",
+        label_subject: "Subject",
+        label_message: "Message",
         ph_name: "Ihr Name",
         ph_email: "Geschäftliche E-Mail",
-        ph_whatsapp: "WhatsApp-Nummer (optional)",
+        ph_whatsapp: "Phone number (optional)",
         ph_company: "Unternehmen oder Organisation",
-        ph_deadline: "Geplanter Zeitrahmen",
+        ph_deadline: "Select full date",
         ph_budget: "Budgetrahmen oder Auftragsgröße",
         ph_desc: "Kurze Zusammenfassung Ihres Projekts, Kontexts oder aktuellen Problems",
+        ph_subject: "Short subject",
+        ph_message: "Write your message",
         opt_type: "Projekttyp wählen",
         opt_delivery: "Delivery Operations",
         opt_automation: "Industrial Automation",
         opt_mobile: "Mobile Product Execution",
+        send_btn: "Send",
         contact_p1: "Teilen Sie Scope, Zeitrahmen und aktuellen Delivery-Kontext.",
         contact_p2: "Wir prüfen Fit, Abhängigkeiten und ein passendes Engagement-Modell.",
         contact_p3: "Ein fokussiertes Projektgespräch wird mit klaren nächsten Schritten terminiert.",
 
         contact_info_kicker: "Direkter Kontakt",
         contact_subbrand: "Independent Engineering Squad",
-        contact_info_title: "Business Contact Hub",
-        contact_info_desc: "Für technische B2B-Projekte in Delivery-Koordination, Automatisierungsunterstützung und digitaler Produktumsetzung.",
+        contact_info_title: "contact us",
+        contact_info_desc: "contact us",
+        fast_contact_btn: "Fast Contact (24 Hours)",
         loc_de_label: "Bayern, Deutschland",
-        loc_de_value: "+49 (0) 1XX XXX XXXX",
+        loc_de_value: "+49 (0) 157 550 16194",
         loc_pl_label: "Łódź, Polen",
-        loc_pl_value: "+48 XXX XXX XXX",
+        loc_pl_value: "+48 50 30 80 268",
         digital_label: "Digital",
         messaging_label: "Messaging",
 
         footer_main: "KHALEDI · Independent Engineering Squad",
         footer_note: "Bayern-basiert. B2B-ready. Delivery, Automation und Mobile Execution.",
         footer_meta: "Engineering Delivery über industrielle und digitale Arbeit hinweg.",
-        snack: "Teilen Sie einen kurzen Projektbrief.",
+        snack: "Formular erfolgreich gesendet.",
         dismiss: "Schließen",
 
         profile_summary: "Business Summary",
@@ -4497,7 +4695,7 @@
         member_1_t4: "Risk Control",
 
         member_2_badge: "Head of Automation & Industrial Design",
-        member_2_name: "Reza Mosalanezhad",
+        member_2_name: "PhD. Reza Mosalanezhad",
         member_2_role: "Head of Automation & Industrial Design",
         member_2_power: "Projektuje i wspiera automatykę przemysłową, łącząc inżynierię PLC, logikę sterowania i niezawodne wykonanie po stronie zakładu.",
         member_2_short: "Wsparcie automatyki po stronie zakładu dla środowisk opartych na Siemens.",
@@ -4632,42 +4830,48 @@
         contact_desc: "Opisz kontekst projektu, lukę delivery albo potrzebę techniczną. Sprawdzimy dopasowanie i wrócimy z najbardziej praktycznym następnym krokiem.",
         label_name: "Imię i nazwisko",
         label_email: "Email",
-        label_whatsapp: "WhatsApp",
+        label_whatsapp: "Phone Number (Optional)",
         label_company: "Firma",
         label_type: "Typ projektu",
-        label_deadline: "Timeline",
-        label_budget: "Budżet / zakres",
+        label_deadline: "Timeline (Full Date)",
+        label_budget: "Budget / Scope (in Euro)",
         label_desc: "Brief projektu",
+        label_subject: "Subject",
+        label_message: "Message",
         ph_name: "Twoje imię i nazwisko",
         ph_email: "Email służbowy",
-        ph_whatsapp: "Numer WhatsApp (opcjonalnie)",
+        ph_whatsapp: "Phone number (optional)",
         ph_company: "Firma lub organizacja",
-        ph_deadline: "Oczekiwany timeline",
+        ph_deadline: "Select full date",
         ph_budget: "Przedział budżetu lub skala współpracy",
         ph_desc: "Krótki opis projektu, kontekstu lub aktualnego problemu",
+        ph_subject: "Short subject",
+        ph_message: "Write your message",
         opt_type: "Wybierz typ projektu",
         opt_delivery: "Delivery Operations",
         opt_automation: "Industrial Automation",
         opt_mobile: "Mobile Product Execution",
+        send_btn: "Send",
         contact_p1: "Prześlij scope, timeline i obecny kontekst delivery.",
         contact_p2: "Sprawdzamy dopasowanie, zależności i właściwy model współpracy.",
         contact_p3: "Umawiamy krótką rozmowę projektową z jasnymi następnymi krokami.",
 
         contact_info_kicker: "Kontakt bezpośredni",
         contact_subbrand: "Independent Engineering Squad",
-        contact_info_title: "Business Contact Hub",
-        contact_info_desc: "Dla technicznych projektów B2B z obszaru koordynacji delivery, wsparcia automatyki i realizacji produktów cyfrowych.",
+        contact_info_title: "contact us",
+        contact_info_desc: "contact us",
+        fast_contact_btn: "Fast Contact (24 Hours)",
         loc_de_label: "Bawaria, Niemcy",
-        loc_de_value: "+49 (0) 1XX XXX XXXX",
+        loc_de_value: "+49 (0) 157 550 16194",
         loc_pl_label: "Łódź, Polska",
-        loc_pl_value: "+48 XXX XXX XXX",
+        loc_pl_value: "+48 50 30 80 268",
         digital_label: "Digital",
         messaging_label: "Messaging",
 
         footer_main: "KHALEDI · Independent Engineering Squad",
         footer_note: "Bawaria. B2B-ready. Delivery, automatyka i mobile execution.",
         footer_meta: "Engineering delivery dla pracy przemysłowej i cyfrowej.",
-        snack: "Wyślij krótki brief projektu.",
+        snack: "Form submitted successfully.",
         dismiss: "Zamknij",
 
         profile_summary: "Business Summary",
@@ -4992,9 +5196,21 @@
       return hour >= 7 && hour < 19 ? "light" : "dark";
     }
 
-    setTheme(getThemeFromLocalTime());
+    function resolvePreferredTheme() {
+      const mq = window.matchMedia?.("(prefers-color-scheme: dark)");
+      if (mq && typeof mq.matches === "boolean") {
+        return mq.matches ? "dark" : "light";
+      }
+      return getThemeFromLocalTime();
+    }
+
+    setTheme(resolvePreferredTheme());
+    const colorSchemeMq = window.matchMedia?.("(prefers-color-scheme: dark)");
+    colorSchemeMq?.addEventListener?.("change", e => {
+      setTheme(e.matches ? "dark" : "light");
+    });
     window.setInterval(() => {
-      setTheme(getThemeFromLocalTime());
+      setTheme(resolvePreferredTheme());
     }, 60000);
 
     const savedLang = localStorage.getItem("lang");
@@ -5006,14 +5222,7 @@
 
     const snackbar = document.getElementById("snackbar");
     const snackClose = document.getElementById("snackClose");
-
-    if (!prefersReducedMotion) {
-      setTimeout(() => snackbar.classList.add("show"), 1200);
-    } else {
-      snackbar.classList.add("show");
-    }
-
-    snackClose.addEventListener("click", () => snackbar.classList.remove("show"));
+    snackClose?.addEventListener("click", () => snackbar?.classList.remove("show"));
 
     const testTrack = document.getElementById("testTrack");
     const testNext = document.getElementById("testNext");
@@ -5038,15 +5247,97 @@
     const nav = document.getElementById("primaryNav");
     const navToggle = document.getElementById("navToggle");
     const contactForm = document.getElementById("contactForm");
+    const fastContactForm = document.getElementById("fastContactForm");
+    const contactModal = document.getElementById("contactModal");
+    const fastContactModal = document.getElementById("fastContactModal");
+    const contactOpenButtons = document.querySelectorAll("[data-open-contact-modal]");
+    const fastContactButtons = document.querySelectorAll("[data-open-fast-modal]");
     const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbw_b8t-Y_KZwG-hu3tRoslCfTHwea3yNosOQrhThQpX00qN0oxwUgqnL3CByJQESWuQEg/exec";
     const startedAtInput = document.getElementById("startedAt");
 
     if (startedAtInput) startedAtInput.value = String(Date.now());
 
+    const showSnack = message => {
+      const snackText = snackbar?.querySelector("span");
+      if (snackText) snackText.textContent = message;
+      snackbar?.classList.add("show");
+    };
+
+    const feedbackByLang = {
+      en: {
+        sending: "Sending...",
+        sent: "Form submitted successfully.",
+        error: "Could not send now. Please try again.",
+        invalidEmail: "Please enter a valid work email.",
+        spamBlocked: "Please wait a few seconds and submit again."
+      },
+      de: {
+        sending: "Wird gesendet...",
+        sent: "Formular erfolgreich gesendet.",
+        error: "Senden nicht möglich. Bitte erneut versuchen.",
+        invalidEmail: "Bitte geben Sie eine gültige geschäftliche E-Mail ein.",
+        spamBlocked: "Bitte warten Sie einige Sekunden und senden Sie erneut."
+      },
+      pl: {
+        sending: "Wysyłanie...",
+        sent: "Formularz został wysłany pomyślnie.",
+        error: "Nie udało się wysłać. Spróbuj ponownie.",
+        invalidEmail: "Podaj poprawny adres e-mail służbowy.",
+        spamBlocked: "Odczekaj kilka sekund i wyślij ponownie."
+      }
+    };
+
+    function openSimpleModal(modal) {
+      if (!modal) return;
+      modal.hidden = false;
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeSimpleModal(modal) {
+      if (!modal) return;
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+      modal.hidden = true;
+      if (!document.querySelector(".modal-overlay.show")) {
+        document.body.style.overflow = "";
+      }
+    }
+
+    contactOpenButtons.forEach(btn => btn.addEventListener("click", () => openSimpleModal(contactModal)));
+    fastContactButtons.forEach(btn => btn.addEventListener("click", () => openSimpleModal(fastContactModal)));
+
+    async function submitToLead(payloadObj, formEl, submitBtn, closeModalOnSuccess) {
+      const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
+      const feedback = feedbackByLang[currentLang] || feedbackByLang.en;
+      const originalBtnText = submitBtn?.textContent || "";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = feedback.sending;
+      }
+      try {
+        const payload = new URLSearchParams(payloadObj);
+        await fetch(leadFormEndpoint, { method: "POST", mode: "no-cors", body: payload });
+        formEl?.reset();
+        if (startedAtInput) startedAtInput.value = String(Date.now());
+        showSnack(feedback.sent);
+        if (closeModalOnSuccess) closeSimpleModal(closeModalOnSuccess);
+      } catch (error) {
+        showSnack(feedback.error);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+      }
+    }
+
     if (contactForm) {
       contactForm.addEventListener("submit", async event => {
         event.preventDefault();
-
+        const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
+        const feedback = feedbackByLang[currentLang] || feedbackByLang.en;
         const name = document.getElementById("name")?.value.trim() || "";
         const emailInput = document.getElementById("email");
         const email = emailInput?.value.trim() || "";
@@ -5059,92 +5350,61 @@
         const website = document.getElementById("website")?.value.trim() || "";
         const startedAt = Number(startedAtInput?.value || Date.now());
         const submitBtn = contactForm.querySelector("button[type='submit']");
-        const originalBtnText = submitBtn?.textContent || "";
-        const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
-        const feedback = {
-          en: {
-            sending: "Sending...",
-            sent: "Your request was sent successfully.",
-            error: "Could not send now. Please try again.",
-            invalidEmail: "Please enter a valid work email.",
-            spamBlocked: "Please wait a few seconds and submit again."
-          },
-          de: {
-            sending: "Wird gesendet...",
-            sent: "Ihre Anfrage wurde erfolgreich gesendet.",
-            error: "Senden nicht möglich. Bitte erneut versuchen.",
-            invalidEmail: "Bitte geben Sie eine gültige geschäftliche E-Mail ein.",
-            spamBlocked: "Bitte warten Sie einige Sekunden und senden Sie erneut."
-          },
-          pl: {
-            sending: "Wysyłanie...",
-            sent: "Twoje zapytanie zostało wysłane.",
-            error: "Nie udało się wysłać. Spróbuj ponownie.",
-            invalidEmail: "Podaj poprawny adres e-mail służbowy.",
-            spamBlocked: "Odczekaj kilka sekund i wyślij ponownie."
-          }
-        }[currentLang] || {
-          sending: "Sending...",
-          sent: "Your request was sent successfully.",
-          error: "Could not send now. Please try again.",
-          invalidEmail: "Please enter a valid work email.",
-          spamBlocked: "Please wait a few seconds and submit again."
-        };
-        const showSnack = message => {
-          const snackText = snackbar?.querySelector("span");
-          if (snackText) snackText.textContent = message;
-          snackbar?.classList.add("show");
-        };
-
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         if (!emailPattern.test(email)) {
           showSnack(feedback.invalidEmail);
           emailInput?.focus();
           return;
         }
-
         if (website || Date.now() - startedAt < 3500) {
           showSnack(feedback.spamBlocked);
           return;
         }
+        await submitToLead({
+          name,
+          email,
+          whatsapp,
+          company,
+          projectType,
+          timeline,
+          budget,
+          description,
+          lang: currentLang,
+          website,
+          startedAt: String(startedAt)
+        }, contactForm, submitBtn, contactModal);
+      });
+    }
 
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = feedback.sending;
+    if (fastContactForm) {
+      fastContactForm.addEventListener("submit", async event => {
+        event.preventDefault();
+        const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
+        const feedback = feedbackByLang[currentLang] || feedbackByLang.en;
+        const emailInput = document.getElementById("fastEmail");
+        const email = emailInput?.value.trim() || "";
+        const subject = document.getElementById("fastSubject")?.value.trim() || "";
+        const message = document.getElementById("fastMessage")?.value.trim() || "";
+        const submitBtn = fastContactForm.querySelector("button[type='submit']");
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!emailPattern.test(email)) {
+          showSnack(feedback.invalidEmail);
+          emailInput?.focus();
+          return;
         }
-
-        try {
-          const payload = new URLSearchParams({
-            name,
-            email,
-            whatsapp,
-            company,
-            projectType,
-            timeline,
-            budget,
-            description,
-            lang: currentLang,
-            website,
-            startedAt: String(startedAt)
-          });
-
-          await fetch(leadFormEndpoint, {
-            method: "POST",
-            mode: "no-cors",
-            body: payload
-          });
-
-          contactForm.reset();
-          if (startedAtInput) startedAtInput.value = String(Date.now());
-          showSnack(feedback.sent);
-        } catch (error) {
-          showSnack(feedback.error);
-        } finally {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-          }
-        }
+        await submitToLead({
+          name: "Fast Contact",
+          email,
+          whatsapp: "",
+          company: "",
+          projectType: `Fast Contact: ${subject}`,
+          timeline: "",
+          budget: "",
+          description: message,
+          lang: currentLang,
+          website: "",
+          startedAt: String(Date.now())
+        }, fastContactForm, submitBtn, fastContactModal);
       });
     }
 
@@ -5223,15 +5483,17 @@
             <img class="profile-portrait" src="assets/Khaledi.jpg" alt="Alireza Khaledi" loading="lazy" />
             <div class="profile-identity">
               <div class="profile-id-kicker">Founder · Technical Project Coordinator</div>
-              <h2 class="profile-id-name" id="profileTitleAlireza">Alireza Khaledi</h2>
+              <div class="profile-id-name-wrap">
+                <h2 class="profile-id-name" id="profileTitleAlireza">Alireza Khaledi</h2>
+                <span class="profile-download-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m7.8 11.5 4.2 4.2 4.2-4.2"></path><path d="M5 19h14"></path></svg>
+                </span>
+              </div>
               <div class="profile-id-role">Technical Project Coordinator</div>
               <div class="profile-id-tags">
                 <span class="profile-id-tag">Poland</span>
                 <span class="profile-id-tag">10+ Years</span>
                 <span class="profile-id-tag">Software + Delivery</span>
-              </div>
-              <div class="profile-id-actions">
-                <button class="profile-resume-btn" type="button" data-open-resume="alireza">View Resume</button>
               </div>
             </div>
           </div>
@@ -5310,15 +5572,17 @@
             <img class="profile-portrait" src="assets/Mosalanezhad.jpg" alt="Reza Mosalanezhad" loading="lazy" />
             <div class="profile-identity">
               <div class="profile-id-kicker">Automation · Control Systems</div>
-              <h2 class="profile-id-name" id="profileTitleReza">Reza Mosalanezhad</h2>
+              <div class="profile-id-name-wrap">
+                <h2 class="profile-id-name" id="profileTitleReza">PhD. Reza Mosalanezhad</h2>
+                <span class="profile-download-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m7.8 11.5 4.2 4.2 4.2-4.2"></path><path d="M5 19h14"></path></svg>
+                </span>
+              </div>
               <div class="profile-id-role">Senior Automation &amp; Control Engineer</div>
               <div class="profile-id-tags">
                 <span class="profile-id-tag">PLC</span>
                 <span class="profile-id-tag">TIA Portal</span>
                 <span class="profile-id-tag">Commissioning</span>
-              </div>
-              <div class="profile-id-actions">
-                <button class="profile-resume-btn" type="button" data-open-resume="reza">View Resume</button>
               </div>
             </div>
           </div>
@@ -5397,15 +5661,17 @@
             <img class="profile-portrait" src="assets/Ghelej.png" alt="Ali Ghelej Beigi" loading="lazy" />
             <div class="profile-identity">
               <div class="profile-id-kicker">Mobile Engineering · Frontend Systems</div>
-              <h2 class="profile-id-name" id="profileTitleAli">Ali Ghelej Beigi</h2>
+              <div class="profile-id-name-wrap">
+                <h2 class="profile-id-name" id="profileTitleAli">Ali Ghelej Beigi</h2>
+                <span class="profile-download-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m7.8 11.5 4.2 4.2 4.2-4.2"></path><path d="M5 19h14"></path></svg>
+                </span>
+              </div>
               <div class="profile-id-role">Senior Software Engineer — Mobile &amp; Frontend</div>
               <div class="profile-id-tags">
                 <span class="profile-id-tag">Flutter</span>
                 <span class="profile-id-tag">Architecture</span>
                 <span class="profile-id-tag">Frontend</span>
-              </div>
-              <div class="profile-id-actions">
-                <button class="profile-resume-btn" type="button" data-open-resume="ali">View Resume</button>
               </div>
             </div>
           </div>
@@ -5560,6 +5826,7 @@
     /* ================= TEAM CARD -> PROFILE MODAL ================= */
 
     const teamCards = document.querySelectorAll(".team-card");
+    const teamViewButtons = document.querySelectorAll(".team-view-btn");
     const profileModalAlireza = document.getElementById("profileModalAlireza");
     const profileModalReza = document.getElementById("profileModalReza");
     const profileModalAli = document.getElementById("profileModalAli");
@@ -5583,21 +5850,15 @@
 
     let activeProfileModal = null;
 
-    function bindCardModal(card, modal) {
-      if (!card || !modal) return;
-      card.addEventListener("click", () => openModal(modal));
-      card.addEventListener("keydown", event => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          openModal(modal);
-        }
-      });
+    function bindCardModal(btn, modal) {
+      if (!btn || !modal) return;
+      btn.addEventListener("click", () => openModal(modal));
     }
 
-    if (teamCards.length >= 3) {
-      bindCardModal(teamCards[0], profileModalReza);
-      bindCardModal(teamCards[1], profileModalAlireza);
-      bindCardModal(teamCards[2], profileModalAli);
+    if (teamViewButtons.length >= 3) {
+      bindCardModal(teamViewButtons[0], profileModalReza);
+      bindCardModal(teamViewButtons[1], profileModalAlireza);
+      bindCardModal(teamViewButtons[2], profileModalAli);
     }
 
     function openModal(modal, keepActive = false) {
