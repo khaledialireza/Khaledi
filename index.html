@@ -362,13 +362,20 @@
     .hero {
       display: grid;
       gap: var(--space-3);
-      min-height: calc(100vh - 86px);
+      min-height: calc(100vh - 72px);
       align-content: start;
       padding: 8px 0 16px;
     }
 
     .hero.snap-block {
       min-height: 0;
+    }
+
+    #home {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-rows: 1fr auto;
+      align-content: stretch;
     }
 
     .hero-banner {
@@ -481,6 +488,7 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: var(--space-2);
+      margin-top: 0;
     }
 
     .trust-item {
@@ -1739,6 +1747,11 @@
 
       .hero-banner {
         min-height: 560px;
+      }
+
+      #home {
+        min-height: calc(100vh - 72px);
+        grid-template-rows: auto auto;
       }
 
       .hero-grid {
