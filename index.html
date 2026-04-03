@@ -1732,13 +1732,53 @@
     }
 
   @media (max-width: 640px) {
+      body {
+        padding-top: 64px;
+      }
+
       .nav {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        padding: 10px 12px;
+        gap: 8px;
+      }
+
+      .brand {
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .brand-mark {
+        font-size: 24px;
+      }
+
+      .brand-name strong {
+        font-size: 11px;
+        letter-spacing: .12em;
       }
 
       .nav-actions {
-        width: 100%;
-        justify-content: space-between;
+        width: auto;
+        justify-content: flex-end;
+        gap: 6px;
+        flex: 0 0 auto;
+      }
+
+      .nav-actions .btn.secondary {
+        display: none;
+      }
+
+      .nav-actions .lang-select {
+        min-width: 104px;
+        max-width: 104px;
+        padding: 0 26px 0 8px;
+        font-size: 11px;
+        height: 34px;
+      }
+
+      .nav-actions .btn.primary {
+        height: 34px;
+        padding: 0 10px;
+        font-size: 12px;
       }
 
       .brand-name span {
@@ -1807,6 +1847,36 @@
         width: calc(100% - 24px);
       }
 
+    }
+
+    @media (max-width: 390px) {
+      body {
+        padding-top: 60px;
+      }
+
+      .nav {
+        padding: 8px 10px;
+      }
+
+      .brand-mark {
+        font-size: 22px;
+      }
+
+      .brand-name strong {
+        font-size: 10px;
+        letter-spacing: .1em;
+      }
+
+      .nav-actions .lang-select {
+        min-width: 96px;
+        max-width: 96px;
+        font-size: 10px;
+      }
+
+      .nav-actions .btn.primary {
+        padding: 0 8px;
+        font-size: 11px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -4555,21 +4625,24 @@
         sent: "Form submitted successfully.",
         error: "Could not send now. Please try again.",
         invalidEmail: "Please enter a valid work email.",
-        spamBlocked: "Please wait a few seconds and submit again."
+        spamBlocked: "Please wait a few seconds and submit again.",
+        requiredFast: "Please enter both subject and message."
       },
       de: {
         sending: "Wird gesendet...",
         sent: "Formular erfolgreich gesendet.",
         error: "Senden nicht möglich. Bitte erneut versuchen.",
         invalidEmail: "Bitte geben Sie eine gültige geschäftliche E-Mail ein.",
-        spamBlocked: "Bitte warten Sie einige Sekunden und senden Sie erneut."
+        spamBlocked: "Bitte warten Sie einige Sekunden und senden Sie erneut.",
+        requiredFast: "Bitte Betreff und Nachricht eingeben."
       },
       pl: {
         sending: "Wysyłanie...",
         sent: "Formularz został wysłany pomyślnie.",
         error: "Nie udało się wysłać. Spróbuj ponownie.",
         invalidEmail: "Podaj poprawny adres e-mail służbowy.",
-        spamBlocked: "Odczekaj kilka sekund i wyślij ponownie."
+        spamBlocked: "Odczekaj kilka sekund i wyślij ponownie.",
+        requiredFast: "Uzupełnij temat i wiadomość."
       }
     };
 
@@ -4696,6 +4769,15 @@
         if (!emailPattern.test(email)) {
           showSnack(feedback.invalidEmail);
           emailInput?.focus();
+          return;
+        }
+        if (!subject || !message) {
+          showSnack(feedback.requiredFast || "Please enter both subject and message.");
+          if (!subject) {
+            document.getElementById("fastSubject")?.focus();
+          } else {
+            document.getElementById("fastMessage")?.focus();
+          }
           return;
         }
         await submitToLead({
