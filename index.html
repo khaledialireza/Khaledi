@@ -107,9 +107,9 @@
     }
 
     .nav {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 14px 20px;
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      padding: 14px clamp(12px, 2.6vw, 24px);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -243,7 +243,7 @@
 
     /* tighter controls for topbar buttons */
     .nav-actions .btn,
-    .nav-actions .lang-select {
+    .nav-actions .lang-switch .custom-select-trigger {
       height: 38px;
       padding: 0 12px;
       font-size: 13px;
@@ -270,7 +270,7 @@
     }
 
     .btn,
-    .lang-select {
+    .lang-switch .custom-select-trigger {
       appearance: none;
       border: 1px solid var(--line);
       background: var(--bg-2);
@@ -284,34 +284,69 @@
     }
 
     .btn:hover,
-    .lang-select:hover {
+    .lang-switch .custom-select-trigger:hover {
       transform: translateY(-1px);
     }
 
-    .lang-select {
+    .lang-switch {
       min-width: 132px;
-      padding: 9px 38px 9px 12px;
-      font-size: 12px;
+    }
+
+    .lang-switch .custom-select {
+      width: 100%;
+    }
+
+    .lang-switch .custom-select-trigger {
+      width: 100%;
+      min-height: 38px;
+      padding: 0 30px 0 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--bg-2);
+      text-align: left;
+      display: inline-flex;
+      align-items: center;
       color: var(--muted);
       box-shadow: var(--shadow);
     }
 
-    .lang-select:focus,
-    .lang-select:focus-visible {
+    .lang-switch .custom-select-trigger:focus,
+    .lang-switch .custom-select-trigger:focus-visible {
       border-color: var(--blue);
       color: var(--text);
       outline: none;
     }
 
-    .lang-switch::after {
-      content: "▾";
-      position: absolute;
+    .lang-switch .custom-select-trigger::after {
       right: 12px;
       top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      pointer-events: none;
+      transform: translateY(-60%) rotate(45deg);
+    }
+
+    .lang-switch .custom-select-value {
       font-size: 12px;
+      line-height: 1;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .lang-switch .custom-select-menu {
+      top: calc(100% + 6px);
+      left: auto;
+      right: 0;
+      min-width: 164px;
+      max-width: 220px;
+      z-index: 35;
+    }
+
+    .lang-switch .custom-option {
+      padding: 8px 10px;
+      gap: 8px;
+    }
+
+    .lang-switch .custom-option-label {
+      font-size: 13px;
+      line-height: 1.2;
     }
 
     .btn {
@@ -364,7 +399,7 @@
       gap: var(--space-3);
       min-height: calc(100vh - 72px);
       align-content: start;
-      padding: 8px 0 16px;
+      padding: 0 0 16px;
     }
 
     .hero.snap-block {
@@ -376,14 +411,19 @@
       display: grid;
       grid-template-rows: 1fr auto;
       align-content: stretch;
+      margin-top: -18px;
     }
 
     .hero-banner {
       position: relative;
       min-height: clamp(460px, 64vh, 700px);
-      border-radius: var(--radius-lg);
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      border-radius: 0;
       overflow: hidden;
       border: 1px solid var(--line);
+      border-left: 0;
+      border-right: 0;
       background: var(--bg-2);
       box-shadow: var(--shadow);
       isolation: isolate;
@@ -489,6 +529,10 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: var(--space-2);
       margin-top: 0;
+    }
+
+    .hero-trust {
+      padding: 14px 0 0;
     }
 
     .trust-item {
@@ -756,76 +800,124 @@
     /* Team updated styles */
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: var(--space-3);
       margin-top: var(--space-4);
       justify-items: stretch;
+      align-items: stretch;
     }
+
+    .team-card[data-member="reza"] { grid-column: 1; }
+    .team-card[data-member="alireza"] { grid-column: 2; }
+    .team-card[data-member="ali"] { grid-column: 3; }
+    .team-card[data-member="mojtaba"] { grid-column: 4; }
 
     #team {
       background: linear-gradient(180deg, var(--section-surface-a) 0%, var(--section-surface-b) 100%);
       border: 1px solid var(--line);
       border-radius: 18px;
+      padding-inline: 181px;
     }
 
     .team-card {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--bg-2);
-      display: grid;
-      grid-template-columns: 110px 1fr;
+      border: 1px solid transparent;
+      border-radius: 18px;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
       gap: 0;
       align-items: stretch;
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
       box-shadow: 0 8px 22px rgba(16,24,40,.06);
       position: relative;
-      cursor: default;
-      min-height: 198px;
+      cursor: pointer;
+      min-height: 0;
       height: auto;
       overflow: hidden;
       padding: 0;
       width: 100%;
       max-width: none;
       min-width: 0;
+      align-self: stretch;
+      isolation: isolate;
+    }
+
+    .team-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+      background: #1a73e8;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform .18s ease;
+      z-index: 3;
     }
 
     .team-card:hover {
       transform: translateY(-2px);
-      border-color: color-mix(in srgb, var(--line) 55%, var(--blue));
+      border-color: color-mix(in srgb, var(--line) 45%, #1a73e8);
       box-shadow: 0 10px 24px rgba(16,24,40,.08);
     }
 
+    .team-card:hover::before {
+      transform: scaleX(1);
+    }
+
     .team-card.leader {
-      border-top: 2px solid var(--blue);
+      border-top: 0;
     }
 
     .team-photo-ring {
-      width: 110px;
-      height: 100%;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 4;
       border-radius: 0;
       overflow: hidden;
       border: 0;
-      background: var(--bg-2);
+      background: transparent;
       align-self: stretch;
-      justify-self: start;
+      justify-self: stretch;
+      margin: 0;
     }
 
     .team-photo {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: center 24%;
       display: block;
+    }
+
+    .team-card[data-member="reza"] .team-photo {
+      object-position: center 18%;
+      transform: scale(1.08);
+      transform-origin: center 22%;
+    }
+
+    .team-card[data-member="alireza"] .team-photo {
+      object-position: center 20%;
+      transform: scale(1.1);
+      transform-origin: center 24%;
+    }
+
+    .team-card[data-member="ali"] .team-photo {
+      object-position: center 14%;
+      transform: scale(1.26);
+      transform-origin: center 16%;
     }
 
     .team-meta {
       display: grid;
       gap: 8px;
-      padding: 10px 11px;
+      padding: 12px 10px 10px;
       height: 100%;
-      border-radius: 0;
+      flex: 1;
+      border-radius: 12px;
       border: 0;
-      background: var(--bg-2);
+      background: color-mix(in srgb, var(--bg-2) 94%, var(--bg-3));
       text-align: left;
       align-content: start;
       overflow: hidden;
@@ -833,33 +925,33 @@
     }
 
     .team-name {
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.18;
       color: var(--text);
+      text-align: center;
     }
 
     .team-role {
-      font-size: 11px;
+      font-size: 15px;
+      font-weight: 600;
       color: var(--muted);
-      line-height: 1.45;
+      line-height: 1.35;
       max-width: none;
       margin: 0;
     }
 
     .power-statement {
-      font-size: 11px;
-      line-height: 1.45;
+      font-size: 14px;
+      line-height: 1.55;
       max-width: none;
       margin: 0;
       color: color-mix(in srgb, var(--text) 86%, #405063);
       min-height: 0;
       flex: 0 0 auto;
       white-space: normal;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      overflow: visible;
+      display: block;
     }
 
     .chip-row {
@@ -871,72 +963,47 @@
     }
 
     .chip {
-      padding: 3px 8px;
+      padding: 5px 10px;
       border-radius: 999px;
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       border: 1px solid var(--line);
       background: color-mix(in srgb, var(--bg-3) 88%, transparent);
       color: color-mix(in srgb, var(--text) 82%, var(--muted));
       white-space: nowrap;
     }
 
-    .team-view-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--bg-3) 86%, transparent);
-      color: color-mix(in srgb, var(--text) 85%, var(--muted));
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform .18s ease, border-color .18s ease;
-      flex: 0 0 30px;
-      margin-top: auto;
-      justify-self: end;
-    }
-
-    .team-view-btn:hover {
-      transform: translateY(-1px);
-      border-color: color-mix(in srgb, var(--line) 55%, var(--blue));
-      background: color-mix(in srgb, var(--blue) 9%, var(--bg-2));
-    }
-
-    .team-view-btn svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .team-card:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
     }
 
     @media (max-width: 900px) {
       .team-card {
-        grid-template-columns: 1fr;
+        width: 100%;
         width: 100%;
         min-width: 0;
       }
 
       .team-photo-ring {
-        max-width: 240px;
-        height: auto;
+        width: 116px;
+        height: 116px;
+        max-width: none;
         aspect-ratio: 1 / 1;
         justify-self: center;
       }
     }
 
     @media (max-width: 980px) {
-      .team-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .team-card[data-member] { grid-column: auto; }
+      #team { padding-inline: 16px; }
     }
 
     @media (max-width: 640px) {
       .team-grid { grid-template-columns: 1fr; }
       .team-card { width: 100%; min-width: 0; }
-      .team-photo-ring { width: 100%; max-width: 220px; height: auto; aspect-ratio: 1 / 1; }
+      .team-photo-ring { width: 108px; height: 108px; max-width: none; aspect-ratio: 1 / 1; }
       .team-name { font-size: 17px; }
     }
 
@@ -956,6 +1023,15 @@
       box-shadow: 0 8px 24px rgba(16,24,40,.06);
       position: relative;
       overflow: hidden;
+    }
+
+    .full-bleed-section {
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      padding-inline: clamp(14px, 2.4vw, 24px);
     }
 
     .tile h2 {
@@ -1141,9 +1217,10 @@
 
     .contact-band {
       grid-column: span 12;
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
+      width: 100vw;
+      max-width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      margin-block: 0;
       position: relative;
       overflow: hidden;
       min-height: auto;
@@ -1164,7 +1241,7 @@
 
     .contact-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      grid-template-columns: minmax(0, 30%) minmax(0, 70%);
       gap: clamp(16px, 2vw, 26px);
       max-width: 100%;
       margin: 0;
@@ -1233,8 +1310,23 @@
 
     .field {
       display: grid;
-      gap: 6px;
+      gap: 4px;
       text-align: left;
+      position: relative;
+    }
+
+    .field.select-field:not(.custom-select-field)::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid color-mix(in srgb, var(--muted) 85%, transparent);
+      border-bottom: 2px solid color-mix(in srgb, var(--muted) 85%, transparent);
+      transform: translateY(2px) rotate(45deg);
+      pointer-events: none;
+      z-index: 2;
     }
 
     .field.full {
@@ -1251,9 +1343,19 @@
     }
 
     .field label {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      color: var(--text);
+      color: var(--muted);
+      margin: 0;
+      line-height: 1;
+      position: absolute;
+      left: 14px;
+      top: 15px;
+      background: transparent;
+      padding: 0 2px;
+      pointer-events: none;
+      transition: transform .16s ease, color .16s ease, top .16s ease, font-size .16s ease;
+      z-index: 1;
     }
 
     .form input,
@@ -1261,13 +1363,121 @@
     .form select {
       width: 100%;
       min-height: 46px;
-      padding: 0 14px;
+      padding: 18px 14px 0;
       border-radius: 12px;
       border: 1px solid var(--line);
       background: var(--bg-3);
       color: var(--text);
       font: inherit;
       outline: none;
+    }
+
+    .field.select-field select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding-right: 38px;
+      cursor: pointer;
+    }
+
+    .custom-select {
+      position: relative;
+      width: 100%;
+    }
+
+    .custom-select-trigger {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--bg-3);
+      color: var(--text);
+      font: inherit;
+      text-align: left;
+      padding: 18px 40px 0 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .custom-select-trigger::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid color-mix(in srgb, var(--muted) 85%, transparent);
+      border-bottom: 2px solid color-mix(in srgb, var(--muted) 85%, transparent);
+      transform: translateY(-60%) rotate(45deg);
+      transition: transform .14s ease;
+      pointer-events: none;
+    }
+
+    .custom-select.open .custom-select-trigger::after {
+      transform: translateY(-30%) rotate(-135deg);
+    }
+
+    .custom-select-value {
+      font-size: 15px;
+      line-height: 1.3;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .custom-select-menu {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 6px);
+      margin: 0;
+      padding: 6px;
+      list-style: none;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--bg-2);
+      box-shadow: 0 12px 28px rgba(16,24,40,.14);
+      z-index: 20;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    .custom-select-menu[hidden] {
+      display: none !important;
+    }
+
+    .custom-option {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      text-align: left;
+      border-radius: 10px;
+      padding: 10px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .custom-option:hover {
+      background: color-mix(in srgb, var(--bg-3) 72%, transparent);
+    }
+
+    .custom-option-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg-3) 86%, transparent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex: 0 0 22px;
     }
 
     .form input::placeholder,
@@ -1281,8 +1491,16 @@
 
     .form textarea {
       min-height: 124px;
-      padding: 10px 14px;
+      padding: 24px 14px 10px;
       resize: vertical;
+    }
+
+    .field:focus-within label,
+    .field.has-value label {
+      top: 7px;
+      color: var(--blue);
+      font-size: 11px;
+      transform: none;
     }
 
     .form input:focus,
@@ -1732,6 +1950,10 @@
     }
 
   @media (max-width: 640px) {
+      html {
+        font-size: 15px;
+      }
+
       body {
         padding-top: 64px;
       }
@@ -1767,18 +1989,29 @@
         display: none;
       }
 
-      .nav-actions .lang-select {
-        min-width: 104px;
-        max-width: 104px;
-        padding: 0 26px 0 8px;
-        font-size: 11px;
+      .nav-actions .lang-switch {
+        min-width: 84px;
+        max-width: 84px;
+        width: 84px;
+      }
+
+      .nav-actions .lang-switch .custom-select-trigger {
+        min-height: 34px;
         height: 34px;
+        padding: 0 20px 0 8px;
+        justify-content: center;
+      }
+
+      .nav-actions .lang-switch .custom-select-value {
+        font-size: 12px;
+      }
+
+      .nav-actions .lang-switch .custom-select-menu {
+        min-width: 128px;
       }
 
       .nav-actions .btn.primary {
-        height: 34px;
-        padding: 0 10px;
-        font-size: 12px;
+        display: none;
       }
 
       .brand-name span {
@@ -1797,6 +2030,25 @@
       .hero-grid {
         min-height: 560px;
         padding: 24px 18px;
+      }
+
+      .hero h1.hero-title {
+        font-size: clamp(1.9rem, 8vw, 2.45rem);
+      }
+
+      .hero-subtitle {
+        font-size: .97rem;
+        line-height: 1.58;
+      }
+
+      .tile h2 {
+        font-size: clamp(1.25rem, 5.8vw, 1.55rem);
+      }
+
+      .tile p,
+      .section-note {
+        font-size: 13px;
+        line-height: 1.62;
       }
 
       .team-grid,
@@ -1837,6 +2089,7 @@
 
       .form {
         grid-template-columns: 1fr;
+        gap: 10px;
       }
 
       .field.full {
@@ -1847,9 +2100,86 @@
         width: calc(100% - 24px);
       }
 
+      .modal-overlay {
+        inset: 72px 0 0 0;
+        height: calc(100dvh - 72px);
+        place-items: start center;
+        padding: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background: rgba(10, 16, 24, 0.74);
+      }
+
+      .contact-modal-shell {
+        width: 100%;
+        max-width: 100%;
+        min-height: auto;
+        height: auto;
+        max-height: calc(100dvh - 72px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 40px 12px 16px !important;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .contact-modal-shell .modal-close {
+        top: 8px;
+        right: 8px;
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+      }
+
+      .contact-modal-shell h2 {
+        font-size: 2rem;
+        line-height: 1.15;
+        margin: 0 44px 6px 0 !important;
+      }
+
+      .contact-modal-shell .section-note {
+        font-size: .95rem;
+        line-height: 1.55;
+      }
+
+      .contact-modal-shell .field label {
+        font-size: 12px;
+      }
+
+      .contact-modal-shell .form input,
+      .contact-modal-shell .form textarea,
+      .contact-modal-shell .form select,
+      .custom-select-trigger {
+        min-height: 44px;
+      }
+
+      .custom-select-value {
+        font-size: 14px;
+      }
+
+      .custom-select-menu {
+        max-height: 180px;
+      }
+
+      .custom-option {
+        padding: 9px 8px;
+        font-size: 14px;
+      }
+
+      .custom-option-icon {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+        font-size: 12px;
+      }
+
     }
 
     @media (max-width: 390px) {
+      html {
+        font-size: 14px;
+      }
+
       body {
         padding-top: 60px;
       }
@@ -1867,15 +2197,35 @@
         letter-spacing: .1em;
       }
 
-      .nav-actions .lang-select {
-        min-width: 96px;
-        max-width: 96px;
-        font-size: 10px;
+      .nav-actions .lang-switch {
+        min-width: 80px;
+        max-width: 80px;
+        width: 80px;
+      }
+
+      .nav-actions .lang-switch .custom-select-value {
+        font-size: 11px;
       }
 
       .nav-actions .btn.primary {
-        padding: 0 8px;
-        font-size: 11px;
+        display: none;
+      }
+
+      .contact-modal-shell h2 {
+        font-size: 1.75rem;
+      }
+
+      .modal-overlay {
+        inset: 68px 0 0 0;
+        height: calc(100dvh - 68px);
+        padding: 0;
+      }
+
+      .contact-modal-shell {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100dvh - 68px);
+        padding-top: 36px !important;
       }
     }
 
@@ -1927,6 +2277,15 @@
       pointer-events: auto;
     }
 
+    .modal-overlay.below-header {
+      inset: var(--modal-top-offset, 72px) 0 0 0 !important;
+      height: calc(100dvh - var(--modal-top-offset, 72px)) !important;
+      place-items: start center !important;
+      padding: 0 !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+    }
+
     .modal-shell {
       width: min(1100px, calc(100vw - 32px));
       max-height: calc(100vh - 32px);
@@ -1937,7 +2296,6 @@
       box-shadow: 0 30px 80px rgba(0,0,0,.30);
     }
 
-    .resume-overlay { z-index: 1500; }
 
     /* Profile modal content */
     .modal-close {
@@ -1991,7 +2349,13 @@
       display: grid;
       grid-template-columns: minmax(310px, 344px) minmax(0, 1fr);
       min-height: 470px;
-      background: var(--bg-2);
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 15%,
+        color-mix(in srgb, var(--bg-2) 94%, var(--bg-3)) 55%,
+        color-mix(in srgb, var(--bg-2) 94%, var(--bg-3)) 100%
+      );
       border-radius: 22px;
       overflow: hidden;
       box-shadow: 0 26px 60px rgba(13, 31, 46, 0.24);
@@ -2000,15 +2364,11 @@
     .profile-visual {
       position: relative;
       min-height: 470px;
-      background: #d8f4f1;
+      background: transparent;
     }
 
     .profile-visual::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(18, 31, 46, 0.02) 0%, rgba(18, 31, 46, 0.38) 100%);
-      pointer-events: none;
+      content: none;
     }
 
     .profile-portrait {
@@ -2017,6 +2377,10 @@
       display: block;
       object-fit: cover;
       object-position: center top;
+      position: relative;
+      z-index: 1;
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 93%, transparent 100%);
+      mask-image: linear-gradient(to right, #000 0%, #000 93%, transparent 100%);
     }
 
     .profile-identity {
@@ -2069,27 +2433,6 @@
       min-width: 0;
     }
 
-    .profile-download-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.28);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      flex: 0 0 22px;
-    }
-
-    .profile-download-icon svg {
-      width: 12px;
-      height: 12px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
 
     .profile-id-role {
       font-size: 10.5px;
@@ -2129,29 +2472,9 @@
       gap: 14px;
       padding: 22px 24px 20px;
       color: var(--text);
+      background: transparent;
     }
 
-    .profile-resume-btn {
-      appearance: none;
-      border: none;
-      border-radius: 999px;
-      background: var(--blue);
-      color: #ffffff;
-      font: inherit;
-      font-size: 13px;
-      font-weight: 700;
-      padding: 13px 22px;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 12px 24px color-mix(in srgb, var(--blue) 24%, transparent);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    .profile-resume-btn:hover {
-      transform: translateY(-1px);
-      background: color-mix(in srgb, var(--blue) 88%, black);
-      box-shadow: 0 16px 28px color-mix(in srgb, var(--blue) 28%, transparent);
-    }
 
     .profile-facts {
       display: grid;
@@ -2240,6 +2563,141 @@
       font-size: 11px;
       font-weight: 700;
       color: var(--text);
+    }
+
+    /* Alireza right-side refinement (left side unchanged) */
+    #profileModalAlireza .profile-content,
+    #profileModalReza .profile-content,
+    #profileModalAli .profile-content {
+      gap: 16px;
+    }
+
+    #profileModalAlireza .profile-summary-card p,
+    #profileModalReza .profile-summary-card p,
+    #profileModalAli .profile-summary-card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    #profileModalAlireza .profile-duo-grid,
+    #profileModalReza .profile-duo-grid,
+    #profileModalAli .profile-duo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    #profileModalAlireza .profile-list,
+    #profileModalReza .profile-list,
+    #profileModalAli .profile-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    #profileModalAlireza .profile-list li,
+    #profileModalReza .profile-list li,
+    #profileModalAli .profile-list li {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.58;
+      color: var(--muted);
+    }
+
+    #profileModalAlireza .profile-outcomes-card,
+    #profileModalReza .profile-outcomes-card,
+    #profileModalAli .profile-outcomes-card {
+      border-color: var(--line);
+      box-shadow: none;
+    }
+
+    #profileModalAlireza .profile-outcomes-card h3,
+    #profileModalReza .profile-outcomes-card h3,
+    #profileModalAli .profile-outcomes-card h3 {
+      color: var(--text);
+      letter-spacing: 0;
+    }
+
+    #profileModalAlireza .profile-stats-grid,
+    #profileModalReza .profile-stats-grid,
+    #profileModalAli .profile-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    #profileModalAlireza .profile-stat,
+    #profileModalReza .profile-stat,
+    #profileModalAli .profile-stat {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--bg-2) 94%, var(--bg-3));
+      padding: 10px 11px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 12px;
+      align-items: center;
+    }
+
+    #profileModalAlireza .profile-stat.prominent,
+    #profileModalReza .profile-stat.prominent,
+    #profileModalAli .profile-stat.prominent {
+      border-color: var(--line);
+      background: color-mix(in srgb, var(--bg-2) 94%, var(--bg-3));
+      box-shadow: none;
+    }
+
+    #profileModalAlireza .profile-stat-value,
+    #profileModalReza .profile-stat-value,
+    #profileModalAli .profile-stat-value {
+      color: var(--text);
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      grid-column: 1;
+      align-self: center;
+    }
+
+    #profileModalAlireza .profile-stat-label,
+    #profileModalReza .profile-stat-label,
+    #profileModalAli .profile-stat-label {
+      font-size: 12px;
+      line-height: 1.42;
+      color: var(--muted);
+      grid-column: 2;
+      align-self: center;
+    }
+
+    #profileModalAlireza .profile-grounding-tags,
+    #profileModalReza .profile-grounding-tags,
+    #profileModalAli .profile-grounding-tags {
+      gap: 7px;
+    }
+
+    #profileModalAlireza .profile-grounding-tags span,
+    #profileModalReza .profile-grounding-tags span,
+    #profileModalAli .profile-grounding-tags span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    #profileModalAlireza .profile-grounding-tags img,
+    #profileModalReza .profile-grounding-tags img,
+    #profileModalAli .profile-grounding-tags img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      display: inline-block;
+      flex: 0 0 14px;
     }
 
     /* Resume modal content */
@@ -2576,6 +3034,9 @@
       .profile-id-role { font-size: 10px; }
       .profile-facts,
       .profile-panels { grid-template-columns: 1fr; }
+      #profileModalAlireza .profile-duo-grid,
+      #profileModalReza .profile-duo-grid,
+      #profileModalAli .profile-duo-grid { grid-template-columns: 1fr; }
       .profile-identity {
         left: 14px;
         right: 14px;
@@ -2817,11 +3278,31 @@
 
       <div class="nav-actions">
         <div class="lang-switch" aria-label="Language switcher">
-          <select class="lang-select" id="langSwitch" aria-label="Language selector">
-            <option value="en">🇬🇧 English</option>
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="pl">🇵🇱 Polski</option>
-          </select>
+          <div class="custom-select lang-picker" id="langSwitch">
+            <button class="custom-select-trigger" id="langSwitchTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language selector">
+              <span class="custom-select-value" id="langSwitchValue"></span>
+            </button>
+            <ul class="custom-select-menu" id="langSwitchMenu" role="listbox" hidden>
+              <li>
+                <button class="custom-option" type="button" data-lang-value="en">
+                  <span class="custom-option-icon">🇬🇧</span>
+                  <span class="custom-option-label" data-lang-label="en"></span>
+                </button>
+              </li>
+              <li>
+                <button class="custom-option" type="button" data-lang-value="de">
+                  <span class="custom-option-icon">🇩🇪</span>
+                  <span class="custom-option-label" data-lang-label="de"></span>
+                </button>
+              </li>
+              <li>
+                <button class="custom-option" type="button" data-lang-value="pl">
+                  <span class="custom-option-icon">🇵🇱</span>
+                  <span class="custom-option-label" data-lang-label="pl"></span>
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
         <a class="btn secondary" href="#contact" data-i18n="nav_contact"></a>
         <button class="btn primary" type="button" data-open-contact-modal="main" data-i18n="cta_start"></button>
@@ -2846,7 +3327,9 @@
           </div>
         </div>
       </div>
+    </section>
 
+    <section class="hero-trust snap-block" aria-label="Trust Highlights">
       <div class="trust-strip">
         <div class="trust-item">
           <div class="trust-value" data-i18n="trust_1_v"></div>
@@ -2868,13 +3351,13 @@
     </section>
 
     <section class="bento">
-      <div class="tile span-12 snap-block" id="team">
+      <div class="tile span-12 snap-block full-bleed-section" id="team">
         <h2 data-i18n="team_title"></h2>
 
         <div class="team-grid">
-          <article class="team-card" data-member="reza">
+          <article class="team-card" data-member="reza" role="button" tabindex="0" aria-label="Open profile for PhD. Reza Mosalanezhad">
             <div class="team-photo-ring">
-              <img class="team-photo" src="assets/Mosalanezhad.jpg" alt="PhD. Reza Mosalanezhad" loading="lazy" />
+              <img class="team-photo" src="assets/Mosalanezhad.png" alt="PhD. Reza Mosalanezhad" loading="lazy" />
             </div>
             <div class="team-meta">
               <div class="team-name" data-i18n="member_2_name"></div>
@@ -2885,15 +3368,12 @@
                 <span class="chip" data-i18n="member_2_tag_2"></span>
                 <span class="chip" data-i18n="member_2_tag_3"></span>
               </div>
-              <button class="team-view-btn" type="button" aria-label="View profile for PhD. Reza Mosalanezhad" data-open-profile="reza">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
-              </button>
             </div>
           </article>
 
-          <article class="team-card leader" data-member="alireza">
+          <article class="team-card leader" data-member="alireza" role="button" tabindex="0" aria-label="Open profile for Alireza Khaledi">
             <div class="team-photo-ring">
-              <img class="team-photo" src="assets/Khaledi.jpg" alt="Alireza Khaledi" loading="lazy" />
+              <img class="team-photo" src="assets/khaledi.png" alt="Alireza Khaledi" loading="lazy" />
             </div>
             <div class="team-meta">
               <div class="team-name" data-i18n="member_1_name"></div>
@@ -2904,13 +3384,10 @@
                 <span class="chip" data-i18n="member_1_tag_2"></span>
                 <span class="chip" data-i18n="member_1_tag_3"></span>
               </div>
-              <button class="team-view-btn" type="button" aria-label="View profile for Alireza Khaledi" data-open-profile="alireza">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
-              </button>
             </div>
           </article>
 
-          <article class="team-card" data-member="ali">
+          <article class="team-card" data-member="ali" role="button" tabindex="0" aria-label="Open profile for Ali Ghelej Beigi">
             <div class="team-photo-ring">
               <img class="team-photo" src="assets/Ghelej.png" alt="Ali Ghelej Beigi" loading="lazy" />
             </div>
@@ -2923,15 +3400,28 @@
                 <span class="chip" data-i18n="member_3_tag_2"></span>
                 <span class="chip" data-i18n="member_3_tag_3"></span>
               </div>
-              <button class="team-view-btn" type="button" aria-label="View profile for Ali Ghelej Beigi" data-open-profile="ali">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
-              </button>
+            </div>
+          </article>
+
+          <article class="team-card" data-member="mojtaba" aria-label="Profile card for M Mokhtari">
+            <div class="team-photo-ring">
+              <img class="team-photo" src="assets/Mokhtari.png" alt="M Mokhtari" loading="lazy" />
+            </div>
+            <div class="team-meta">
+              <div class="team-name" data-i18n="member_4_name"></div>
+              <div class="team-role" data-i18n="member_4_role"></div>
+              <div class="power-statement" data-i18n="member_4_power"></div>
+              <div class="chip-row">
+                <span class="chip" data-i18n="member_4_tag_1"></span>
+                <span class="chip" data-i18n="member_4_tag_2"></span>
+                <span class="chip" data-i18n="member_4_tag_3"></span>
+              </div>
             </div>
           </article>
         </div>
       </div>
 
-      <div class="tile span-12 snap-block" id="services">
+      <div class="tile span-12 snap-block full-bleed-section" id="services">
         <h2 data-i18n="services_title"></h2>
 
         <div class="services-layout">
@@ -2954,7 +3444,7 @@
         </div>
       </div>
 
-      <div class="tile span-12 engagement-section snap-block" id="engagement">
+      <div class="tile span-12 engagement-section snap-block full-bleed-section" id="engagement">
         <h2 data-i18n="engagement_title"></h2>
         <p class="section-note engagement-intro" data-i18n="engagement_desc"></p>
 
@@ -3020,36 +3510,35 @@
         </div>
       </div>
 
-      <div class="tile span-12 snap-block" id="stack">
+      <div class="tile span-12 snap-block full-bleed-section" id="stack">
         <h2 data-i18n="tools_title"></h2>
 
         <div class="tool-cloud" aria-hidden="true">
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="Siemens"><span>Siemens TIA Portal</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="STEP 7"><span>Siemens STEP 7</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="WinCC"><span>WinCC</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="PLC"><span>PLC Programming</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="HMI"><span>HMI Configuration</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="SCADA"><span>SCADA Monitoring</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="Commissioning"><span>Commissioning</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/1a73e8" alt="Diagnostics"><span>Industrial Diagnostics</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/flutter/1a73e8" alt="Flutter"><span>Flutter</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/dart/1a73e8" alt="Dart"><span>Dart</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/androidstudio/1a73e8" alt="Android Studio"><span>Android Studio</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/xcode/1a73e8" alt="Xcode"><span>Xcode</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/firebase/1a73e8" alt="Firebase"><span>Firebase</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/openapiinitiative/1a73e8" alt="REST APIs"><span>REST API Integration</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/git/1a73e8" alt="Git"><span>Git</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/github/1a73e8" alt="GitHub"><span>GitHub</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/jira/1a73e8" alt="Jira"><span>Jira</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/confluence/1a73e8" alt="Confluence"><span>Confluence</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/microsoftproject/1a73e8" alt="MS Project"><span>MS Project</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/microsoftexcel/1a73e8" alt="Excel"><span>Excel</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/figma/1a73e8" alt="Figma"><span>Figma</span></div>
-          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/readthedocs/1a73e8" alt="Reporting"><span>Technical Reporting</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP"><span>PHP</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#"><span>C#</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL"><span>SQL</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" alt="WordPress"><span>WordPress</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/microsoft-project-2019.png" alt="MS Project"><span>MS Project</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure"><span>Azure</span></div>
+
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.simpleicons.org/siemens/009999" alt="Siemens"><span>Siemens S7-1200/1500</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/engineering.png" alt="TIA Portal"><span>TIA Portal</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/gear.png" alt="Step7"><span>Step7</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/monitor--v1.png" alt="WinCC"><span>WinCC / WinCC Unified</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/wired-network-connection.png" alt="PROFINET / PROFIBUS"><span>PROFINET / PROFIBUS</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" alt="MATLAB / Simulink"><span>MATLAB / Simulink</span></div>
+
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter"><span>Flutter</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart"><span>Dart</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/blueprint.png" alt="Clean Architecture"><span>Clean Architecture</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/workflow.png" alt="Riverpod / Bloc / Provider"><span>Riverpod / Bloc / Provider</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://img.icons8.com/color/48/api-settings.png" alt="REST APIs / WebSocket"><span>REST APIs / WebSocket</span></div>
+          <div class="tool-pill"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase"><span>Firebase</span></div>
         </div>
       </div>
 
-      <div class="tile span-12 snap-block" id="evidence">
+      <div class="tile span-12 snap-block full-bleed-section" id="evidence">
         <h2 data-i18n="evidence_title"></h2>
         <p class="section-intro" data-i18n="evidence_intro"></p>
 
@@ -3210,14 +3699,46 @@
             <input id="company" name="company" type="text" data-i18n-placeholder="ph_company" placeholder="" />
           </div>
 
-          <div class="field">
+          <div class="field select-field custom-select-field">
             <label for="projectType" data-i18n="label_type"></label>
-            <select id="projectType" name="projectType">
-              <option data-i18n="opt_type"></option>
-              <option data-i18n="opt_delivery"></option>
-              <option data-i18n="opt_automation"></option>
-              <option data-i18n="opt_mobile"></option>
-            </select>
+            <div class="custom-select" id="projectTypeSelect">
+              <input id="projectType" name="projectType" type="hidden" value="" />
+              <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span class="custom-select-value" id="projectTypeValue"></span>
+              </button>
+              <ul class="custom-select-menu" id="projectTypeMenu" role="listbox" hidden>
+                <li>
+                  <button class="custom-option" type="button" data-option-value="" data-option-i18n="opt_type">
+                    <span class="custom-option-icon">•</span>
+                    <span class="custom-option-label"></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="custom-option" type="button" data-option-value="Industrial Automation" data-option-i18n="opt_automation">
+                    <span class="custom-option-icon">⚙️</span>
+                    <span class="custom-option-label"></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="custom-option" type="button" data-option-value="MatLab" data-option-i18n="opt_matlab">
+                    <span class="custom-option-icon">🧮</span>
+                    <span class="custom-option-label"></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="custom-option" type="button" data-option-value="Web Developer" data-option-i18n="opt_webdev">
+                    <span class="custom-option-icon">🌐</span>
+                    <span class="custom-option-label"></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="custom-option" type="button" data-option-value="Mobile Developer" data-option-i18n="opt_mobile">
+                    <span class="custom-option-icon">📱</span>
+                    <span class="custom-option-label"></span>
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="field">
@@ -3251,6 +3772,7 @@
       <span data-i18n="footer_main"></span>
       <span class="footer-note" data-i18n="footer_note"></span>
       <span data-i18n="footer_meta"></span>
+      <span data-i18n="footer_copyright"></span>
     </footer>
   </main>
 
@@ -3301,6 +3823,9 @@
   <script>
     const root = document.documentElement;
     const langSwitch = document.getElementById("langSwitch");
+    const langSwitchTrigger = document.getElementById("langSwitchTrigger");
+    const langSwitchValue = document.getElementById("langSwitchValue");
+    const langSwitchMenu = document.getElementById("langSwitchMenu");
     const catalogModal = document.getElementById("catalogModal");
     const catalogOpen = document.getElementById("catalogOpen");
     const catalogClose = document.getElementById("catalogClose");
@@ -3329,7 +3854,7 @@
         nav_stack: "Capabilities",
         nav_portfolio: "Proof",
         nav_contact: "Contact",
-        cta_start: "Project Request",
+        cta_start: "Request Project",
         catalog_btn: "Catalog",
         catalog_print: "Print / Save PDF",
         cta_explore: "See Solutions",
@@ -3360,27 +3885,27 @@
         trust_4_l: "Direct access to delivery owners",
 
         team_kicker: "Delivery Leads",
-        team_title: "The people clients actually work with",
+        team_title: "Our Team",
         leader_flag: "Founder",
         member_1_badge: "Group Director",
-        member_1_name: "Alireza Khaledi",
+        member_1_name: "A Khaledi",
         member_1_role: "Technical Project Coordination",
-        member_1_power: "10+ years · Delivery support · Software execution",
+        member_1_power: "Coordinates technical delivery across software and automation workstreams. Aligns stakeholders, structures milestones, and keeps execution clear.",
         member_1_short: "Technical coordination with stronger delivery control and measurable follow-through.",
         member_1_tag_1: "Delivery",
         member_1_tag_2: "Coordination",
-        member_1_tag_3: "Reporting",
+        member_1_tag_3: "Web",
         member_1_t1: "Project Recovery",
         member_1_t2: "Stakeholder Alignment",
         member_1_t3: "Agile Delivery",
         member_1_t4: "Risk Control",
 
         member_2_badge: "Head of Automation & Industrial Design",
-        member_2_name: "PhD. Reza Mosalanezhad",
+        member_2_name: "PhD. R Mosalanezhad",
         member_2_role: "Industrial Automation",
-        member_2_power: "OEE +18% · Downtime -22% · Commissioning",
+        member_2_power: "Leads industrial automation delivery with plant-side execution. Supports PLC logic, commissioning, diagnostics, and simulation in production environments.",
         member_2_short: "Plant-side automation support for Siemens-based industrial environments.",
-        member_2_tag_1: "Siemens PLC",
+        member_2_tag_1: "PLC",
         member_2_tag_2: "Commissioning",
         member_2_tag_3: "Simulation",
         member_2_t1: "PLC",
@@ -3389,9 +3914,9 @@
         member_2_t4: "IIoT",
 
         member_3_badge: "Head of Mobile Design",
-        member_3_name: "Ali Ghelej Beigi",
+        member_3_name: "A Ghelejbeigi",
         member_3_role: "Flutter Systems",
-        member_3_power: "ERP apps · CRM systems · Responsive business apps",
+        member_3_power: "Delivers maintainable Flutter systems for business applications. Builds responsive interfaces and integrates ERP/CRM workflows.",
         member_3_short: "Maintainable Flutter systems for operational and business-facing products.",
         member_3_tag_1: "Flutter",
         member_3_tag_2: "ERP-CRM",
@@ -3400,6 +3925,12 @@
         member_3_t2: "Dart",
         member_3_t3: "Bloc",
         member_3_t4: "Riverpod",
+        member_4_name: "M Mokhtari",
+        member_4_role: "Web Developer",
+        member_4_power: "Supports web delivery with a practical execution mindset. Helps move tasks forward and keeps project flow consistent.",
+        member_4_tag_1: "Web",
+        member_4_tag_2: "Automation",
+        member_4_tag_3: "Support",
         team_view_profile: "View Profile",
 
         services_kicker: "Solutions",
@@ -3523,7 +4054,7 @@
         next: "Next",
 
         contact_section_kicker: "Contact",
-        contact_title: "Start the conversation",
+        contact_title: "Request Project",
         contact_desc: "Share your project details and get a response within 24 hours.",
         label_name: "Name",
         label_email: "Email",
@@ -3545,9 +4076,11 @@
         ph_subject: "Short subject",
         ph_message: "Write your message",
         opt_type: "Select project type",
-        opt_delivery: "Delivery Operations",
-        opt_automation: "Industrial Automation",
-        opt_mobile: "Mobile Product Execution",
+        opt_delivery: "PLC",
+        opt_automation: "PLC",
+        opt_matlab: "MatLab",
+        opt_webdev: "Web Developer",
+        opt_mobile: "Mobile Developer",
         send_btn: "Send",
         contact_p1: "Share your scope and timeline.",
         contact_p2: "We review fit and define the right path.",
@@ -3569,6 +4102,7 @@
         footer_main: "KHALEDI · ENGINEERING DELIVERY GROUP",
         footer_note: "A compact engineering team for delivery coordination, automation support, and mobile execution.",
         footer_meta: "Built for practical collaboration across industrial and digital work.",
+        footer_copyright: "© 2026 KHALEDI. All rights reserved.",
         snack: "Form submitted successfully.",
         dismiss: "Dismiss",
 
@@ -3726,25 +4260,25 @@
         trust_4_l: "Schnellerer CRM-Datenabruf durch Backend-Implementierung",
 
         team_kicker: "Kernteam",
-        team_title: "The people clients actually work with",
+        team_title: "Our Team",
         leader_flag: "Founder",
         member_1_badge: "Group Director",
-        member_1_name: "Alireza Khaledi",
+        member_1_name: "A Khaledi",
         member_1_role: "Group Director",
-        member_1_power: "Verbindet Softwareverständnis mit strukturierter Koordination, sauberem Follow-through und praxisnaher Stakeholder-Kommunikation in technischen B2B-Projekten.",
+        member_1_power: "Coordinates technical delivery across software and automation workstreams. Aligns stakeholders, structures milestones, and keeps execution clear.",
         member_1_short: "Technische Koordination mit stärkerer Delivery-Kontrolle und messbarem Follow-through.",
         member_1_tag_1: "Delivery Support",
         member_1_tag_2: "Stakeholder Clarity",
-        member_1_tag_3: "Execution Discipline",
+        member_1_tag_3: "Web",
         member_1_t1: "Project Recovery",
         member_1_t2: "Stakeholder Alignment",
         member_1_t3: "Agile Delivery",
         member_1_t4: "Risk Control",
 
         member_2_badge: "Head of Automation & Industrial Design",
-        member_2_name: "PhD. Reza Mosalanezhad",
+        member_2_name: "PhD. R Mosalanezhad",
         member_2_role: "Head of Automation & Industrial Design",
-        member_2_power: "Bringt industrielle Tiefe über Siemens-PLC-Engineering, Commissioning, Diagnostics, HMI / SCADA-Transparenz und plant-nahe Control-Ausführung in realen Betriebsumgebungen ein.",
+        member_2_power: "Leads industrial automation delivery with plant-side execution. Supports PLC logic, commissioning, diagnostics, and simulation in production environments.",
         member_2_short: "Plant-side-Automatisierungsunterstützung für Siemens-basierte Industrieumgebungen.",
         member_2_tag_1: "PLC",
         member_2_tag_2: "TIA Portal",
@@ -3755,9 +4289,9 @@
         member_2_t4: "IIoT",
 
         member_3_badge: "Head of Mobile Design",
-        member_3_name: "Ali Ghelej Beigi",
+        member_3_name: "A Ghelejbeigi",
         member_3_role: "Head of Mobile Design",
-        member_3_power: "Liefert wartbare Flutter-Systeme für business-nahe Produkte mit responsiver UI, sauberer Architektur, operativen Workflows und disziplinierter Implementierungsqualität.",
+        member_3_power: "Delivers maintainable Flutter systems for business applications. Builds responsive interfaces and integrates ERP/CRM workflows.",
         member_3_short: "Wartbare Flutter-Systeme für operative und business-nahe Produkte.",
         member_3_tag_1: "Flutter",
         member_3_tag_2: "Clean Architecture",
@@ -3766,6 +4300,12 @@
         member_3_t2: "Dart",
         member_3_t3: "Bloc",
         member_3_t4: "Riverpod",
+        member_4_name: "M Mokhtari",
+        member_4_role: "Web Developer",
+        member_4_power: "Supports web delivery with a practical execution mindset. Helps move tasks forward and keeps project flow consistent.",
+        member_4_tag_1: "Web",
+        member_4_tag_2: "Automation",
+        member_4_tag_3: "Support",
         team_view_profile: "Profil ansehen",
 
         services_kicker: "Leistungen",
@@ -3873,7 +4413,7 @@
         next: "Weiter",
 
         contact_section_kicker: "Projektstart",
-        contact_title: "Projektgespräch starten",
+        contact_title: "Projektanfrage-Formular",
         contact_desc: "Teilen Sie Ihre Projektdaten. Wir antworten innerhalb von 24 Stunden.",
         label_name: "Name",
         label_email: "E-Mail",
@@ -3895,9 +4435,11 @@
         ph_subject: "Short subject",
         ph_message: "Write your message",
         opt_type: "Projekttyp wählen",
-        opt_delivery: "Delivery Operations",
-        opt_automation: "Industrial Automation",
-        opt_mobile: "Mobile Product Execution",
+        opt_delivery: "PLC",
+        opt_automation: "PLC",
+        opt_matlab: "MatLab",
+        opt_webdev: "Web Developer",
+        opt_mobile: "Mobile Developer",
         send_btn: "Send",
         contact_p1: "Teilen Sie Scope und Zeitrahmen.",
         contact_p2: "Wir prüfen Fit und Vorgehen.",
@@ -3919,6 +4461,7 @@
         footer_main: "KHALEDI · Independent Engineering Squad",
         footer_note: "Bayern-basiert. B2B-ready. Delivery, Automation und Mobile Execution.",
         footer_meta: "Engineering Delivery über industrielle und digitale Arbeit hinweg.",
+        footer_copyright: "© 2026 KHALEDI. Alle Rechte vorbehalten.",
         snack: "Formular erfolgreich gesendet.",
         dismiss: "Schließen",
 
@@ -4076,25 +4619,25 @@
         trust_4_l: "Szybsze pobieranie danych CRM dzięki backendowi",
 
         team_kicker: "Zespół",
-        team_title: "The people clients actually work with",
+        team_title: "Our Team",
         leader_flag: "Founder",
         member_1_badge: "Group Director",
-        member_1_name: "Alireza Khaledi",
+        member_1_name: "A Khaledi",
         member_1_role: "Group Director",
-        member_1_power: "Łączy zrozumienie software delivery z uporządkowaną koordynacją, egzekucją follow-through i praktyczną komunikacją ze stakeholderami w technicznych projektach B2B.",
+        member_1_power: "Coordinates technical delivery across software and automation workstreams. Aligns stakeholders, structures milestones, and keeps execution clear.",
         member_1_short: "Techniczna koordynacja z mocniejszą kontrolą delivery i mierzalnym follow-through.",
         member_1_tag_1: "Delivery Support",
         member_1_tag_2: "Stakeholder Clarity",
-        member_1_tag_3: "Execution Discipline",
+        member_1_tag_3: "Web",
         member_1_t1: "Project Recovery",
         member_1_t2: "Stakeholder Alignment",
         member_1_t3: "Agile Delivery",
         member_1_t4: "Risk Control",
 
         member_2_badge: "Head of Automation & Industrial Design",
-        member_2_name: "PhD. Reza Mosalanezhad",
+        member_2_name: "PhD. R Mosalanezhad",
         member_2_role: "Head of Automation & Industrial Design",
-        member_2_power: "Projektuje i wspiera automatykę przemysłową, łącząc inżynierię PLC, logikę sterowania i niezawodne wykonanie po stronie zakładu.",
+        member_2_power: "Leads industrial automation delivery with plant-side execution. Supports PLC logic, commissioning, diagnostics, and simulation in production environments.",
         member_2_short: "Wsparcie automatyki po stronie zakładu dla środowisk opartych na Siemens.",
         member_2_tag_1: "PLC",
         member_2_tag_2: "TIA Portal",
@@ -4105,9 +4648,9 @@
         member_2_t4: "IIoT",
 
         member_3_badge: "Head of Mobile Design",
-        member_3_name: "Ali Ghelej Beigi",
+        member_3_name: "A Ghelejbeigi",
         member_3_role: "Head of Mobile Design",
-        member_3_power: "Buduje skalowalne produkty Flutter z czystą architekturą, dopracowanym UI i łatwym w utrzymaniu frontendem.",
+        member_3_power: "Delivers maintainable Flutter systems for business applications. Builds responsive interfaces and integrates ERP/CRM workflows.",
         member_3_short: "Utrzymywalne systemy Flutter dla operacyjnych i biznesowych produktów.",
         member_3_tag_1: "Flutter",
         member_3_tag_2: "Clean Architecture",
@@ -4116,6 +4659,12 @@
         member_3_t2: "Dart",
         member_3_t3: "Bloc",
         member_3_t4: "Riverpod",
+        member_4_name: "M Mokhtari",
+        member_4_role: "Web Developer",
+        member_4_power: "Supports web delivery with a practical execution mindset. Helps move tasks forward and keeps project flow consistent.",
+        member_4_tag_1: "Web",
+        member_4_tag_2: "Automation",
+        member_4_tag_3: "Support",
         team_view_profile: "Zobacz profil",
 
         services_kicker: "Usługi",
@@ -4223,7 +4772,7 @@
         next: "Dalej",
 
         contact_section_kicker: "Start projektu",
-        contact_title: "Rozpocznij rozmowę o projekcie",
+        contact_title: "Formularz zgłoszenia projektu",
         contact_desc: "Prześlij dane projektu. Odpowiemy w ciągu 24 godzin.",
         label_name: "Imię i nazwisko",
         label_email: "Email",
@@ -4245,9 +4794,11 @@
         ph_subject: "Short subject",
         ph_message: "Write your message",
         opt_type: "Wybierz typ projektu",
-        opt_delivery: "Delivery Operations",
-        opt_automation: "Industrial Automation",
-        opt_mobile: "Mobile Product Execution",
+        opt_delivery: "PLC",
+        opt_automation: "PLC",
+        opt_matlab: "MatLab",
+        opt_webdev: "Web Developer",
+        opt_mobile: "Mobile Developer",
         send_btn: "Send",
         contact_p1: "Prześlij scope i timeline.",
         contact_p2: "Sprawdzamy dopasowanie i model współpracy.",
@@ -4269,6 +4820,7 @@
         footer_main: "KHALEDI · Independent Engineering Squad",
         footer_note: "Bawaria. B2B-ready. Delivery, automatyka i mobile execution.",
         footer_meta: "Engineering delivery dla pracy przemysłowej i cyfrowej.",
+        footer_copyright: "© 2026 KHALEDI. Wszelkie prawa zastrzeżone.",
         snack: "Form submitted successfully.",
         dismiss: "Zamknij",
 
@@ -4347,7 +4899,7 @@
 
     const profileData = {
       alireza: {
-        image: "assets/Khaledi.jpg",
+        image: "assets/khaledi.png",
         imageAlt: "Alireza Khaledi",
         badge: "Founder · Technical Project Coordinator",
         name: "Alireza Khaledi",
@@ -4402,7 +4954,7 @@
         ]
       },
       reza: {
-        image: "assets/Mosalanezhad.jpg",
+        image: "assets/Mosalanezhad.png",
         imageAlt: "Reza Mosalanezhad",
         badge: "Automation",
         name: "Reza Mosalanezhad",
@@ -4517,8 +5069,41 @@
       return "en";
     }
 
+    function formatLangDisplay(code, isMobile) {
+      const desktopMap = {
+        en: "🇬🇧 English",
+        de: "🇩🇪 Deutsch",
+        pl: "🇵🇱 Polski"
+      };
+      const mobileMap = {
+        en: "🇬🇧 EN",
+        de: "🇩🇪 DE",
+        pl: "🇵🇱 PL"
+      };
+      return isMobile ? (mobileMap[code] || code.toUpperCase()) : (desktopMap[code] || code);
+    }
+
+    function formatLangOptionLabel(code) {
+      const optionMap = {
+        en: "EN",
+        de: "DE",
+        pl: "PL"
+      };
+      return optionMap[code] || code.toUpperCase();
+    }
+
     function setLangButtons(lang) {
-      if (langSwitch) langSwitch.value = lang;
+      if (!langSwitch) return;
+      langSwitch.dataset.value = lang;
+      const isMobile = window.matchMedia("(max-width: 640px)").matches;
+      if (langSwitchValue) langSwitchValue.textContent = formatLangDisplay(lang, isMobile);
+
+      langSwitch.querySelectorAll("[data-lang-value]").forEach(optionBtn => {
+        const code = optionBtn.getAttribute("data-lang-value") || "";
+        const labelEl = optionBtn.querySelector("[data-lang-label]");
+        if (labelEl) labelEl.textContent = formatLangOptionLabel(code);
+        optionBtn.setAttribute("aria-selected", String(code === lang));
+      });
     }
 
     function applyLanguage(lang) {
@@ -4551,14 +5136,28 @@
       renderListText(catContact, t.catalog_contact || []);
 
       document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
-        const key = el.getAttribute("data-i18n-placeholder");
-        if (t[key] !== undefined) el.setAttribute("placeholder", t[key]);
+        el.setAttribute("placeholder", "");
       });
 
       document.querySelectorAll("[data-i18n-alt]").forEach(el => {
         const key = el.getAttribute("data-i18n-alt");
         if (t[key] !== undefined) el.setAttribute("alt", t[key]);
       });
+
+      const projectTypeSelectEl = document.getElementById("projectTypeSelect");
+      const projectTypeHiddenInputEl = document.getElementById("projectType");
+      const projectTypeValueEl = document.getElementById("projectTypeValue");
+      if (projectTypeSelectEl && projectTypeValueEl) {
+        projectTypeSelectEl.querySelectorAll("[data-option-i18n]").forEach(option => {
+          const key = option.getAttribute("data-option-i18n");
+          const labelEl = option.querySelector(".custom-option-label");
+          if (labelEl && t[key] !== undefined) labelEl.textContent = t[key];
+        });
+
+        const active = projectTypeSelectEl.querySelector(`.custom-option[data-option-value="${CSS.escape(projectTypeHiddenInputEl?.value || "")}"]`);
+        const activeKey = active?.getAttribute("data-option-i18n") || "opt_type";
+        projectTypeValueEl.textContent = t[activeKey] || "";
+      }
 
       root.lang = lang;
       setLangButtons(lang);
@@ -4594,9 +5193,44 @@
     const savedLang = localStorage.getItem("lang");
     applyLanguage(savedLang || getLangFromBrowser());
 
-    langSwitch.addEventListener("change", e => {
-      applyLanguage(e.target.value);
+    setLangButtons(localStorage.getItem("lang") || getLangFromBrowser());
+    window.addEventListener("resize", () => {
+      setLangButtons(localStorage.getItem("lang") || getLangFromBrowser());
     });
+
+    if (langSwitch && langSwitchTrigger && langSwitchMenu) {
+      langSwitchTrigger.addEventListener("click", () => {
+        const isOpen = langSwitch.classList.toggle("open");
+        langSwitchMenu.hidden = !isOpen;
+        langSwitchTrigger.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      langSwitch.querySelectorAll("[data-lang-value]").forEach(optionBtn => {
+        optionBtn.addEventListener("click", () => {
+          const lang = optionBtn.getAttribute("data-lang-value") || "en";
+          applyLanguage(lang);
+          langSwitch.classList.remove("open");
+          langSwitchMenu.hidden = true;
+          langSwitchTrigger.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("click", e => {
+        if (!langSwitch.contains(e.target)) {
+          langSwitch.classList.remove("open");
+          langSwitchMenu.hidden = true;
+          langSwitchTrigger.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+          langSwitch.classList.remove("open");
+          langSwitchMenu.hidden = true;
+          langSwitchTrigger.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
 
     const snackbar = document.getElementById("snackbar");
     const snackClose = document.getElementById("snackClose");
@@ -4608,6 +5242,11 @@
     const fastContactForm = document.getElementById("fastContactForm");
     const contactModal = document.getElementById("contactModal");
     const contactOpenButtons = document.querySelectorAll("[data-open-contact-modal]");
+    const projectTypeSelect = document.getElementById("projectTypeSelect");
+    const projectTypeHiddenInput = document.getElementById("projectType");
+    const projectTypeTrigger = projectTypeSelect?.querySelector(".custom-select-trigger");
+    const projectTypeValue = document.getElementById("projectTypeValue");
+    const projectTypeMenu = document.getElementById("projectTypeMenu");
     const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbw_b8t-Y_KZwG-hu3tRoslCfTHwea3yNosOQrhThQpX00qN0oxwUgqnL3CByJQESWuQEg/exec";
     const startedAtInput = document.getElementById("startedAt");
 
@@ -4648,15 +5287,27 @@
 
     function openSimpleModal(modal) {
       if (!modal) return;
+      const topbar = document.querySelector(".topbar");
+      const topOffset = Math.ceil(topbar?.getBoundingClientRect().height || 72);
+      root.style.setProperty("--modal-top-offset", `${topOffset}px`);
+      modal.classList.add("below-header");
       modal.hidden = false;
       modal.classList.add("show");
       modal.setAttribute("aria-hidden", "false");
+      const scrollNode = modal.querySelector(".contact-modal-shell, .modal-shell, .resume-shell");
+      if (scrollNode) {
+        scrollNode.scrollTop = 0;
+        requestAnimationFrame(() => {
+          scrollNode.scrollTop = 0;
+        });
+      }
       document.body.style.overflow = "hidden";
     }
 
     function closeSimpleModal(modal) {
       if (!modal) return;
       modal.classList.remove("show");
+      modal.classList.remove("below-header");
       modal.setAttribute("aria-hidden", "true");
       modal.hidden = true;
       if (!document.querySelector(".modal-overlay.show")) {
@@ -4665,6 +5316,39 @@
     }
 
     contactOpenButtons.forEach(btn => btn.addEventListener("click", () => openSimpleModal(contactModal)));
+
+    if (projectTypeSelect && projectTypeTrigger && projectTypeMenu && projectTypeHiddenInput && projectTypeValue) {
+      const setProjectType = optionBtn => {
+        const value = optionBtn.getAttribute("data-option-value") || "";
+        const label = optionBtn.querySelector(".custom-option-label")?.textContent || "";
+        projectTypeHiddenInput.value = value;
+        projectTypeValue.textContent = label;
+        projectTypeSelect.classList.remove("open");
+        projectTypeMenu.hidden = true;
+        projectTypeTrigger.setAttribute("aria-expanded", "false");
+
+        const field = projectTypeSelect.closest(".field");
+        if (field) field.classList.toggle("has-value", value.trim().length > 0);
+      };
+
+      projectTypeTrigger.addEventListener("click", () => {
+        const isOpen = projectTypeSelect.classList.toggle("open");
+        projectTypeMenu.hidden = !isOpen;
+        projectTypeTrigger.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      projectTypeMenu.querySelectorAll(".custom-option").forEach(optionBtn => {
+        optionBtn.addEventListener("click", () => setProjectType(optionBtn));
+      });
+
+      document.addEventListener("click", e => {
+        if (!projectTypeSelect.contains(e.target)) {
+          projectTypeSelect.classList.remove("open");
+          projectTypeMenu.hidden = true;
+          projectTypeTrigger.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
 
     function toggleContactNumber(btn) {
       const revealWrap = btn?.closest(".contact-reveal");
@@ -4796,6 +5480,34 @@
       });
     }
 
+    const updateFloatingFieldState = field => {
+      if (!field || field.classList.contains("hp-field")) return;
+      const control = field.querySelector("input, textarea, select");
+      if (!control) return;
+
+      let hasValue = false;
+      if (control.tagName === "SELECT") {
+        hasValue = control.value !== "";
+      } else {
+        hasValue = control.value.trim().length > 0;
+      }
+      field.classList.toggle("has-value", hasValue);
+    };
+
+    const bindFloatingLabels = rootNode => {
+      rootNode.querySelectorAll(".field").forEach(field => {
+        if (field.classList.contains("hp-field")) return;
+        const control = field.querySelector("input, textarea, select");
+        if (!control) return;
+        updateFloatingFieldState(field);
+        ["input", "change", "blur"].forEach(evt =>
+          control.addEventListener(evt, () => updateFloatingFieldState(field))
+        );
+      });
+    };
+
+    bindFloatingLabels(document);
+
     const navLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
     const sections = navLinks.map(link => document.querySelector(link.getAttribute("href"))).filter(Boolean);
 
@@ -4868,81 +5580,83 @@
       <div class="profile-modal-body">
         <article class="profile-card">
           <div class="profile-visual">
-            <img class="profile-portrait" src="assets/Khaledi.jpg" alt="Alireza Khaledi" loading="lazy" />
+            <img class="profile-portrait" src="assets/khaledi.png" alt="Alireza Khaledi" loading="lazy" />
             <div class="profile-identity">
-              <div class="profile-id-kicker">Founder · Technical Project Coordinator</div>
               <div class="profile-id-name-wrap">
-                <h2 class="profile-id-name" id="profileTitleAlireza">Alireza Khaledi</h2>
-                <span class="profile-download-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m7.8 11.5 4.2 4.2 4.2-4.2"></path><path d="M5 19h14"></path></svg>
-                </span>
+                <h2 class="profile-id-name" id="profileTitleAlireza">A Khaledi</h2>
               </div>
-              <div class="profile-id-role">Technical Project Coordinator</div>
+              <div class="profile-id-role">Technical Project Coordination</div>
               <div class="profile-id-tags">
-                <span class="profile-id-tag">Poland</span>
-                <span class="profile-id-tag">10+ Years</span>
-                <span class="profile-id-tag">Software + Delivery</span>
+                <span class="profile-id-tag">Delivery</span>
+                <span class="profile-id-tag">Coordination</span>
+                <span class="profile-id-tag">Web</span>
               </div>
             </div>
           </div>
 
           <div class="profile-content">
-            <div class="profile-facts">
-              <div class="profile-fact">
-                <div class="profile-fact-label">Base</div>
-                <div class="profile-fact-value">Based in Poland | Open to Germany and the EU</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Focus</div>
-                <div class="profile-fact-value">Technical project coordination</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Engagement</div>
-                <div class="profile-fact-value">Structured project delivery support with practical follow-through</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Style</div>
-                <div class="profile-fact-value">Clear reporting, visible progress, low-noise execution discipline</div>
-              </div>
+            <article class="profile-panel profile-summary-card">
+              <h3>Summary</h3>
+              <p>I help technical projects move with clearer ownership, stronger follow-through, and more visible progress.</p>
+            </article>
+
+            <div class="profile-duo-grid">
+              <article class="profile-panel">
+                <h3>What I do</h3>
+                <ul class="profile-list">
+                  <li>Technical project coordination</li>
+                  <li>Delivery follow-through</li>
+                  <li>Stakeholder communication</li>
+                  <li>Progress tracking</li>
+                  <li>Technical reporting</li>
+                </ul>
+              </article>
+
+              <article class="profile-panel">
+                <h3>Why clients bring me in</h3>
+                <ul class="profile-list">
+                  <li>When project ownership is unclear</li>
+                  <li>When execution needs more structure</li>
+                  <li>When stakeholders need visibility</li>
+                  <li>When follow-up is weak</li>
+                </ul>
+              </article>
             </div>
 
-            <div class="profile-panels">
-              <article class="profile-panel">
-                <h3>Bio</h3>
-                <p>
-                  Combines hands-on software background with structured project coordination, delivery support, stakeholder communication, and execution visibility across software and operational workstreams.
-                </p>
-              </article>
-
-              <article class="profile-panel">
-                <h3>Value Focus</h3>
-                <ul>
-                  <li>Project planning support and milestone visibility</li>
-                  <li>Stakeholder communication and reporting cadence</li>
-                  <li>Delivery follow-up, blockers, and action ownership</li>
-                </ul>
-              </article>
-
-              <article class="profile-panel">
-                <h3>Best Fit</h3>
-                <ul>
-                  <li>Projects that need stronger coordination</li>
-                  <li>Teams with weak reporting or unclear ownership</li>
-                  <li>Software initiatives needing better execution rhythm</li>
-                </ul>
-              </article>
-
-              <article class="profile-panel profile-panel-accent">
-                <h3>Signature Tools</h3>
-                <div class="profile-mini-tags">
-                  <span>MS Project</span>
-                  <span>Azure</span>
-                  <span>Python</span>
-                  <span>SQL</span>
+            <article class="profile-panel profile-outcomes-card">
+              <h3>Proven outcomes</h3>
+              <div class="profile-stats-grid">
+                <div class="profile-stat prominent">
+                  <div class="profile-stat-value">10+</div>
+                  <div class="profile-stat-label">Years of experience</div>
                 </div>
-              </article>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">30%</div>
+                  <div class="profile-stat-label">Performance improvement</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">15%</div>
+                  <div class="profile-stat-label">Faster transaction flow</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">30–40%</div>
+                  <div class="profile-stat-label">Faster CRM retrieval</div>
+                </div>
+              </div>
+            </article>
 
-            </div>
+            <article class="profile-panel">
+              <h3>Technical grounding</h3>
+              <div class="profile-mini-tags profile-grounding-tags">
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python icon" loading="lazy">Python</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP icon" loading="lazy">PHP</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C# icon" loading="lazy">C#</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL icon" loading="lazy">SQL</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" alt="WordPress icon" loading="lazy">WordPress</span>
+                <span><img src="https://img.icons8.com/color/48/microsoft-project-2019.png" alt="MS Project icon" loading="lazy">MS Project</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure icon" loading="lazy">Azure</span>
+              </div>
+            </article>
           </div>
         </article>
       </div>
@@ -4957,81 +5671,82 @@
       <div class="profile-modal-body">
         <article class="profile-card">
           <div class="profile-visual">
-            <img class="profile-portrait" src="assets/Mosalanezhad.jpg" alt="Reza Mosalanezhad" loading="lazy" />
+            <img class="profile-portrait" src="assets/Mosalanezhad.png" alt="Reza Mosalanezhad" loading="lazy" />
             <div class="profile-identity">
-              <div class="profile-id-kicker">Automation · Control Systems</div>
               <div class="profile-id-name-wrap">
-                <h2 class="profile-id-name" id="profileTitleReza">PhD. Reza Mosalanezhad</h2>
-                <span class="profile-download-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m7.8 11.5 4.2 4.2 4.2-4.2"></path><path d="M5 19h14"></path></svg>
-                </span>
+                <h2 class="profile-id-name" id="profileTitleReza">PhD. R Mosalanezhad</h2>
               </div>
-              <div class="profile-id-role">Senior Automation &amp; Control Engineer</div>
+              <div class="profile-id-role">Industrial Automation</div>
               <div class="profile-id-tags">
                 <span class="profile-id-tag">PLC</span>
-                <span class="profile-id-tag">TIA Portal</span>
                 <span class="profile-id-tag">Commissioning</span>
+                <span class="profile-id-tag">Simulation</span>
               </div>
             </div>
           </div>
 
           <div class="profile-content">
-            <div class="profile-facts">
-              <div class="profile-fact">
-                <div class="profile-fact-label">Domain</div>
-                <div class="profile-fact-value">Industrial automation and control</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Strength</div>
-                <div class="profile-fact-value">Plant-side troubleshooting and execution reliability</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Platforms</div>
-                <div class="profile-fact-value">Siemens ecosystems with PLC, HMI, and diagnostics</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Fit</div>
-                <div class="profile-fact-value">Factory, machinery, line upgrade, and process environments</div>
-              </div>
+            <article class="profile-panel profile-summary-card">
+              <h3>Summary</h3>
+              <p>I support industrial automation projects with Siemens PLC execution, commissioning discipline, diagnostics, and MATLAB-based control and simulation insight.</p>
+            </article>
+
+            <div class="profile-duo-grid">
+              <article class="profile-panel">
+                <h3>What I do</h3>
+                <ul class="profile-list">
+                  <li>PLC programming for Siemens environments</li>
+                  <li>Commissioning and plant-side troubleshooting</li>
+                  <li>HMI / SCADA configuration and diagnostics</li>
+                  <li>Industrial communication support</li>
+                  <li>MATLAB / Simulink modeling and analysis</li>
+                </ul>
+              </article>
+
+              <article class="profile-panel">
+                <h3>Why clients bring me in</h3>
+                <ul class="profile-list">
+                  <li>When commissioning needs stronger discipline</li>
+                  <li>When diagnostics and troubleshooting slow delivery</li>
+                  <li>When Siemens PLC environments need reliable execution</li>
+                  <li>When control and simulation insight supports engineering decisions</li>
+                </ul>
+              </article>
             </div>
 
-            <div class="profile-panels">
-              <article class="profile-panel">
-                <h3>Bio</h3>
-                <p>
-                  Supports industrial systems with dependable PLC execution, plant-side diagnostics, and stable commissioning flow.
-                </p>
-              </article>
-
-              <article class="profile-panel">
-                <h3>Value Focus</h3>
-                <ul>
-                  <li>PLC logic and troubleshooting</li>
-                  <li>Commissioning and diagnostics</li>
-                  <li>Reliable plant-side handover</li>
-                </ul>
-              </article>
-
-              <article class="profile-panel">
-                <h3>Best Fit</h3>
-                <ul>
-                  <li>Machine and line projects</li>
-                  <li>Plant upgrades with on-site blockers</li>
-                  <li>Projects needing commissioning discipline</li>
-                </ul>
-              </article>
-
-              <article class="profile-panel profile-panel-accent">
-                <h3>Signature Tools</h3>
-                <div class="profile-mini-tags">
-                  <span>TIA Portal</span>
-                  <span>WinCC</span>
-                  <span>Commissioning</span>
-                  <span>Diagnostics</span>
+            <article class="profile-panel profile-outcomes-card">
+              <h3>Proven outcomes</h3>
+              <div class="profile-stats-grid">
+                <div class="profile-stat prominent">
+                  <div class="profile-stat-value">±0.5 mm</div>
+                  <div class="profile-stat-label">Sorting accuracy in robotic packaging systems</div>
                 </div>
-              </article>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">1.2 s</div>
+                  <div class="profile-stat-label">Cycle time in automated production flow</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">+18%</div>
+                  <div class="profile-stat-label">Better equipment effectiveness after PLC/HMI optimization</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">-22%</div>
+                  <div class="profile-stat-label">Less downtime through control logic improvement</div>
+                </div>
+              </div>
+            </article>
 
-            </div>
+            <article class="profile-panel">
+              <h3>Technical grounding</h3>
+              <div class="profile-mini-tags profile-grounding-tags">
+                <span><img src="https://cdn.simpleicons.org/siemens/009999" alt="Siemens icon" loading="lazy">Siemens S7-1200/1500</span>
+                <span><img src="https://img.icons8.com/color/48/engineering.png" alt="TIA Portal icon" loading="lazy">TIA Portal</span>
+                <span><img src="https://img.icons8.com/color/48/gear.png" alt="Step7 icon" loading="lazy">Step7</span>
+                <span><img src="https://img.icons8.com/color/48/monitor--v1.png" alt="WinCC icon" loading="lazy">WinCC / WinCC Unified</span>
+                <span><img src="https://img.icons8.com/color/48/wired-network-connection.png" alt="PROFINET PROFIBUS icon" loading="lazy">PROFINET / PROFIBUS</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" alt="MATLAB Simulink icon" loading="lazy">MATLAB / Simulink</span>
+              </div>
+            </article>
           </div>
         </article>
       </div>
@@ -5048,193 +5763,93 @@
           <div class="profile-visual">
             <img class="profile-portrait" src="assets/Ghelej.png" alt="Ali Ghelej Beigi" loading="lazy" />
             <div class="profile-identity">
-              <div class="profile-id-kicker">Mobile Engineering · Frontend Systems</div>
               <div class="profile-id-name-wrap">
-                <h2 class="profile-id-name" id="profileTitleAli">Ali Ghelej Beigi</h2>
-                <span class="profile-download-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m7.8 11.5 4.2 4.2 4.2-4.2"></path><path d="M5 19h14"></path></svg>
-                </span>
+                <h2 class="profile-id-name" id="profileTitleAli">A Ghelejbeigi</h2>
               </div>
-              <div class="profile-id-role">Senior Software Engineer — Mobile &amp; Frontend</div>
+              <div class="profile-id-role">Flutter Systems</div>
               <div class="profile-id-tags">
                 <span class="profile-id-tag">Flutter</span>
+                <span class="profile-id-tag">ERP-CRM</span>
                 <span class="profile-id-tag">Architecture</span>
-                <span class="profile-id-tag">Frontend</span>
               </div>
             </div>
           </div>
 
           <div class="profile-content">
-            <div class="profile-facts">
-              <div class="profile-fact">
-                <div class="profile-fact-label">Domain</div>
-                <div class="profile-fact-value">Operational and business-facing mobile products</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Strength</div>
-                <div class="profile-fact-value">Maintainable Flutter delivery with strong UI discipline</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Architecture</div>
-                <div class="profile-fact-value">Clean structure, scalable state management, long-term code quality</div>
-              </div>
-              <div class="profile-fact">
-                <div class="profile-fact-label">Fit</div>
-                <div class="profile-fact-value">Internal workflows, mobile tools, and business product teams</div>
-              </div>
+            <article class="profile-panel profile-summary-card">
+              <h3>Summary</h3>
+              <p>I build Flutter-based business apps with clean architecture, responsive UI, and maintainable implementation for real operational use.</p>
+            </article>
+
+            <div class="profile-duo-grid">
+              <article class="profile-panel">
+                <h3>What I do</h3>
+                <ul class="profile-list">
+                  <li>Flutter app development for business workflows</li>
+                  <li>ERP / CRM-oriented mobile product implementation</li>
+                  <li>Responsive UI and adaptive layouts</li>
+                  <li>REST API integration and feature delivery</li>
+                  <li>Maintainable frontend architecture and state management</li>
+                </ul>
+              </article>
+
+              <article class="profile-panel">
+                <h3>Why clients bring me in</h3>
+                <ul class="profile-list">
+                  <li>When business apps need cleaner implementation</li>
+                  <li>When mobile workflows must stay maintainable over time</li>
+                  <li>When ERP/CRM-like products need structured frontend delivery</li>
+                  <li>When responsive UI quality matters in real use</li>
+                </ul>
+              </article>
             </div>
 
-            <div class="profile-panels">
-              <article class="profile-panel">
-                <h3>Bio</h3>
-                <p>
-                  Builds mobile systems meant for real use, maintainable architecture, and cleaner frontend execution after launch.
-                </p>
-              </article>
-
-              <article class="profile-panel">
-                <h3>Value Focus</h3>
-                <ul>
-                  <li>Flutter for business workflows</li>
-                  <li>Maintainable responsive UI</li>
-                  <li>Execution quality for real use</li>
-                </ul>
-              </article>
-
-              <article class="profile-panel">
-                <h3>Best Fit</h3>
-                <ul>
-                  <li>ERP-like apps and service flows</li>
-                  <li>Operational mobile products</li>
-                  <li>Frontend that must stay clean</li>
-                </ul>
-              </article>
-
-              <article class="profile-panel profile-panel-accent">
-                <h3>Signature Tools</h3>
-                <div class="profile-mini-tags">
-                  <span>Flutter</span>
-                  <span>Dart</span>
-                  <span>Bloc</span>
-                  <span>Riverpod</span>
+            <article class="profile-panel profile-outcomes-card">
+              <h3>Proven outcomes</h3>
+              <div class="profile-stats-grid">
+                <div class="profile-stat prominent">
+                  <div class="profile-stat-value">3</div>
+                  <div class="profile-stat-label">High-performance ERP applications</div>
                 </div>
-              </article>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">~20%</div>
+                  <div class="profile-stat-label">Higher conversion support in Expo Plus</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">50+</div>
+                  <div class="profile-stat-label">Units managed in Building Charge</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="profile-stat-value">7</div>
+                  <div class="profile-stat-label">Core features delivered in Florist Shop</div>
+                </div>
+              </div>
+            </article>
 
-            </div>
+            <article class="profile-panel">
+              <h3>Technical grounding</h3>
+              <div class="profile-mini-tags profile-grounding-tags">
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter icon" loading="lazy">Flutter</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart icon" loading="lazy">Dart</span>
+                <span><img src="https://img.icons8.com/color/48/blueprint.png" alt="Clean Architecture icon" loading="lazy">Clean Architecture</span>
+                <span><img src="https://img.icons8.com/color/48/workflow.png" alt="State management icon" loading="lazy">Riverpod / Bloc / Provider</span>
+                <span><img src="https://img.icons8.com/color/48/api-settings.png" alt="REST API WebSocket icon" loading="lazy">REST APIs / WebSocket</span>
+                <span><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase icon" loading="lazy">Firebase</span>
+              </div>
+            </article>
           </div>
         </article>
       </div>
     </div>
   </div>
 
-  <!-- ================= RESUME MODAL ================= -->
-  <div class="modal-overlay resume-overlay" id="resumeModal" aria-hidden="true" hidden>
-    <div class="resume-shell" role="dialog" aria-modal="true" aria-labelledby="resumeToolbarTitle">
-      <div class="resume-toolbar">
-        <div class="resume-toolbar-title" id="resumeToolbarTitle">Resume</div>
-
-        <div class="resume-toolbar-actions">
-          <button class="resume-btn" type="button" id="resumeCloseBtn">Close</button>
-        </div>
-      </div>
-
-      <div class="resume-print-area">
-        <div class="resume-paper">
-          <div class="resume-top">
-            <div class="resume-accent" aria-hidden="true"></div>
-
-            <div class="resume-title-stack">
-              <div class="resume-first-name" id="resumeFirstName"></div>
-              <div class="resume-last-name" id="resumeLastName"></div>
-              <div class="resume-role-line" id="resumeRoleLine"></div>
-            </div>
-
-            <div class="resume-contact-list" id="resumeContactList"></div>
-          </div>
-
-          <div class="resume-body-grid">
-            <div class="resume-main-col">
-              <section class="resume-section-block">
-                <div class="resume-section-head">
-                  <h4>Summary</h4>
-                </div>
-                <div class="resume-summary-box" id="resumeSummaryBox"></div>
-              </section>
-
-              <section class="resume-section-block">
-                <div class="resume-section-head">
-                  <h4>Work Experience</h4>
-                </div>
-                <div id="resumeWorkList"></div>
-              </section>
-
-              <section class="resume-section-block">
-                <div class="resume-section-head">
-                  <h4>Projects</h4>
-                </div>
-                <ul class="resume-project-list" id="resumeProjectList"></ul>
-              </section>
-            </div>
-
-            <aside class="resume-side-col">
-              <div class="resume-photo-wrap">
-                <img class="resume-photo" id="resumePhoto" alt="" loading="lazy" />
-              </div>
-
-              <section class="resume-section-block resume-education-block">
-                <div class="resume-section-head">
-                  <h4>Education</h4>
-                </div>
-                <div id="resumeEducationBlock"></div>
-              </section>
-
-              <section class="resume-section-block resume-skills-block">
-                <div class="resume-section-head">
-                  <h4>Skills</h4>
-                </div>
-                <div id="resumeSkillGroups"></div>
-              </section>
-
-              <section class="resume-section-block resume-languages-block">
-                <div class="resume-section-head">
-                  <h4>Languages</h4>
-                </div>
-                <ul class="resume-side-list" id="resumeLanguages"></ul>
-              </section>
-            </aside>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="resume-print-host" id="resumePrintHost" aria-hidden="true"></div>
-
   <script>
     /* ================= TEAM CARD -> PROFILE MODAL ================= */
 
-    const teamViewButtons = document.querySelectorAll(".team-view-btn");
+    const teamCards = document.querySelectorAll(".team-card[data-member]");
     const profileModalAlireza = document.getElementById("profileModalAlireza");
     const profileModalReza = document.getElementById("profileModalReza");
     const profileModalAli = document.getElementById("profileModalAli");
-    const resumeModal = document.getElementById("resumeModal");
-
-    const resumeToolbarTitle = document.getElementById("resumeToolbarTitle");
-    const resumeFirstName = document.getElementById("resumeFirstName");
-    const resumeLastName = document.getElementById("resumeLastName");
-    const resumeRoleLine = document.getElementById("resumeRoleLine");
-    const resumeContactList = document.getElementById("resumeContactList");
-    const resumeSummaryBox = document.getElementById("resumeSummaryBox");
-    const resumeWorkList = document.getElementById("resumeWorkList");
-    const resumeProjectList = document.getElementById("resumeProjectList");
-    const resumePhoto = document.getElementById("resumePhoto");
-    const resumeEducationBlock = document.getElementById("resumeEducationBlock");
-    const resumeSkillGroups = document.getElementById("resumeSkillGroups");
-    const resumeLanguages = document.getElementById("resumeLanguages");
-    const resumePrintHost = document.getElementById("resumePrintHost");
-
-    const resumeCloseBtn = document.getElementById("resumeCloseBtn");
-
     let activeProfileModal = null;
 
     const profileModalMap = {
@@ -5243,11 +5858,17 @@
       ali: profileModalAli
     };
 
-    teamViewButtons.forEach(btn => {
-      const key = btn.getAttribute("data-open-profile");
+    teamCards.forEach(card => {
+      const key = card.getAttribute("data-member");
       const targetModal = key ? profileModalMap[key] : null;
       if (!targetModal) return;
-      btn.addEventListener("click", () => openModal(targetModal));
+      card.addEventListener("click", () => openModal(targetModal));
+      card.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openModal(targetModal);
+        }
+      });
     });
 
     function openModal(modal, keepActive = false) {
@@ -5256,7 +5877,7 @@
       modal.classList.add("show");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
-      if (!keepActive && modal.id !== "resumeModal") {
+      if (!keepActive) {
         activeProfileModal = modal;
       }
     }
@@ -5295,257 +5916,9 @@
       const openModals = Array.from(document.querySelectorAll(".modal-overlay.show"));
       if (!openModals.length) return;
 
-      const topmostModal = openModals.find(modal => modal.id === "resumeModal") || openModals[openModals.length - 1];
+      const topmostModal = openModals[openModals.length - 1];
       closeModal(topmostModal);
     });
-
-    /* ================= RESUME DATA ================= */
-
-    const resumeData = {
-      alireza: {
-        title: "Alireza Khaledi Resume",
-        photo: "assets/Khaledi.jpg",
-        firstName: "ALIREZA",
-        lastName: "KHALEDI",
-        roleLine: "PROJECT DELIVERY COORDINATOR",
-        contacts: [
-          { mark: "M", value: "Available on request" },
-          { mark: "@", value: "info@khaledi.eu" },
-          { mark: "W", value: "www.khaledi.eu" },
-          { mark: "L", value: "Ingolstadt, Germany" }
-        ],
-        summary: "Delivery-focused coordinator with 10+ years of experience in structured execution, stakeholder alignment, reporting discipline, and clear technical follow-through across software environments.",
-        experience: [
-          {
-            title: "Lead Project Coordinator",
-            company: "Remote / Freelance",
-            date: "Recent Years",
-            bullets: [
-              "Coordinated project execution, follow-ups, and stakeholder communication across remote client work.",
-              "Maintained reporting rhythm, risk visibility, and clear next-step ownership."
-            ]
-          },
-          {
-            title: "Project Delivery Coordination",
-            company: "Software and Technical Workstreams",
-            date: "Earlier Roles",
-            bullets: [
-              "Worked across planning, issue tracking, milestone visibility, and execution support.",
-              "Helped teams create more predictable delivery rhythm and cleaner alignment."
-            ]
-          }
-        ],
-        projects: [
-          "Project recovery and delivery stabilization for software-heavy initiatives.",
-          "Stakeholder reporting and execution control across distributed technical teams."
-        ],
-        education: [
-          {
-            degree: "Computer Engineering",
-            school: "Academic Background",
-            date: "Technical foundation"
-          }
-        ],
-        skillGroups: [
-          {
-            title: "Delivery",
-            items: ["Project Recovery", "Stakeholder Alignment", "Milestone Tracking", "Structured Reporting"]
-          },
-          {
-            title: "Professional",
-            items: ["Risk Control", "Remote Coordination", "Client Communication", "Execution Discipline"]
-          }
-        ],
-        languages: ["English: Fluent", "German: Working", "Cross-cultural collaboration"]
-      },
-
-      reza: {
-        title: "Reza Mosalanezhad Resume",
-        photo: "assets/Mosalanezhad.jpg",
-        firstName: "REZA",
-        lastName: "MOSALANEZHAD",
-        roleLine: "AUTOMATION CONTROL ENGINEER",
-        contacts: [
-          { mark: "M", value: "Available on request" },
-          { mark: "@", value: "info@khaledi.eu" },
-          { mark: "W", value: "www.khaledi.eu" },
-          { mark: "L", value: "Europe-based industrial support" }
-        ],
-        summary: "Automation engineer focused on Siemens PLC environments, commissioning, diagnostics, control logic, and practical plant-side support for industrial execution.",
-        experience: [
-          {
-            title: "Automation & Control Engineering",
-            company: "Industrial Environments",
-            date: "Recent Years",
-            bullets: [
-              "Worked with Siemens PLC systems, TIA Portal, and industrial control execution.",
-              "Supported commissioning, diagnostics, troubleshooting, and plant-side reliability."
-            ]
-          },
-          {
-            title: "Plant-side Support",
-            company: "Commissioning and Technical Follow-up",
-            date: "Project Work",
-            bullets: [
-              "Improved execution reliability during upgrades, troubleshooting, and handover.",
-              "Supported machinery, line, and process environments with practical automation coordination."
-            ]
-          }
-        ],
-        projects: [
-          "Commissioning and troubleshooting support for Siemens-based production environments.",
-          "PLC, HMI, and diagnostics work for machinery, line, and process-side execution."
-        ],
-        education: [
-          {
-            degree: "Automation / Control Engineering",
-            school: "Technical Background",
-            date: "Industrial specialization"
-          }
-        ],
-        skillGroups: [
-          {
-            title: "Technical",
-            items: ["PLC", "TIA Portal", "WinCC", "Commissioning"]
-          },
-          {
-            title: "Industrial",
-            items: ["Diagnostics", "HMI / SCADA", "Industrial Control", "IIoT"]
-          }
-        ],
-        languages: ["English: Working", "International collaboration"]
-      },
-
-      ali: {
-        title: "Ali Ghelej Beigi Resume",
-        photo: "assets/Ghelej.png",
-        firstName: "ALI",
-        lastName: "GHELEJ BEIGI",
-        roleLine: "MOBILE FRONTEND ENGINEER",
-        contacts: [
-          { mark: "M", value: "Available on request" },
-          { mark: "@", value: "info@khaledi.eu" },
-          { mark: "W", value: "www.khaledi.eu" },
-          { mark: "L", value: "Remote digital product delivery" }
-        ],
-        summary: "Software engineer focused on maintainable Flutter delivery, mobile product architecture, frontend quality, and operationally useful products for business-facing environments.",
-        experience: [
-          {
-            title: "Mobile & Frontend Engineering",
-            company: "Flutter-based Product Environments",
-            date: "Recent Years",
-            bullets: [
-              "Developed maintainable mobile systems using Flutter and structured frontend patterns.",
-              "Worked on workflow apps, business-facing products, and execution-oriented mobile solutions."
-            ]
-          },
-          {
-            title: "Product Implementation",
-            company: "Operational Mobile Workflows",
-            date: "Project Work",
-            bullets: [
-              "Built cleaner frontend systems for internal tools, service flows, and product teams.",
-              "Supported product execution from implementation through refinement and handover."
-            ]
-          }
-        ],
-        projects: [
-          "Flutter implementation for ERP-like apps, field workflows, and operational tools.",
-          "Frontend systems designed for maintainability, handover clarity, and real business use."
-        ],
-        education: [
-          {
-            degree: "Software Engineering",
-            school: "Technical Background",
-            date: "Product implementation focus"
-          }
-        ],
-        skillGroups: [
-          {
-            title: "Technical",
-            items: ["Flutter", "Dart", "Bloc", "Riverpod"]
-          },
-          {
-            title: "Professional",
-            items: ["Clean Architecture", "Frontend Systems", "Business Workflows", "Mobile Delivery"]
-          }
-        ],
-        languages: ["English: Working", "International collaboration"]
-      }
-    };
-
-    function renderResume(personKey) {
-      const data = resumeData[personKey];
-      if (!data) return;
-
-      resumeToolbarTitle.textContent = data.title;
-      resumeFirstName.textContent = data.firstName;
-      resumeLastName.textContent = data.lastName;
-      resumeRoleLine.textContent = data.roleLine;
-      resumeSummaryBox.textContent = data.summary;
-      resumePhoto.src = data.photo;
-      resumePhoto.alt = `${data.firstName} ${data.lastName}`;
-
-      resumeContactList.innerHTML = data.contacts.map(item => `
-        <div class="resume-contact-item">
-          <div class="resume-contact-mark">${item.mark}</div>
-          <div class="resume-contact-value">${item.value}</div>
-        </div>
-      `).join("");
-
-      resumeWorkList.innerHTML = data.experience.map(item => `
-        <div class="resume-work-item">
-          <div class="resume-work-title">${item.title}</div>
-          <div class="resume-work-meta">${item.company} | ${item.date}</div>
-          <ul class="resume-work-list">
-            ${item.bullets.map(point => `<li>${point}</li>`).join("")}
-          </ul>
-        </div>
-      `).join("");
-
-      resumeProjectList.innerHTML = data.projects.map(item => `<li>${item}</li>`).join("");
-
-      resumeEducationBlock.innerHTML = data.education.map(item => `
-        <div class="resume-edu-item">
-          <div class="resume-edu-degree">${item.degree}</div>
-          <div class="resume-edu-school">${item.school}</div>
-          <div class="resume-edu-date">${item.date}</div>
-        </div>
-      `).join("");
-
-      resumeSkillGroups.innerHTML = data.skillGroups.map(group => `
-        <div class="resume-skill-group">
-          <div class="resume-skill-group-title">${group.title}</div>
-          <ul>
-            ${group.items.map(item => `<li>${item}</li>`).join("")}
-          </ul>
-        </div>
-      `).join("");
-
-      resumeLanguages.innerHTML = data.languages.map(item => `<li>${item}</li>`).join("");
-
-      const resumePaper = document.querySelector("#resumeModal .resume-paper");
-      if (resumePrintHost && resumePaper) {
-        resumePrintHost.innerHTML = "";
-        resumePrintHost.appendChild(resumePaper.cloneNode(true));
-      }
-    }
-
-    document.querySelectorAll("[data-open-resume]").forEach(btn => {
-      btn.addEventListener("click", e => {
-        e.stopPropagation();
-        const personKey = btn.getAttribute("data-open-resume");
-        renderResume(personKey);
-
-        if (activeProfileModal) {
-          resumeModal.dataset.parentModal = activeProfileModal.id;
-        }
-
-        openModal(resumeModal, true);
-      });
-    });
-
-    resumeCloseBtn.addEventListener("click", () => closeModal(resumeModal));
   </script>
 </body>
 </html>
