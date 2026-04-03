@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KHALEDI | B2B Engineering Delivery</title>
-  <meta name="description" content="B2B engineering delivery for industrial automation, mobile products, and structured project execution." />
-  <meta property="og:title" content="KHALEDI | B2B Engineering Delivery" />
-  <meta property="og:description" content="A compact B2B engineering team for automation, digital product delivery, and execution support." />
+  <title>KHALEDI | ENGINEERING DELIVERY GROUP</title>
+  <meta name="description" content="Engineering delivery for automation, software, and mobile projects with structured execution and clear ownership." />
+  <meta property="og:title" content="KHALEDI | ENGINEERING DELIVERY GROUP" />
+  <meta property="og:description" content="A compact engineering team for automation, digital product delivery, and project execution support." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#1a73e8" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231a73e8'/%3E%3Cpath d='M18 20h28v6H35v18h-6V26H18z' fill='white'/%3E%3C/svg%3E" />
@@ -25,12 +25,28 @@
       --blue: #1a73e8;
       --blue-2: #0f5fd0;
       --green: #1f9d67;
-      --shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
-      --radius: 18px;
-      --radius-lg: 28px;
-      --max: min(1680px, calc(100vw - 32px));
+      --shadow: 0 10px 28px rgba(16, 24, 40, 0.07);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --max: min(1180px, calc(100vw - 32px));
+      --space-1: 8px;
+      --space-2: 12px;
+      --space-3: 16px;
+      --space-4: 20px;
+      --space-5: 24px;
       --hero-overlay: rgba(255,255,255,0.82);
       --panel-dark: rgba(11, 16, 24, 0.62);
+      --section-surface-a: color-mix(in srgb, var(--bg-2) 94%, #ffffff);
+      --section-surface-b: color-mix(in srgb, var(--bg-3) 86%, #ffffff);
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      scroll-behavior: smooth;
     }
 
     [data-theme="dark"] {
@@ -46,6 +62,8 @@
       --shadow: 0 20px 48px rgba(0, 0, 0, 0.34);
       --hero-overlay: rgba(12,16,22,0.76);
       --panel-dark: rgba(8, 12, 19, 0.72);
+      --section-surface-a: color-mix(in srgb, var(--bg-2) 96%, #0b1119);
+      --section-surface-b: color-mix(in srgb, var(--bg-3) 92%, #0d1420);
     }
 
     * { box-sizing: border-box; }
@@ -55,7 +73,7 @@
       font-family: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.62;
       overflow-x: hidden;
       padding-top: 72px;
     }
@@ -226,15 +244,25 @@
     /* tighter controls for topbar buttons */
     .nav-actions .btn,
     .nav-actions .lang-select {
-      padding: 9px 12px;
+      height: 38px;
+      padding: 0 12px;
       font-size: 13px;
-      border-radius: 14px;
+      border-radius: 12px;
     }
 
     .nav-actions .btn.primary {
-      padding: 12px 18px;
+      height: 40px;
+      padding: 0 16px;
       font-size: 14px;
-      border-radius: 18px;
+      border-radius: 12px;
+    }
+
+    .nav-actions .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      flex: 0 0 auto;
     }
 
     .lang-switch {
@@ -287,9 +315,12 @@
     }
 
     .btn {
-      padding: 10px 14px;
-      font-size: 14px;
+      min-height: 40px;
+      padding: 0 14px;
+      font-size: 13px;
       font-weight: 600;
+      line-height: 1;
+      border-radius: 12px;
     }
 
     .btn.primary {
@@ -305,15 +336,18 @@
 
     .container {
       width: 100%;
-      max-width: none;
-      margin: 0;
-      padding: 18px 16px 72px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 0 72px;
       position: relative;
       z-index: 1;
     }
 
-    section {
-      padding: 84px 0;
+    section { padding: 60px 0; }
+
+    .snap-block {
+      min-height: 0;
+      display: block;
     }
 
     .breadcrumbs {
@@ -327,15 +361,19 @@
 
     .hero {
       display: grid;
-      gap: 18px;
+      gap: var(--space-3);
       min-height: calc(100vh - 86px);
       align-content: start;
-      padding: 6px 0 20px;
+      padding: 8px 0 16px;
+    }
+
+    .hero.snap-block {
+      min-height: 0;
     }
 
     .hero-banner {
       position: relative;
-      min-height: clamp(480px, 68vh, 760px);
+      min-height: clamp(460px, 64vh, 700px);
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 1px solid var(--line);
@@ -348,29 +386,29 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(8,12,18,0.55), rgba(8,12,18,0.65)),
-        linear-gradient(90deg, rgba(12,16,22,0.35) 0%, rgba(12,16,22,0.5) 48%, rgba(12,16,22,0.4) 100%),
+        linear-gradient(180deg, rgba(8,12,18,0.42), rgba(8,12,18,0.54)),
+        linear-gradient(90deg, rgba(12,16,22,0.22) 0%, rgba(12,16,22,0.36) 48%, rgba(12,16,22,0.30) 100%),
         url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
       z-index: 0;
       transform: scale(1.01);
-      filter: brightness(0.72) saturate(.82) contrast(.94);
+      filter: brightness(0.8) saturate(.78) contrast(.92);
     }
 
     .hero-grid {
       position: relative;
       z-index: 2;
-      min-height: clamp(480px, 68vh, 760px);
+      min-height: clamp(460px, 64vh, 700px);
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(320px, 420px);
       align-items: center;
-      gap: 28px;
-      padding: 48px;
+      gap: 18px;
+      padding: clamp(24px, 3vw, 40px);
     }
 
     .hero-copy {
       display: grid;
-      gap: 18px;
-      max-width: 760px;
+      gap: var(--space-3);
+      max-width: 700px;
     }
 
     .hero-kicker {
@@ -398,137 +436,72 @@
     }
 
     .hero h1.hero-title {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-size: clamp(2.25rem, 6.2vw, 4rem);
       font-weight: 800;
       letter-spacing: -0.03em;
-      line-height: 1.1;
+      line-height: 1.08;
       color: #f7f9fc;
-      text-shadow: 0 10px 32px rgba(0,0,0,0.32);
-      margin-bottom: 1.5rem;
-      max-width: 840px;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.26);
+      margin-bottom: var(--space-1);
+      max-width: 720px;
     }
 
     .hero-subtitle {
-      font-size: 1.25rem;
-      color: #dfe4ec;
-      line-height: 1.7;
-      max-width: 700px;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.28);
+      font-size: 1.05rem;
+      color: #e6ebf3;
+      line-height: 1.68;
+      max-width: 62ch;
+      text-shadow: 0 5px 16px rgba(0,0,0,0.22);
     }
 
     .hero-actions {
       display: flex;
-      gap: 10px;
+      gap: var(--space-2);
       flex-wrap: wrap;
-      margin-top: 4px;
+      margin-top: var(--space-1);
+      align-items: center;
     }
 
     .hero-actions .btn {
-      padding: 12px 18px;
+      height: 44px;
+      padding: 0 18px;
       font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      flex: 0 0 auto;
     }
 
     .hero-actions .btn.secondary {
       background: color-mix(in srgb, var(--bg-2) 92%, transparent);
     }
 
-    .hero-side {
-      display: grid;
-      align-content: center;
-    }
-
-    .hero-panel {
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--bg-2) 92%, transparent);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding: 22px;
-      max-width: 420px;
-      justify-self: end;
-    }
-
-    .hero-panel h3 {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 14px;
-      color: var(--text);
-      letter-spacing: -.01em;
-    }
-
-    .hero-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .hero-list-item {
-      display: grid;
-      grid-template-columns: 30px 1fr;
-      gap: 12px;
-      align-items: start;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .hero-list-num {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--blue);
-      background: color-mix(in srgb, var(--blue) 10%, transparent);
-      border: 1px solid color-mix(in srgb, var(--blue) 20%, transparent);
-    }
-
-    .hero-summary {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-      display: grid;
-      gap: 8px;
-    }
-
-    .hero-summary-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .hero-summary-row strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
     .trust-strip {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
+      gap: var(--space-2);
     }
 
     .trust-item {
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 14px;
       background: var(--bg-2);
-      box-shadow: var(--shadow);
-      padding: 18px 16px;
+      box-shadow: 0 6px 18px rgba(16,24,40,.05);
+      padding: 14px 12px;
       text-align: center;
       display: grid;
-      gap: 4px;
+      gap: 3px;
     }
 
     .trust-value {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--text);
     }
 
     .trust-label {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--muted);
       line-height: 1.5;
     }
@@ -536,28 +509,36 @@
     .hero-grid-simple { grid-template-columns: 1fr; }
     .hero-copy-wide { max-width: 980px; }
 
-    .engagement-section { padding-top: 26px; padding-bottom: 26px; }
+    .engagement-section { padding-top: 10px; padding-bottom: 10px; }
+    #engagement {
+      background: linear-gradient(180deg, var(--section-surface-a) 0%, var(--section-surface-b) 100%);
+      border: 1px solid var(--line);
+    }
+    #engagement h2,
+    #engagement .engagement-intro {
+      color: var(--text);
+    }
     .engagement-intro { max-width: 760px; margin-top: 8px; }
 
     .engagement-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 18px;
-      margin-top: 22px;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
     }
 
     .engagement-card {
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 14px;
       background: color-mix(in srgb, var(--bg-2) 96%, transparent);
-      box-shadow: var(--shadow);
-      padding: 24px;
+      box-shadow: 0 8px 22px rgba(16,24,40,.06);
+      padding: var(--space-4);
     }
 
     .engagement-card h3 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
-      margin-bottom: 18px;
+      margin-bottom: var(--space-3);
       letter-spacing: -0.01em;
     }
 
@@ -653,19 +634,26 @@
     .evidence-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 18px;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
     }
 
     .evidence-card {
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-radius: 14px;
       background: color-mix(in srgb, var(--bg-2) 94%, transparent);
-      padding: 28px;
-      box-shadow: 0 10px 28px rgba(16,24,40,.05);
+      padding: var(--space-4);
+      box-shadow: 0 8px 22px rgba(16,24,40,.05);
       display: grid;
       gap: 12px;
       align-content: start;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .evidence-card:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--line) 58%, var(--blue));
+      box-shadow: 0 12px 26px rgba(16,24,40,.08);
     }
 
     .evidence-top {
@@ -757,216 +745,155 @@
       .evidence-grid { grid-template-columns: 1fr; }
     }
 
-    .portfolio-intro {
-      max-width: 880px;
-      margin-top: 8px;
-    }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .portfolio-card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: color-mix(in srgb, var(--bg-2) 96%, transparent);
-      padding: 22px;
-      box-shadow: 0 10px 28px rgba(16,24,40,.05);
-      display: grid;
-      gap: 14px;
-      align-content: start;
-    }
-
-    .portfolio-card h3 {
-      font-size: 20px;
-      line-height: 1.3;
-      letter-spacing: -.02em;
-      margin: 0;
-    }
-
-    .portfolio-card p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.75;
-      margin: 0;
-    }
-
-    .portfolio-tag-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .portfolio-tag {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
-      padding: 7px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .04em;
-    }
-
-    .portfolio-tag.industrial { background: #f2c94c; color: #1b1b1b; }
-    .portfolio-tag.ops { background: #e45c49; color: #ffffff; }
-    .portfolio-tag.mobile { background: var(--blue); color: #ffffff; }
-
-    .portfolio-mini {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    .portfolio-points { display: grid; gap: 10px; }
-
-    .portfolio-point {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 10px;
-      align-items: start;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .portfolio-point::before {
-      content: "•";
-      color: var(--blue);
-      font-weight: 800;
-      font-size: 18px;
-      line-height: 1;
-      transform: translateY(-1px);
-    }
-
-    .portfolio-chip-row {
-      justify-content: flex-start;
-      margin-top: 4px;
-    }
-
-    @media (max-width: 980px) {
-      .portfolio-grid { grid-template-columns: 1fr; }
-    }
-
     /* Team updated styles */
     .team-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 18px;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+      justify-items: stretch;
+    }
+
+    #team {
+      background: linear-gradient(180deg, var(--section-surface-a) 0%, var(--section-surface-b) 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
     }
 
     .team-card {
       border: 1px solid var(--line);
-      border-radius: 18px;
-      background: color-mix(in srgb, var(--bg-2) 94%, transparent);
-      padding: 22px 20px;
+      border-radius: 14px;
+      background: var(--bg-2);
       display: grid;
-      gap: 14px;
-      text-align: center;
+      grid-template-columns: 110px 1fr;
+      gap: 0;
+      align-items: stretch;
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-      box-shadow: 0 10px 28px rgba(16,24,40,.05);
+      box-shadow: 0 8px 22px rgba(16,24,40,.06);
       position: relative;
       cursor: default;
-      min-height: 100%;
+      min-height: 198px;
+      height: auto;
+      overflow: hidden;
+      padding: 0;
+      width: 100%;
+      max-width: none;
+      min-width: 0;
     }
 
     .team-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-2px);
       border-color: color-mix(in srgb, var(--line) 55%, var(--blue));
-      box-shadow: 0 16px 34px rgba(16,24,40,.09);
+      box-shadow: 0 10px 24px rgba(16,24,40,.08);
     }
 
     .team-card.leader {
-      border-top: 3px solid var(--blue);
-      background: color-mix(in srgb, var(--bg-2) 95%, var(--bg-3));
+      border-top: 2px solid var(--blue);
     }
 
     .team-photo-ring {
-      width: 128px;
-      aspect-ratio: 3/4;
-      margin: 0 auto;
-      border-radius: 14px;
+      width: 110px;
+      height: 100%;
+      border-radius: 0;
       overflow: hidden;
-      border: 1px solid var(--line);
-      background: var(--bg-3);
+      border: 0;
+      background: var(--bg-2);
+      align-self: stretch;
+      justify-self: start;
     }
 
     .team-photo {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center center;
+      display: block;
     }
 
     .team-meta {
       display: grid;
-      gap: 10px;
+      gap: 8px;
+      padding: 10px 11px;
+      height: 100%;
+      border-radius: 0;
+      border: 0;
+      background: var(--bg-2);
+      text-align: left;
+      align-content: start;
+      overflow: hidden;
+      align-self: stretch;
     }
 
     .team-name {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       line-height: 1.2;
+      color: var(--text);
     }
 
     .team-role {
-      font-size: 14px;
+      font-size: 11px;
       color: var(--muted);
-      line-height: 1.5;
-      max-width: 280px;
-      margin: 0 auto;
+      line-height: 1.45;
+      max-width: none;
+      margin: 0;
     }
 
     .power-statement {
-      font-size: 14px;
-      line-height: 1.65;
-      max-width: 290px;
-      margin: 0 auto;
-      color: var(--text);
-      min-height: 46px;
+      font-size: 11px;
+      line-height: 1.45;
+      max-width: none;
+      margin: 0;
+      color: color-mix(in srgb, var(--text) 86%, #405063);
+      min-height: 0;
+      flex: 0 0 auto;
+      white-space: normal;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
 
     .chip-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
+      gap: 6px;
+      align-items: center;
+      min-height: 22px;
     }
 
-    .chip-row-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: nowrap;
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg-3) 88%, transparent);
+      color: color-mix(in srgb, var(--text) 82%, var(--muted));
+      white-space: nowrap;
     }
 
     .team-view-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
       border: 1px solid var(--line);
-      background: var(--bg-3);
-      color: var(--text);
+      background: color-mix(in srgb, var(--bg-3) 86%, transparent);
+      color: color-mix(in srgb, var(--text) 85%, var(--muted));
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: transform .18s ease, border-color .18s ease;
-      flex: 0 0 34px;
+      flex: 0 0 30px;
+      margin-top: auto;
+      justify-self: end;
     }
 
     .team-view-btn:hover {
       transform: translateY(-1px);
       border-color: color-mix(in srgb, var(--line) 55%, var(--blue));
+      background: color-mix(in srgb, var(--blue) 9%, var(--bg-2));
     }
 
     .team-view-btn svg {
@@ -979,182 +906,69 @@
       stroke-linejoin: round;
     }
 
-    .chip {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      border: 1px solid var(--line);
-      background: var(--bg-3);
-      color: var(--text);
-      white-space: nowrap;
-    }
+    @media (max-width: 900px) {
+      .team-card {
+        grid-template-columns: 1fr;
+        width: 100%;
+        min-width: 0;
+      }
 
-    /* Founder spotlight */
-    .founder-spotlight {
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, color-mix(in srgb, var(--blue) 8%, var(--bg-2)), color-mix(in srgb, var(--bg-2) 96%, var(--bg-3)));
-    }
-
-    .founder-spotlight__inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.9fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .founder-intro {
-      max-width: 78ch;
-    }
-
-    .founder-proof-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .founder-proof-card,
-    .founder-panel {
-      border: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
-      background: color-mix(in srgb, var(--bg-2) 90%, transparent);
-      border-radius: 18px;
-      padding: 16px 18px;
-      box-shadow: 0 10px 26px rgba(16, 24, 40, 0.05);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .founder-proof-value {
-      font-size: clamp(20px, 2.1vw, 30px);
-      font-weight: 800;
-      line-height: 1;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .founder-proof-label {
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .founder-aside {
-      display: grid;
-      gap: 14px;
-    }
-
-    .founder-panel-title {
-      margin: 0 0 10px;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--blue);
-    }
-
-    .founder-panel-list {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--text);
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    .founder-panel-list li + li {
-      margin-top: 6px;
-    }
-
-    .founder-panel--soft {
-      background: color-mix(in srgb, var(--blue) 4%, var(--bg-2));
+      .team-photo-ring {
+        max-width: 240px;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        justify-self: center;
+      }
     }
 
     @media (max-width: 980px) {
-      .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .founder-spotlight__inner { grid-template-columns: 1fr; }
-      .founder-proof-grid { grid-template-columns: 1fr 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
       .team-grid { grid-template-columns: 1fr; }
-      .team-photo-ring { width: 120px; }
+      .team-card { width: 100%; min-width: 0; }
+      .team-photo-ring { width: 100%; max-width: 220px; height: auto; aspect-ratio: 1 / 1; }
       .team-name { font-size: 17px; }
-      .founder-proof-grid { grid-template-columns: 1fr; }
-    }
-
-    .portfolio-note {
-      max-width: 920px;
-      margin-top: 8px;
-    }
-
-    .v-timeline-rich {
-      margin-top: 22px;
-      gap: 28px;
-    }
-
-    .v-timeline-rich .v-item {
-      min-height: 96px;
-    }
-
-    .v-timeline-rich .v-title {
-      font-size: 17px;
-      line-height: 1.35;
-      margin-top: 4px;
-    }
-
-    .v-timeline-rich .v-desc {
-      font-size: 14px;
-      line-height: 1.8;
-      max-width: 430px;
-    }
-
-    .v-timeline-rich .v-tag {
-      min-width: 96px;
-      justify-content: center;
-    }
-
-    @media (max-width: 860px) {
-      .portfolio-note { max-width: 100%; }
-      .v-timeline-rich .v-item { min-height: auto; }
-      .v-timeline-rich .v-desc { max-width: 100%; }
     }
 
     .bento {
       display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 18px;
+      gap: 16px;
       margin-top: 0;
-      padding-top: 18px;
+      padding-top: 8px;
     }
 
     .tile {
       background: var(--bg-2);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
+      padding: clamp(18px, 2.2vw, 24px);
+      box-shadow: 0 8px 24px rgba(16,24,40,.06);
       position: relative;
       overflow: hidden;
     }
 
     .tile h2 {
-      font-size: 24px;
-      margin-bottom: 6px;
+      font-size: clamp(1.45rem, 2.3vw, 1.8rem);
+      margin-bottom: 10px;
       letter-spacing: -.02em;
+      line-height: 1.22;
     }
 
     .tile h3 {
-      font-size: 18px;
-      margin-bottom: 6px;
+      font-size: 17px;
+      margin-bottom: 8px;
+      line-height: 1.3;
     }
 
     .tile p,
     .section-note {
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.75;
+      line-height: 1.72;
+      max-width: 70ch;
     }
 
     .section-kicker {
@@ -1187,11 +1001,11 @@
     .service-grid,
     .stack-columns {
       display: grid;
-      gap: 16px;
-      margin-top: 18px;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
     }
 
-    .service-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .service-grid { grid-template-columns: 1fr; }
     .stack-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .service-card,
     .stack-card {
@@ -1202,11 +1016,83 @@
 
     .service-card,
     .stack-card {
-      padding: 20px;
+      padding: var(--space-4);
       min-height: 150px;
       display: grid;
-      gap: 8px;
+      gap: var(--space-2);
       align-content: start;
+    }
+
+    #services {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--section-surface-a) 0%, var(--section-surface-b) 100%);
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+
+    #services h2 {
+      text-align: left;
+      width: auto;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .services-layout {
+      margin-top: var(--space-4);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+      min-height: auto;
+      justify-content: start;
+    }
+
+    .services-content {
+      min-width: 0;
+      position: relative;
+      padding: 0;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    #services .service-card {
+      min-height: 110px;
+      background: var(--bg-2);
+      border-color: var(--line);
+      text-align: left;
+      border-radius: 14px;
+      box-shadow: 0 8px 22px rgba(16,24,40,.05);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    #services .service-card:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--line) 58%, var(--blue));
+      box-shadow: 0 12px 26px rgba(16,24,40,.08);
+    }
+
+    #services .service-card p,
+    #services .service-card h3,
+    #services h2,
+    #services .section-kicker {
+      color: var(--text);
+    }
+
+    #services .section-kicker::before {
+      background: var(--blue);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--blue) 16%, transparent);
+    }
+
+    @media (max-width: 980px) {
+      #services {
+        background-attachment: scroll;
+      }
+
+      .services-layout { grid-template-columns: 1fr; min-height: auto; }
     }
 
     .tool-cloud {
@@ -1215,6 +1101,13 @@
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
+    }
+
+    #stack {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--section-surface-a) 0%, var(--section-surface-b) 100%);
     }
 
     .tool-pill {
@@ -1226,7 +1119,7 @@
       border-radius: 999px;
       border: 1px solid var(--line);
       background: color-mix(in srgb, var(--bg-2) 96%, transparent);
-      box-shadow: 0 8px 20px rgba(16,24,40,.05);
+      box-shadow: none;
       font-size: 12px;
       color: var(--text);
       white-space: nowrap;
@@ -1237,325 +1130,96 @@
       height: 16px;
     }
 
-    .boardgram {
-      display: grid;
-      gap: 14px;
-      margin-top: 16px;
-      padding: 16px;
-      border: 1px dashed var(--line);
-      border-radius: 16px;
-      background: color-mix(in srgb, var(--bg-3) 78%, transparent);
-    }
-
-    .waterfall {
-      display: grid;
-      gap: 12px;
-    }
-
-    .wf-step {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: center;
-      max-width: 470px;
-    }
-
-    .wf-step:nth-child(1) { justify-self: start; }
-    .wf-step:nth-child(2) { justify-self: center; }
-    .wf-step:nth-child(3) { justify-self: end; }
-
-    .wf-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      background: var(--blue);
-      box-shadow: var(--shadow);
-    }
-
-    .wf-pill.green { background: var(--green); }
-    .wf-pill.yellow { background: #f2c94c; color: #1b1b1b; }
-
-    .wf-tag {
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.16);
-      font-size: 11px;
-    }
-
-    .wf-sub {
-      margin-top: 6px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .wf-arrow {
-      width: 34px;
-      height: 34px;
-      opacity: .45;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 38px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 13px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: color-mix(in srgb, var(--bg-2) 96%, transparent);
-    }
-
-    .step-num {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      color: var(--blue);
-      border: 1px solid color-mix(in srgb, var(--blue) 20%, transparent);
-      background: color-mix(in srgb, var(--blue) 10%, transparent);
-    }
-
-    .img-tile {
-      padding: 0;
-      min-height: 320px;
-    }
-
-    .img-tile img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .v-timeline {
-      position: relative;
-      display: grid;
-      gap: 24px;
-      margin-top: 16px;
-      padding: 8px 0;
-    }
-
-    .v-timeline::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      transform: translateX(-50%);
-      background: color-mix(in srgb, var(--line) 82%, transparent);
-    }
-
-    .v-item {
-      display: grid;
-      grid-template-columns: 1fr 42px 1fr;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .v-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--blue);
-      justify-self: center;
-      box-shadow: 0 0 0 5px color-mix(in srgb, var(--blue) 16%, transparent);
-    }
-
-    .v-side {
-      display: grid;
-      gap: 6px;
-      font-size: 14px;
-    }
-
-    .v-left {
-      text-align: right;
-      justify-items: end;
-    }
-
-    .v-right {
-      text-align: left;
-      justify-items: start;
-    }
-
-    .v-tag {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
-
-    .v-tag.color-blue { background: var(--blue); }
-    .v-tag.color-red { background: #df5a4c; }
-    .v-tag.color-yellow { background: #f2c94c; color: #1b1b1b; }
-
-    .v-title {
-      font-weight: 800;
-    }
-
-    .v-desc {
-      max-width: 360px;
-      color: var(--muted);
-    }
-
-    .test-carousel {
-      display: grid;
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .test-track {
-      display: flex;
-      gap: 12px;
-      overflow: hidden;
-      scroll-behavior: smooth;
-    }
-
-    .test-card {
-      min-width: 280px;
-      border: 1px solid var(--line);
-      background: var(--bg-2);
-      border-radius: 16px;
-      padding: 16px;
-      position: relative;
-      box-shadow: var(--shadow);
-    }
-
-    .test-strip {
-      position: absolute;
-      inset: 0 0 auto 0;
-      height: 4px;
-      border-radius: 16px 16px 0 0;
-    }
-
-    .test-quote {
-      font-size: 13px;
-      color: var(--muted);
-      margin: 12px 0 14px;
-      line-height: 1.7;
-    }
-
-    .test-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .test-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      font-weight: 800;
-      background: color-mix(in srgb, var(--blue) 12%, transparent);
-      color: var(--blue);
-    }
-
-    .test-name {
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .test-role {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .carousel-controls {
-      display: flex;
-      gap: 8px;
-    }
 
     .contact-band {
       grid-column: span 12;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
       position: relative;
       overflow: hidden;
-      min-height: 640px;
-      border-radius: var(--radius-lg);
+      min-height: auto;
+      border-radius: 18px;
       border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      background:
-        linear-gradient(135deg, rgba(11,16,24,.80), rgba(11,16,24,.62)),
-        url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
-      background-attachment: fixed;
+      box-shadow: 0 8px 22px rgba(16,24,40,.06);
+      background: linear-gradient(180deg, var(--section-surface-a) 0%, var(--section-surface-b) 100%);
     }
 
     .contact-inner {
       position: relative;
       z-index: 1;
-      min-height: 640px;
+      min-height: auto;
       display: grid;
       align-items: center;
-      padding: 36px;
+      padding: clamp(22px, 3.2vw, 36px);
     }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 22px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: clamp(16px, 2vw, 26px);
+      max-width: 100%;
+      margin: 0;
+      width: 100%;
+      align-items: stretch;
     }
 
     .contact-panel,
-    .contact-info-panel {
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 18px 42px rgba(0,0,0,.22);
-      padding: 26px;
-      color: #fff;
+    .contact-info-panel,
+    .contact-quick-panel {
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--bg-2);
+      box-shadow: 0 8px 20px rgba(16,24,40,.05);
+      padding: clamp(18px, 2.2vw, 28px);
+      color: var(--text);
+    }
+
+    .contact-quick-panel h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .contact-quick-panel p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
     }
 
     .contact-panel .section-kicker,
     .contact-info-panel .section-kicker {
-      color: #dce9ff;
+      color: var(--blue);
     }
 
     .contact-panel .section-kicker::before,
     .contact-info-panel .section-kicker::before {
-      background: #dce9ff;
-      box-shadow: 0 0 0 6px rgba(220,233,255,.14);
+      background: var(--blue);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--blue) 16%, transparent);
     }
 
     .contact-panel h2,
     .contact-info-panel h2 {
-      color: #fff;
-      margin-bottom: 8px;
+      color: var(--text);
+      margin-bottom: 10px;
+      font-size: clamp(1.55rem, 2.1vw, 2rem);
+      line-height: 1.2;
     }
 
     .contact-panel .section-note,
     .contact-copy {
-      color: rgba(255,255,255,.80);
-      font-size: 14px;
-      line-height: 1.75;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
     }
 
     .form {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
       position: relative;
     }
 
@@ -1579,35 +1243,37 @@
     }
 
     .field label {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      color: #fff;
+      color: var(--text);
     }
 
     .form input,
     .form textarea,
     .form select {
       width: 100%;
-      padding: 12px 14px;
+      min-height: 46px;
+      padding: 0 14px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.08);
-      color: #fff;
+      border: 1px solid var(--line);
+      background: var(--bg-3);
+      color: var(--text);
       font: inherit;
       outline: none;
     }
 
     .form input::placeholder,
     .form textarea::placeholder {
-      color: rgba(255,255,255,.54);
+      color: color-mix(in srgb, var(--muted) 78%, #7f8a9a);
     }
 
     .form select option {
-      color: #1b2430;
+      color: #111827;
     }
 
     .form textarea {
       min-height: 124px;
+      padding: 10px 14px;
       resize: vertical;
     }
 
@@ -1618,21 +1284,22 @@
     .lang-btn:focus-visible,
     .nav-links a:focus-visible {
       outline: none;
-      border-color: rgba(255,255,255,.34);
-      box-shadow: 0 0 0 3px rgba(136,180,255,.22);
+      border-color: color-mix(in srgb, var(--blue) 52%, transparent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 22%, transparent);
     }
 
     .contact-submit {
       width: 100%;
+      min-height: 46px;
       justify-content: center;
-      background: #fff;
-      color: #101828;
+      background: var(--blue);
+      color: #ffffff;
       border-color: transparent;
-      box-shadow: none;
+      box-shadow: 0 10px 24px rgba(26,115,232,.24);
     }
 
     .contact-submit:hover {
-      background: #f4f7fb;
+      background: var(--blue-2);
     }
 
     .contact-process {
@@ -1647,7 +1314,7 @@
       gap: 10px;
       align-items: start;
       font-size: 13px;
-      color: rgba(255,255,255,.92);
+      color: var(--text);
     }
 
     .contact-process-num {
@@ -1657,8 +1324,9 @@
       display: grid;
       place-items: center;
       font-weight: 800;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.16);
+      background: color-mix(in srgb, var(--blue) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--blue) 20%, transparent);
+      color: var(--blue);
     }
 
     .contact-brand {
@@ -1666,7 +1334,7 @@
       gap: 10px;
       padding-bottom: 18px;
       margin-bottom: 18px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      border-bottom: 1px solid var(--line);
     }
 
     .contact-brand-row {
@@ -1685,7 +1353,7 @@
     }
 
     .contact-logo-soft {
-      opacity: .42;
+      opacity: .6;
       font-weight: 600;
     }
 
@@ -1696,7 +1364,7 @@
     }
 
     .contact-subbrand {
-      color: rgba(255,255,255,.78);
+      color: var(--muted);
       font-size: 14px;
       font-weight: 500;
     }
@@ -1710,24 +1378,24 @@
     .contact-item {
       display: grid;
       gap: 3px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      background: var(--bg-3);
     }
 
     .contact-label {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: .08em;
-      color: rgba(255,255,255,.58);
+      color: color-mix(in srgb, var(--muted) 86%, #708099);
     }
 
     .contact-value {
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 600;
-      color: #fff;
+      color: var(--text);
     }
 
     .contact-value a {
@@ -1739,6 +1407,43 @@
       text-decoration: underline;
     }
 
+    .contact-reveal-btn {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg-2) 92%, transparent);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .contact-reveal-btn:hover {
+      transform: translateY(-1px);
+      background: var(--bg-2);
+    }
+
+    .contact-reveal {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .contact-reveal-btn svg {
+      width: 17px;
+      height: 17px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     .contact-cta-row {
       margin-top: 16px;
       display: flex;
@@ -1748,15 +1453,15 @@
     }
 
     .contact-open-btn {
-      min-height: 42px;
+      min-height: 44px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0 16px;
+      padding: 0 18px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.26);
-      color: #fff;
-      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: var(--bg-2);
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
@@ -1766,8 +1471,11 @@
 
     .contact-open-btn:hover {
       transform: translateY(-1px);
-      background: rgba(255,255,255,.14);
+      background: var(--bg-3);
     }
+
+    .contact-quick-panel .form,
+    .fast-inline-panel .form { margin-top: 10px; }
 
     .contact-modal-shell {
       width: min(760px, calc(100vw - 32px));
@@ -1801,7 +1509,7 @@
 
     footer {
       margin-top: 56px;
-      padding: 28px 0 40px;
+      padding: 22px 0 36px;
       border-top: 1px solid var(--line);
       display: grid;
       gap: 8px;
@@ -1968,13 +1676,7 @@
 
 
     @media (max-width: 1080px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-side {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
+      .hero-grid { grid-template-columns: 1fr; }
     }
 
   @media (max-width: 980px) {
@@ -1982,10 +1684,8 @@
 
       .nav-toggle { display: inline-flex; }
 
-      .team-grid,
       .service-grid,
       .stack-columns,
-      .tool-row,
       .trust-strip {
         grid-template-columns: repeat(2, minmax(0,1fr));
       }
@@ -2012,43 +1712,12 @@
 
       .contact-inner {
         min-height: auto;
+        padding: 22px;
       }
 
     }
 
     @media (max-width: 860px) {
-      .v-timeline::before {
-        left: 20px;
-      }
-
-      .v-item {
-        grid-template-columns: 28px 1fr;
-      }
-
-      .v-dot {
-        grid-column: 1;
-      }
-
-      .v-side {
-        grid-column: 2;
-        text-align: left;
-        justify-items: start;
-      }
-
-      .v-left,
-      .v-right {
-        text-align: left;
-        justify-items: start;
-      }
-
-      .wf-step,
-      .wf-step:nth-child(1),
-      .wf-step:nth-child(2),
-      .wf-step:nth-child(3) {
-        justify-self: stretch;
-        max-width: none;
-      }
-
       .profile-grid-two {
         grid-template-columns: 1fr;
       }
@@ -2077,11 +1746,9 @@
         padding: 24px 18px;
       }
 
-      .hero-side,
       .team-grid,
       .service-grid,
       .stack-columns,
-      .tool-row,
       .trust-strip {
         grid-template-columns: 1fr;
       }
@@ -2099,12 +1766,10 @@
         grid-column: span 4;
       }
 
-      .team-photo-ring {
-        width: 126px;
-      }
+      .team-photo-ring { width: 100%; max-width: 240px; height: auto; aspect-ratio: 1 / 1; }
 
       .team-name {
-        font-size: 18px;
+        font-size: 17px;
       }
 
       .contact-inner {
@@ -2112,7 +1777,8 @@
       }
 
       .contact-panel,
-      .contact-info-panel {
+      .contact-info-panel,
+      .contact-quick-panel {
         padding: 18px;
       }
 
@@ -3081,7 +2747,7 @@
   </header>
 
   <main class="container">
-    <section class="hero" id="home">
+    <section class="hero snap-block" id="home">
       <div class="hero-banner">
         <div class="hero-bg" aria-hidden="true"></div>
 
@@ -3119,31 +2785,26 @@
     </section>
 
     <section class="bento">
-      <div class="tile span-12" id="team">
-        <div class="section-kicker" data-i18n="team_kicker"></div>
+      <div class="tile span-12 snap-block" id="team">
         <h2 data-i18n="team_title"></h2>
 
         <div class="team-grid">
           <article class="team-card" data-member="reza">
             <div class="team-photo-ring">
-              <img class="team-photo" src="assets/Mosalanezhad.jpg" alt="Reza Mosalanezhad" loading="lazy" />
+              <img class="team-photo" src="assets/Mosalanezhad.jpg" alt="PhD. Reza Mosalanezhad" loading="lazy" />
             </div>
-
             <div class="team-meta">
               <div class="team-name" data-i18n="member_2_name"></div>
               <div class="team-role" data-i18n="member_2_role"></div>
-              <div class="power-statement" data-i18n="member_2_short"></div>
-
-              <div class="chip-row-wrap">
-                <div class="chip-row">
-                  <span class="chip" data-i18n="member_2_tag_1"></span>
-                  <span class="chip" data-i18n="member_2_tag_2"></span>
-                  <span class="chip" data-i18n="member_2_tag_3"></span>
-                </div>
-                <button class="team-view-btn" type="button" aria-label="View profile for PhD. Reza Mosalanezhad" data-open-profile="reza">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
-                </button>
+              <div class="power-statement" data-i18n="member_2_power"></div>
+              <div class="chip-row">
+                <span class="chip" data-i18n="member_2_tag_1"></span>
+                <span class="chip" data-i18n="member_2_tag_2"></span>
+                <span class="chip" data-i18n="member_2_tag_3"></span>
               </div>
+              <button class="team-view-btn" type="button" aria-label="View profile for PhD. Reza Mosalanezhad" data-open-profile="reza">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+              </button>
             </div>
           </article>
 
@@ -3151,22 +2812,18 @@
             <div class="team-photo-ring">
               <img class="team-photo" src="assets/Khaledi.jpg" alt="Alireza Khaledi" loading="lazy" />
             </div>
-
             <div class="team-meta">
               <div class="team-name" data-i18n="member_1_name"></div>
               <div class="team-role" data-i18n="member_1_role"></div>
-              <div class="power-statement" data-i18n="member_1_short"></div>
-
-              <div class="chip-row-wrap">
-                <div class="chip-row">
-                  <span class="chip" data-i18n="member_1_tag_1"></span>
-                  <span class="chip" data-i18n="member_1_tag_2"></span>
-                  <span class="chip" data-i18n="member_1_tag_3"></span>
-                </div>
-                <button class="team-view-btn" type="button" aria-label="View profile for Alireza Khaledi" data-open-profile="alireza">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
-                </button>
+              <div class="power-statement" data-i18n="member_1_power"></div>
+              <div class="chip-row">
+                <span class="chip" data-i18n="member_1_tag_1"></span>
+                <span class="chip" data-i18n="member_1_tag_2"></span>
+                <span class="chip" data-i18n="member_1_tag_3"></span>
               </div>
+              <button class="team-view-btn" type="button" aria-label="View profile for Alireza Khaledi" data-open-profile="alireza">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+              </button>
             </div>
           </article>
 
@@ -3174,100 +2831,47 @@
             <div class="team-photo-ring">
               <img class="team-photo" src="assets/Ghelej.png" alt="Ali Ghelej Beigi" loading="lazy" />
             </div>
-
             <div class="team-meta">
               <div class="team-name" data-i18n="member_3_name"></div>
               <div class="team-role" data-i18n="member_3_role"></div>
-              <div class="power-statement" data-i18n="member_3_short"></div>
-
-              <div class="chip-row-wrap">
-                <div class="chip-row">
-                  <span class="chip" data-i18n="member_3_tag_1"></span>
-                  <span class="chip" data-i18n="member_3_tag_2"></span>
-                  <span class="chip" data-i18n="member_3_tag_3"></span>
-                </div>
-                <button class="team-view-btn" type="button" aria-label="View profile for Ali Ghelej Beigi" data-open-profile="ali">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
-                </button>
+              <div class="power-statement" data-i18n="member_3_power"></div>
+              <div class="chip-row">
+                <span class="chip" data-i18n="member_3_tag_1"></span>
+                <span class="chip" data-i18n="member_3_tag_2"></span>
+                <span class="chip" data-i18n="member_3_tag_3"></span>
               </div>
+              <button class="team-view-btn" type="button" aria-label="View profile for Ali Ghelej Beigi" data-open-profile="ali">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+              </button>
             </div>
           </article>
         </div>
       </div>
 
-      <!-- Founder spotlight -->
-      <div class="tile span-12 founder-spotlight" id="founder">
-        <div class="founder-spotlight__inner">
-          <div class="founder-copy">
-            <div class="section-kicker" data-i18n="founder_kicker"></div>
-            <h2 data-i18n="founder_title"></h2>
-            <p class="section-note founder-intro" data-i18n="founder_intro"></p>
-
-            <div class="founder-proof-grid">
-              <div class="founder-proof-card">
-                <div class="founder-proof-value" data-i18n="founder_stat_1_v"></div>
-                <div class="founder-proof-label" data-i18n="founder_stat_1_l"></div>
-              </div>
-              <div class="founder-proof-card">
-                <div class="founder-proof-value" data-i18n="founder_stat_2_v"></div>
-                <div class="founder-proof-label" data-i18n="founder_stat_2_l"></div>
-              </div>
-              <div class="founder-proof-card">
-                <div class="founder-proof-value" data-i18n="founder_stat_3_v"></div>
-                <div class="founder-proof-label" data-i18n="founder_stat_3_l"></div>
-              </div>
-              <div class="founder-proof-card">
-                <div class="founder-proof-value" data-i18n="founder_stat_4_v"></div>
-                <div class="founder-proof-label" data-i18n="founder_stat_4_l"></div>
-              </div>
-            </div>
-          </div>
-
-          <aside class="founder-aside">
-            <div class="founder-panel">
-              <div class="founder-panel-title" data-i18n="founder_panel_title"></div>
-              <ul class="founder-panel-list">
-                <li data-i18n="founder_panel_1"></li>
-                <li data-i18n="founder_panel_2"></li>
-                <li data-i18n="founder_panel_3"></li>
-                <li data-i18n="founder_panel_4"></li>
-              </ul>
-            </div>
-
-            <div class="founder-panel founder-panel--soft">
-              <div class="founder-panel-title" data-i18n="founder_bestfit_title"></div>
-              <ul class="founder-panel-list">
-                <li data-i18n="founder_bestfit_1"></li>
-                <li data-i18n="founder_bestfit_2"></li>
-                <li data-i18n="founder_bestfit_3"></li>
-              </ul>
-            </div>
-          </aside>
-        </div>
-      </div>
-
-      <div class="tile span-12" id="services">
-        <div class="section-kicker" data-i18n="services_kicker"></div>
+      <div class="tile span-12 snap-block" id="services">
         <h2 data-i18n="services_title"></h2>
 
-        <div class="service-grid">
-          <article class="service-card">
-            <h3 data-i18n="svc_1_title"></h3>
-            <p data-i18n="svc_1_desc"></p>
-          </article>
-          <article class="service-card">
-            <h3 data-i18n="svc_2_title"></h3>
-            <p data-i18n="svc_2_desc"></p>
-          </article>
-          <article class="service-card">
-            <h3 data-i18n="svc_3_title"></h3>
-            <p data-i18n="svc_3_desc"></p>
-          </article>
+        <div class="services-layout">
+          <div class="services-content">
+            <div class="service-grid">
+              <article class="service-card">
+                <h3 data-i18n="svc_1_title"></h3>
+                <p data-i18n="svc_1_desc"></p>
+              </article>
+              <article class="service-card">
+                <h3 data-i18n="svc_2_title"></h3>
+                <p data-i18n="svc_2_desc"></p>
+              </article>
+              <article class="service-card">
+                <h3 data-i18n="svc_3_title"></h3>
+                <p data-i18n="svc_3_desc"></p>
+              </article>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="tile span-12 engagement-section" id="engagement">
-        <div class="section-kicker" data-i18n="engagement_kicker"></div>
+      <div class="tile span-12 engagement-section snap-block" id="engagement">
         <h2 data-i18n="engagement_title"></h2>
         <p class="section-note engagement-intro" data-i18n="engagement_desc"></p>
 
@@ -3333,8 +2937,7 @@
         </div>
       </div>
 
-      <div class="tile span-12">
-        <div class="section-kicker" data-i18n="tools_kicker"></div>
+      <div class="tile span-12 snap-block" id="stack">
         <h2 data-i18n="tools_title"></h2>
 
         <div class="tool-cloud" aria-hidden="true">
@@ -3363,8 +2966,7 @@
         </div>
       </div>
 
-      <div class="tile span-12" id="evidence">
-        <div class="section-kicker" data-i18n="evidence_kicker"></div>
+      <div class="tile span-12 snap-block" id="evidence">
         <h2 data-i18n="evidence_title"></h2>
         <p class="section-intro" data-i18n="evidence_intro"></p>
 
@@ -3413,268 +3015,10 @@
         </div>
       </div>
 
-      <div class="tile span-7">
-        <div class="section-kicker" data-i18n="board_kicker"></div>
-        <h2 data-i18n="board_title"></h2>
-        <div class="boardgram" aria-hidden="true">
-          <div class="waterfall">
-            <div class="wf-step">
-              <div>
-                <div class="wf-pill">
-                  <span data-i18n="board_todo"></span>
-                  <span class="wf-tag" data-i18n="board_todo_tag"></span>
-                </div>
-                <div class="wf-sub" data-i18n="board_todo_sub"></div>
-              </div>
-              <svg class="wf-arrow" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22c10 0 14 10 14 20 0 12 10 20 26 20"/><path d="M48 58l8-8-8-8"/></svg>
-            </div>
-
-            <div class="wf-step">
-              <div>
-                <div class="wf-pill green">
-                  <span data-i18n="board_progress"></span>
-                  <span class="wf-tag" data-i18n="board_progress_tag"></span>
-                </div>
-                <div class="wf-sub" data-i18n="board_progress_sub"></div>
-              </div>
-              <svg class="wf-arrow" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22c10 0 14 10 14 20 0 12 10 20 26 20"/><path d="M48 58l8-8-8-8"/></svg>
-            </div>
-
-            <div class="wf-step">
-              <div>
-                <div class="wf-pill yellow">
-                  <span data-i18n="board_done"></span>
-                  <span class="wf-tag" data-i18n="board_done_tag"></span>
-                </div>
-                <div class="wf-sub" data-i18n="board_done_sub"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tile span-5">
-        <div class="section-kicker" data-i18n="process_kicker"></div>
-        <h2 data-i18n="process_title"></h2>
-        <div class="timeline">
-          <div class="step"><div class="step-num">01</div><div data-i18n="process_1"></div></div>
-          <div class="step"><div class="step-num">02</div><div data-i18n="process_2"></div></div>
-          <div class="step"><div class="step-num">03</div><div data-i18n="process_3"></div></div>
-          <div class="step"><div class="step-num">04</div><div data-i18n="process_4"></div></div>
-        </div>
-      </div>
-
-      <div class="tile span-6 img-tile">
-        <img
-          loading="lazy"
-          src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&q=80"
-          data-i18n-alt="img_alt_1"
-          alt=""
-        />
-      </div>
-
-      <div class="tile span-6 img-tile">
-        <img
-          loading="lazy"
-          src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80"
-          data-i18n-alt="img_alt_2"
-          alt=""
-        />
-      </div>
-
-      <div class="tile span-12" id="portfolio">
-        <div class="section-kicker" data-i18n="portfolio_kicker"></div>
-        <h2 data-i18n="portfolio_title"></h2>
-        <p class="section-note portfolio-note" data-i18n="portfolio_note"></p>
-
-        <div class="v-timeline v-timeline-rich">
-          <div class="v-item">
-            <div class="v-side v-left">
-              <span class="v-tag color-yellow" data-i18n="proj_1_date"></span>
-              <div class="v-title" data-i18n="proj_1_t"></div>
-              <div class="v-desc" data-i18n="proj_1_d"></div>
-            </div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right"></div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left"></div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right">
-              <span class="v-tag color-blue" data-i18n="proj_2_date"></span>
-              <div class="v-title" data-i18n="proj_2_t"></div>
-              <div class="v-desc" data-i18n="proj_2_d"></div>
-            </div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left">
-              <span class="v-tag color-red" data-i18n="proj_3_date"></span>
-              <div class="v-title" data-i18n="proj_3_t"></div>
-              <div class="v-desc" data-i18n="proj_3_d"></div>
-            </div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right"></div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left"></div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right">
-              <span class="v-tag color-yellow" data-i18n="proj_4_date"></span>
-              <div class="v-title" data-i18n="proj_4_t"></div>
-              <div class="v-desc" data-i18n="proj_4_d"></div>
-            </div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left">
-              <span class="v-tag color-blue" data-i18n="proj_5_date"></span>
-              <div class="v-title" data-i18n="proj_5_t"></div>
-              <div class="v-desc" data-i18n="proj_5_d"></div>
-            </div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right"></div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left"></div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right">
-              <span class="v-tag color-red" data-i18n="proj_6_date"></span>
-              <div class="v-title" data-i18n="proj_6_t"></div>
-              <div class="v-desc" data-i18n="proj_6_d"></div>
-            </div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left">
-              <span class="v-tag color-yellow" data-i18n="proj_7_date"></span>
-              <div class="v-title" data-i18n="proj_7_t"></div>
-              <div class="v-desc" data-i18n="proj_7_d"></div>
-            </div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right"></div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left"></div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right">
-              <span class="v-tag color-blue" data-i18n="proj_8_date"></span>
-              <div class="v-title" data-i18n="proj_8_t"></div>
-              <div class="v-desc" data-i18n="proj_8_d"></div>
-            </div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left">
-              <span class="v-tag color-red" data-i18n="proj_9_date"></span>
-              <div class="v-title" data-i18n="proj_9_t"></div>
-              <div class="v-desc" data-i18n="proj_9_d"></div>
-            </div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right"></div>
-          </div>
-
-          <div class="v-item">
-            <div class="v-side v-left"></div>
-            <div class="v-dot"></div>
-            <div class="v-side v-right">
-              <span class="v-tag color-blue" data-i18n="proj_10_date"></span>
-              <div class="v-title" data-i18n="proj_10_t"></div>
-              <div class="v-desc" data-i18n="proj_10_d"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tile span-12">
-        <div class="section-kicker" data-i18n="test_kicker"></div>
-        <h2 data-i18n="test_title"></h2>
-
-        <div class="test-carousel">
-          <div class="test-track" id="testTrack">
-            <div class="test-card">
-              <div class="test-strip" style="background:var(--blue)"></div>
-              <div class="test-quote" data-i18n="test_1"></div>
-              <div class="test-meta"><div class="test-avatar">JR</div><div><div class="test-name" data-i18n="test_1_name"></div><div class="test-role" data-i18n="test_1_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:var(--green)"></div>
-              <div class="test-quote" data-i18n="test_2"></div>
-              <div class="test-meta"><div class="test-avatar">LM</div><div><div class="test-name" data-i18n="test_2_name"></div><div class="test-role" data-i18n="test_2_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#f2c94c"></div>
-              <div class="test-quote" data-i18n="test_3"></div>
-              <div class="test-meta"><div class="test-avatar">AS</div><div><div class="test-name" data-i18n="test_3_name"></div><div class="test-role" data-i18n="test_3_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#df5a4c"></div>
-              <div class="test-quote" data-i18n="test_4"></div>
-              <div class="test-meta"><div class="test-avatar">MT</div><div><div class="test-name" data-i18n="test_4_name"></div><div class="test-role" data-i18n="test_4_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#5f8eff"></div>
-              <div class="test-quote" data-i18n="test_5"></div>
-              <div class="test-meta"><div class="test-avatar">BK</div><div><div class="test-name" data-i18n="test_5_name"></div><div class="test-role" data-i18n="test_5_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#36b37e"></div>
-              <div class="test-quote" data-i18n="test_6"></div>
-              <div class="test-meta"><div class="test-avatar">OP</div><div><div class="test-name" data-i18n="test_6_name"></div><div class="test-role" data-i18n="test_6_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#f2c94c"></div>
-              <div class="test-quote" data-i18n="test_7"></div>
-              <div class="test-meta"><div class="test-avatar">RW</div><div><div class="test-name" data-i18n="test_7_name"></div><div class="test-role" data-i18n="test_7_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#df5a4c"></div>
-              <div class="test-quote" data-i18n="test_8"></div>
-              <div class="test-meta"><div class="test-avatar">NS</div><div><div class="test-name" data-i18n="test_8_name"></div><div class="test-role" data-i18n="test_8_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#6e8fbf"></div>
-              <div class="test-quote" data-i18n="test_9"></div>
-              <div class="test-meta"><div class="test-avatar">GA</div><div><div class="test-name" data-i18n="test_9_name"></div><div class="test-role" data-i18n="test_9_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#4fb3bf"></div>
-              <div class="test-quote" data-i18n="test_10"></div>
-              <div class="test-meta"><div class="test-avatar">TC</div><div><div class="test-name" data-i18n="test_10_name"></div><div class="test-role" data-i18n="test_10_role"></div></div></div>
-            </div>
-
-            <div class="test-card">
-              <div class="test-strip" style="background:#8d6ad3"></div>
-              <div class="test-quote" data-i18n="test_11"></div>
-              <div class="test-meta"><div class="test-avatar">FR</div><div><div class="test-name" data-i18n="test_11_name"></div><div class="test-role" data-i18n="test_11_role"></div></div></div>
-            </div>
-          </div>
-
-          <div class="carousel-controls">
-            <button class="btn" id="testPrev" type="button" data-i18n="prev"></button>
-            <button class="btn" id="testNext" type="button" data-i18n="next"></button>
-          </div>
-        </div>
-      </div>
-
-      <section class="contact-band" id="contact">
+      <section class="contact-band snap-block" id="contact">
         <div class="contact-inner">
           <div class="contact-grid">
             <div class="contact-info-panel">
-              <div class="section-kicker" data-i18n="contact_info_kicker"></div>
 
               <div class="contact-brand">
                 <div class="contact-brand-row">
@@ -3691,18 +3035,31 @@
 
               <div class="contact-cta-row">
                 <button class="contact-open-btn" type="button" data-open-contact-modal="contact" data-i18n="cta_start"></button>
-                <button class="contact-open-btn" type="button" data-open-fast-modal="contact" data-i18n="fast_contact_btn"></button>
               </div>
 
               <div class="contact-list">
                 <div class="contact-item">
                   <div class="contact-label" data-i18n="loc_de_label"></div>
-                  <div class="contact-value" data-i18n="loc_de_value"></div>
+                  <div class="contact-value contact-reveal">
+                    <span class="contact-phone" data-reveal-phone-value data-mask="****" data-k1="61" data-k2="94">
+                      <span class="contact-phone-front">+49 (0) 1575 501 </span><span class="contact-phone-last" data-phone-last>****</span>
+                    </span>
+                    <button class="contact-reveal-btn" type="button" data-reveal-phone data-expanded="false" aria-label="Reveal phone number" onclick="toggleContactNumber(this)">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+                    </button>
+                  </div>
                 </div>
 
                 <div class="contact-item">
                   <div class="contact-label" data-i18n="loc_pl_label"></div>
-                  <div class="contact-value" data-i18n="loc_pl_value"></div>
+                  <div class="contact-value contact-reveal">
+                    <span class="contact-phone" data-reveal-phone-value data-mask="****" data-k1="02" data-k2="68">
+                      <span class="contact-phone-front">+48 503 08</span><span class="contact-phone-last" data-phone-last>****</span>
+                    </span>
+                    <button class="contact-reveal-btn" type="button" data-reveal-phone data-expanded="false" aria-label="Reveal phone number" onclick="toggleContactNumber(this)">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.25"></circle></svg>
+                    </button>
+                  </div>
                 </div>
 
                 <div class="contact-item">
@@ -3710,6 +3067,31 @@
                   <div class="contact-value"><a href="mailto:info@khaledi.eu">info@khaledi.eu</a></div>
                 </div>
               </div>
+            </div>
+
+            <div class="contact-panel contact-quick-panel">
+              <h3 data-i18n="fast_contact_btn"></h3>
+              <p data-i18n="fast_contact_note"></p>
+              <form class="form" id="fastContactForm">
+                <div class="field full">
+                  <label for="fastEmail" data-i18n="label_email"></label>
+                  <input id="fastEmail" name="email" type="email" data-i18n-placeholder="ph_email" placeholder="" required />
+                </div>
+
+                <div class="field full">
+                  <label for="fastSubject" data-i18n="label_subject"></label>
+                  <input id="fastSubject" name="subject" type="text" data-i18n-placeholder="ph_subject" placeholder="" required />
+                </div>
+
+                <div class="field full">
+                  <label for="fastMessage" data-i18n="label_message"></label>
+                  <textarea id="fastMessage" name="message" data-i18n-placeholder="ph_message" placeholder="" required></textarea>
+                </div>
+
+                <div class="field full">
+                  <button class="btn contact-submit" type="submit" data-i18n="send_btn"></button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -3719,7 +3101,6 @@
     <div class="modal-overlay" id="contactModal" aria-hidden="true" hidden>
       <div class="contact-modal-shell" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
         <button class="modal-close" type="button" data-close-modal="contactModal">&times;</button>
-        <div class="section-kicker" data-i18n="contact_section_kicker"></div>
         <h2 id="contactModalTitle" data-i18n="contact_title"></h2>
         <p class="section-note" data-i18n="contact_desc"></p>
 
@@ -3778,35 +3159,6 @@
 
           <div class="field full">
             <button class="btn contact-submit" type="submit" data-i18n="cta_start"></button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="modal-overlay" id="fastContactModal" aria-hidden="true" hidden>
-      <div class="contact-modal-shell" role="dialog" aria-modal="true" aria-labelledby="fastContactModalTitle">
-        <button class="modal-close" type="button" data-close-modal="fastContactModal">&times;</button>
-        <div class="section-kicker" data-i18n="contact_info_kicker"></div>
-        <h2 id="fastContactModalTitle" data-i18n="fast_contact_btn"></h2>
-
-        <form class="form" id="fastContactForm">
-          <div class="field">
-            <label for="fastEmail" data-i18n="label_email"></label>
-            <input id="fastEmail" name="email" type="email" data-i18n-placeholder="ph_email" placeholder="" required />
-          </div>
-
-          <div class="field">
-            <label for="fastSubject" data-i18n="label_subject"></label>
-            <input id="fastSubject" name="subject" type="text" data-i18n-placeholder="ph_subject" placeholder="" required />
-          </div>
-
-          <div class="field full">
-            <label for="fastMessage" data-i18n="label_message"></label>
-            <textarea id="fastMessage" name="message" data-i18n-placeholder="ph_message" placeholder="" required></textarea>
-          </div>
-
-          <div class="field full">
-            <button class="btn contact-submit" type="submit" data-i18n="send_btn"></button>
           </div>
         </form>
       </div>
@@ -3888,53 +3240,53 @@
 
     const translations = {
       en: {
-        brand_sub: "B2B Engineering Delivery",
+        brand_sub: "ENGINEERING DELIVERY GROUP",
         nav_team: "Experts",
         nav_services: "Solutions",
         nav_stack: "Capabilities",
         nav_portfolio: "Proof",
         nav_contact: "Contact",
-        cta_start: "Book a Discovery Call",
+        cta_start: "Project Request",
         catalog_btn: "Catalog",
         catalog_print: "Print / Save PDF",
         cta_explore: "See Solutions",
         bc_home: "Home",
-        bc_delivery: "B2B Engineering Delivery",
+        bc_delivery: "ENGINEERING DELIVERY GROUP",
 
         hero_kicker: "",
         hero_title: "Engineering Excellence. Delivered.",
-        hero_subtitle: "KHALEDI combines delivery coordination, industrial automation support, and mobile product implementation for companies that need clear ownership and reliable follow-through.",
+        hero_subtitle: "Delivery coordination, industrial automation, and mobile execution with clear ownership and reliable follow-through.",
         hero_panel_title: "Why clients engage us",
         hero_panel_1: "Structured delivery control across technical workstreams.",
         hero_panel_2: "Industrial automation support aligned with execution discipline.",
-        hero_panel_3: "Lean collaboration model for focused B2B engagements.",
+        hero_panel_3: "Lean collaboration model for focused project engagements.",
         hero_summary_label_1: "Delivery model",
         hero_summary_value_1: "Lean and direct",
         hero_summary_label_2: "Core focus",
         hero_summary_value_2: "Industrial + digital",
         hero_summary_label_3: "Engagement",
-        hero_summary_value_3: "Project-based B2B",
+        hero_summary_value_3: "Project-based support",
 
         trust_1_v: "3 Core Lines",
-        trust_1_l: "Delivery coordination, industrial automation, and mobile execution",
-        trust_2_v: "B2B Focus",
-        trust_2_l: "Built for practical execution, not generic agency packaging",
+        trust_1_l: "Delivery, automation, and mobile execution",
+        trust_2_v: "Flexible Fit",
+        trust_2_l: "Built for execution, not agency noise",
         trust_3_v: "EU-based",
-        trust_3_l: "Remote-friendly collaboration for European project environments",
+        trust_3_l: "Remote-ready for European project teams",
         trust_4_v: "Direct Access",
-        trust_4_l: "You work with the actual people responsible for delivery",
+        trust_4_l: "Direct access to delivery owners",
 
         team_kicker: "Delivery Leads",
         team_title: "The people clients actually work with",
         leader_flag: "Founder",
         member_1_badge: "Group Director",
         member_1_name: "Alireza Khaledi",
-        member_1_role: "Group Director",
-        member_1_power: "Combines software delivery understanding with structured coordination, execution follow-through, and practical stakeholder communication across technical B2B projects.",
+        member_1_role: "Technical Project Coordination",
+        member_1_power: "10+ years · Delivery support · Software execution",
         member_1_short: "Technical coordination with stronger delivery control and measurable follow-through.",
-        member_1_tag_1: "Delivery Support",
-        member_1_tag_2: "Stakeholder Clarity",
-        member_1_tag_3: "Execution Discipline",
+        member_1_tag_1: "Delivery",
+        member_1_tag_2: "Coordination",
+        member_1_tag_3: "Reporting",
         member_1_t1: "Project Recovery",
         member_1_t2: "Stakeholder Alignment",
         member_1_t3: "Agile Delivery",
@@ -3942,12 +3294,12 @@
 
         member_2_badge: "Head of Automation & Industrial Design",
         member_2_name: "PhD. Reza Mosalanezhad",
-        member_2_role: "Head of Automation & Industrial Design",
-        member_2_power: "Brings plant-side automation depth through Siemens PLC engineering, commissioning, diagnostics, HMI / SCADA visibility, and industrial control execution across real operating environments.",
+        member_2_role: "Industrial Automation",
+        member_2_power: "OEE +18% · Downtime -22% · Commissioning",
         member_2_short: "Plant-side automation support for Siemens-based industrial environments.",
-        member_2_tag_1: "PLC",
-        member_2_tag_2: "TIA Portal",
-        member_2_tag_3: "Commissioning",
+        member_2_tag_1: "Siemens PLC",
+        member_2_tag_2: "Commissioning",
+        member_2_tag_3: "Simulation",
         member_2_t1: "PLC",
         member_2_t2: "TIA Portal",
         member_2_t3: "WinCC",
@@ -3955,12 +3307,12 @@
 
         member_3_badge: "Head of Mobile Design",
         member_3_name: "Ali Ghelej Beigi",
-        member_3_role: "Head of Mobile Design",
-        member_3_power: "Delivers maintainable Flutter systems for business-facing products, combining responsive UI work, clean architecture, operational workflows, and disciplined implementation quality.",
+        member_3_role: "Flutter Systems",
+        member_3_power: "ERP apps · CRM systems · Responsive business apps",
         member_3_short: "Maintainable Flutter systems for operational and business-facing products.",
         member_3_tag_1: "Flutter",
-        member_3_tag_2: "Clean Architecture",
-        member_3_tag_3: "Frontend Systems",
+        member_3_tag_2: "ERP-CRM",
+        member_3_tag_3: "Architecture",
         member_3_t1: "Flutter",
         member_3_t2: "Dart",
         member_3_t3: "Bloc",
@@ -3968,13 +3320,13 @@
         team_view_profile: "View Profile",
 
         services_kicker: "Solutions",
-        services_title: "What buyers bring us in for",
+        services_title: "What we deliver",
         svc_1_title: "Delivery Coordination",
-        svc_1_desc: "Bring structure to technical workstreams with clearer ownership, stakeholder follow-up, milestone visibility, and practical reporting.",
+        svc_1_desc: "Structured delivery with clear ownership and milestone control.",
         svc_2_title: "Industrial Automation Support",
-        svc_2_desc: "Support PLC and commissioning environments with Siemens-focused automation experience, diagnostics, and plant-side execution discipline.",
+        svc_2_desc: "Siemens PLC and commissioning support for reliable plant execution.",
         svc_3_title: "Mobile Product Delivery",
-        svc_3_desc: "Ship maintainable Flutter-based products and internal apps with clean architecture and business-oriented implementation quality.",
+        svc_3_desc: "Maintainable web and Flutter delivery for real operations.",
 
         tools_kicker: "Tooling",
         tools_title: "Core Working Stack",
@@ -4003,7 +3355,7 @@
         board_done_sub: "Close with handover clarity, documented decisions, and next steps.",
 
         process_kicker: "Process",
-        process_title: "Simple B2B intake to execution flow",
+        process_title: "Simple intake to execution flow",
         process_1: "Understand your scope, constraints, and project pressure points.",
         process_2: "Match the right delivery, automation, or product support setup.",
         process_3: "Run with visible progress, direct communication, and tighter follow-through.",
@@ -4011,7 +3363,7 @@
 
         portfolio_kicker: "Proof",
         portfolio_title: "Typical situations where we fit best",
-        portfolio_intro: "A clearer view of the kinds of technical B2B work where the squad is useful: delivery-led execution, industrial coordination, internal software systems, and business-facing mobile implementation.",
+        portfolio_intro: "A clearer view of the technical work where the squad is useful: delivery-led execution, industrial coordination, internal software systems, and business-facing mobile implementation.",
         proj_1_date: "Industrial",
         proj_1_mini: "Plant-side execution",
         proj_1_t: "Automation and commissioning environments",
@@ -4024,10 +3376,10 @@
         proj_1_c3: "Commissioning",
         proj_1_c4: "Diagnostics",
 
-        proj_2_date: "B2B Ops",
+        proj_2_date: "Operations",
         proj_2_mini: "Internal systems",
         proj_2_t: "Operational delivery and software coordination",
-        proj_2_d: "A fit for software-heavy B2B work that needs planning discipline, stakeholder follow-up, structured reporting, and cross-functional delivery control.",
+        proj_2_d: "A fit for software-heavy work that needs planning discipline, stakeholder follow-up, structured reporting, and cross-functional delivery control.",
         proj_2_p1: "Useful for CRM-like systems, internal tools, workflow platforms, and integration-heavy environments.",
         proj_2_p2: "Supports project recovery, execution visibility, and more accountable delivery rhythm.",
         proj_2_p3: "Works well where client communication and milestone discipline are business-critical.",
@@ -4052,7 +3404,7 @@
         test_title: "What decision-makers tend to value",
         test_1: "“Clear coordination improved decision confidence across the project.”",
         test_1_name: "Program Director",
-        test_1_role: "B2B Delivery",
+        test_1_role: "Project Delivery",
         test_2: "“Technical depth was matched by reliable execution discipline.”",
         test_2_name: "Operations Lead",
         test_2_role: "Industrial Systems",
@@ -4088,8 +3440,8 @@
         next: "Next",
 
         contact_section_kicker: "Contact",
-        contact_title: "Contact us",
-        contact_desc: "Submit your project details and we will get back to you within 24 hours.",
+        contact_title: "Start the conversation",
+        contact_desc: "Share your project details and get a response within 24 hours.",
         label_name: "Name",
         label_email: "Email",
         label_whatsapp: "Phone Number (Optional)",
@@ -4114,25 +3466,26 @@
         opt_automation: "Industrial Automation",
         opt_mobile: "Mobile Product Execution",
         send_btn: "Send",
-        contact_p1: "Share your scope, current blockers, and expected timeline.",
-        contact_p2: "We review fit and suggest the right engagement path.",
-        contact_p3: "You get a focused follow-up with clear next steps.",
+        contact_p1: "Share your scope and timeline.",
+        contact_p2: "We review fit and define the right path.",
+        contact_p3: "You receive focused next steps.",
 
         contact_info_kicker: "Business Contact",
         contact_subbrand: "Independent Engineering Squad",
-        contact_info_title: "contact us",
-        contact_info_desc: "contact us",
+        contact_info_title: "Business Contact",
+        contact_info_desc: "Share your scope and we will reply within 24 hours.",
         fast_contact_btn: "Fast Contact (24 Hours)",
+        fast_contact_note: "Use this short form for a 24-hour response.",
         loc_de_label: "BAVARIA, GERMANY",
-        loc_de_value: "+49 (0) 157 550 16194",
+        loc_de_value: "+49 (0) 1575 501 ****",
         loc_pl_label: "LÓDŹ, POLAND",
-        loc_pl_value: "+48 50 30 80 268",
+        loc_pl_value: "+48 503 08****",
         digital_label: "Digital",
         messaging_label: "Messaging",
 
-        footer_main: "KHALEDI · B2B Engineering Delivery",
+        footer_main: "KHALEDI · ENGINEERING DELIVERY GROUP",
         footer_note: "A compact engineering team for delivery coordination, automation support, and mobile execution.",
-        footer_meta: "Built for practical B2B collaboration across industrial and digital work.",
+        footer_meta: "Built for practical collaboration across industrial and digital work.",
         snack: "Form submitted successfully.",
         dismiss: "Dismiss",
 
@@ -4147,67 +3500,47 @@
         img_alt_1: "Industrial automation workstation",
         img_alt_2: "Mobile product team collaboration",
         catalog_kicker: "Independent Engineering Squad",
-        catalog_title: "B2B Delivery · Automation · Mobile",
-        catalog_sub: "Structured delivery coordination, industrial automation support, and mobile product execution for technical B2B work.",
+        catalog_title: "Delivery · Automation · Mobile",
+        catalog_sub: "Structured delivery coordination, industrial automation support, and mobile product execution for technical projects.",
         catalog_about_heading: "About KHALEDI",
-        catalog_about_text: "KHALEDI is a compact B2B engineering brand built around structured delivery, technical coordination, and practical execution support. It combines software understanding, industrial context, and cross-functional project follow-through for teams that need clearer momentum and more reliable outcomes.",
-        founder_kicker: "Founder Profile",
-        founder_title: "Why clients trust KHALEDI",
-        founder_intro: "KHALEDI Group has over 10 years of professional experience in software development, project coordination and delivery support. Our value is not in general management - but in technical understanding combined with structured execution, stronger follow-up, clearer reporting and practical coordination in on-the-go workflows.",
-        founder_stat_1_v: "10+ years",
-        founder_stat_1_l: "Professional experience in software, project coordination and delivery support",
-        founder_stat_2_v: "30%",
-        founder_stat_2_l: "Improving software performance in Python-based optimization tasks",
-        founder_stat_3_v: "15%",
-        founder_stat_3_l: "Improving data processing and creating more organized reports",
-        founder_stat_4_v: "30-40%",
-        founder_stat_4_l: "Increasing productivity by connecting industry to mobile",
-        founder_panel_title: "What he brings",
-        founder_panel_1: "Technical project coordination with delivery tracking",
-        founder_panel_2: "Transparent communication with stakeholders and progress visibility",
-        founder_panel_3: "Structured support across software, web and automations",
-        founder_panel_4: "Executive discipline without agency overhead or unnecessary complexity",
-        founder_bestfit_title: "Best fit engagements",
-        founder_bestfit_1: "the projects that need stronger structure and ownership rhythm",
-        founder_bestfit_2: "Teams that need clearer reporting, tracking, and follow-through",
-        founder_bestfit_3: "Software or operational initiatives where technical work needs better coordination",
-        catalog_tags: ["Delivery Ops", "Automation", "Mobile", "B2B", "Multilingual"],
+        catalog_about_text: "KHALEDI is a compact engineering brand built around structured delivery, technical coordination, and practical execution support. It combines software understanding, industrial context, and cross-functional follow-through for teams, founders, and businesses that need clearer momentum and reliable outcomes.",
+        catalog_tags: ["Delivery Ops", "Automation", "Mobile", "Project-based", "Multilingual"],
         catalog_services_heading: "Core Services",
         catalog_services: ["Delivery Operations · stakeholder visibility and milestone control", "Industrial Automation · PLC, HMI/SCADA, commissioning", "Mobile Product Execution · Flutter-based products"],
         catalog_stack_heading: "Capabilities & Tools",
         catalog_stack: ["TIA Portal", "PLC", "Profinet/Profibus", "Flutter", "REST APIs", "Jira", "Confluence", "MS Project"],
         catalog_signals_heading: "Signals & Proof",
-        catalog_signals: ["10+ years delivery experience", "Industrial + digital combined", "Remote B2B collaboration", "Multilingual (EN/DE/PL)", "Testimonials on coordination and execution"],
+        catalog_signals: ["10+ years delivery experience", "Industrial + digital combined", "Remote project collaboration", "Multilingual (EN/DE/PL)", "Testimonials on coordination and execution"],
         catalog_contact_heading: "Contact",
         catalog_contact: ["info@khaledi.eu", "Bavaria, Germany", "Łódź, Poland"],
 
         engagement_kicker: "Engagement",
         engagement_title: "How we engage",
-        engagement_desc: "A clearer view of where we fit best, how we support delivery, and what clients can expect from the collaboration model.",
+        engagement_desc: "How we work, where we fit, and what you can expect.",
         engagement_left_title: "Where we add value",
         engagement_left_1: "Structured delivery control across technical workstreams.",
         engagement_left_2: "Industrial automation support aligned with execution discipline.",
-        engagement_left_3: "Lean collaboration model for focused B2B engagements.",
+        engagement_left_3: "Lean collaboration model for focused client engagements.",
         engagement_right_title: "Engagement summary",
         engagement_label_1: "Delivery model",
         engagement_value_1: "Lean and direct",
         engagement_label_2: "Core focus",
         engagement_value_2: "Industrial + digital",
         engagement_label_3: "Engagement",
-        engagement_value_3: "Project-based B2B",
+        engagement_value_3: "Project-based support",
         engagement_strip_1: "Clear scope framing before execution begins.",
         engagement_strip_2: "Direct communication with stakeholders and owners.",
         engagement_strip_3: "Visible progress, disciplined follow-through, clean handover.",
 
         portfolio_kicker: "Portfolio",
         portfolio_title: "Project Focus Areas",
-        portfolio_note: "Representative work contexts where the squad contributes with coordination discipline, engineering support, and structured execution across industrial and digital B2B environments.",
+        portfolio_note: "Representative work contexts where the squad contributes with coordination discipline, engineering support, and structured execution across industrial and digital environments.",
 
         proj_1_date: "Industrial",
         proj_1_t: "Automation delivery support",
         proj_1_d: "Industrial control and automation execution where structured coordination, engineering follow-up, and technical visibility matter.",
 
-        proj_2_date: "B2B Ops",
+        proj_2_date: "Operations",
         proj_2_t: "Cross-functional delivery coordination",
         proj_2_d: "Software and technical workstreams that need milestone discipline, progress reporting, and clearer ownership across teams.",
 
@@ -4219,11 +3552,11 @@
         proj_4_t: "Commissioning and troubleshooting contexts",
         proj_4_d: "Projects where plant-side debugging, commissioning flow, control logic review, and execution reliability are important.",
 
-        proj_5_date: "B2B Ops",
+        proj_5_date: "Operations",
         proj_5_t: "Internal platforms and business tools",
         proj_5_d: "CRM-like systems, internal portals, workflow tools, and operational software that need structured delivery control.",
 
-        proj_6_date: "B2B",
+        proj_6_date: "Client Work",
         proj_6_t: "Stakeholder reporting environments",
         proj_6_d: "Client-facing and management-facing deliveries where reporting clarity, next-step ownership, and execution transparency are critical.",
 
@@ -4239,18 +3572,18 @@
         proj_9_t: "Delivery recovery and execution clean-up",
         proj_9_d: "Teams that already have active work but need tighter structure, fewer blockers, cleaner follow-up, and stronger accountability.",
 
-        proj_10_date: "B2B",
+        proj_10_date: "Project Work",
         proj_10_t: "Lean project-based collaboration",
         proj_10_d: "Focused technical engagements where clients want direct communication, practical contribution, and a compact squad model instead of agency overhead.",
 
         evidence_kicker: "Evidence",
         evidence_title: "Core Capabilities",
-        evidence_intro: "A focused view of the team’s main delivery strengths across operations, automation, and product execution.",
+        evidence_intro: "Three core capabilities, executed with clear ownership.",
 
         evidence_1_badge: "Delivery",
         evidence_1_value: "10+",
         evidence_1_title: "Delivery Operations",
-        evidence_1_copy: "Structured coordination for projects that need clarity, follow-up, and steady execution.",
+        evidence_1_copy: "Execution control, reporting rhythm, and dependable follow-through.",
         evidence_1_p1: "Planning & tracking",
         evidence_1_p2: "Status visibility",
         evidence_1_p3: "Stakeholder alignment",
@@ -4258,7 +3591,7 @@
         evidence_2_badge: "Automation",
         evidence_2_value: "Siemens",
         evidence_2_title: "Industrial Automation",
-        evidence_2_copy: "Practical support for PLC, commissioning, diagnostics, and plant-side execution work.",
+        evidence_2_copy: "PLC, commissioning, diagnostics, and reliable plant-side support.",
         evidence_2_p1: "TIA / WinCC",
         evidence_2_p2: "Commissioning support",
         evidence_2_p3: "Troubleshooting",
@@ -4266,14 +3599,14 @@
         evidence_3_badge: "Digital",
         evidence_3_value: "Web & Mobile",
         evidence_3_title: "Product Execution",
-        evidence_3_copy: "Fast implementation for business-facing web and mobile products with clean delivery focus.",
+        evidence_3_copy: "Web and mobile implementation with maintainable delivery quality.",
         evidence_3_p1: "Web builds",
         evidence_3_p2: "Flutter apps",
         evidence_3_p3: "Internal tools"
       },
 
       de: {
-        brand_sub: "B2B Engineering Delivery",
+        brand_sub: "ENGINEERING DELIVERY GROUP",
         nav_team: "Experten",
         nav_services: "Lösungen",
         nav_stack: "Kompetenzen",
@@ -4284,11 +3617,11 @@
         catalog_print: "Drucken / als PDF",
         cta_explore: "Lösungen ansehen",
         bc_home: "Start",
-        bc_delivery: "B2B Engineering Delivery",
+        bc_delivery: "ENGINEERING DELIVERY GROUP",
 
         hero_kicker: "",
         hero_title: "Engineering Excellence. Delivered.",
-        hero_subtitle: "KHALEDI verbindet Delivery-Koordination, industrielle Automatisierungsunterstützung und Mobile-Produktumsetzung für Unternehmen, die klare Ownership und verlässliches Follow-through brauchen.",
+        hero_subtitle: "Delivery-Koordination, industrielle Automatisierung und Mobile-Execution mit klarer Ownership und verlässlichem Follow-through.",
         hero_panel_title: "Warum Kunden mit uns arbeiten",
         hero_panel_1: "Strukturierte Delivery-Kontrolle über technische Workstreams hinweg.",
         hero_panel_2: "Automatisierungsunterstützung mit klarer Ausführungsdisziplin.",
@@ -4310,7 +3643,7 @@
         trust_4_l: "Schnellerer CRM-Datenabruf durch Backend-Implementierung",
 
         team_kicker: "Kernteam",
-        team_title: "Leadership und Delivery Coverage",
+        team_title: "The people clients actually work with",
         leader_flag: "Founder",
         member_1_badge: "Group Director",
         member_1_name: "Alireza Khaledi",
@@ -4353,13 +3686,13 @@
         team_view_profile: "Profil ansehen",
 
         services_kicker: "Leistungen",
-        services_title: "Wofür Kunden uns beauftragen",
+        services_title: "What we deliver",
         svc_1_title: "Delivery Operations",
-        svc_1_desc: "Strukturierte Projektkoordination, Stakeholder-Transparenz, Meilensteinsteuerung und disziplinierte Umsetzung über technische Workstreams.",
+        svc_1_desc: "Strukturierte Delivery-Steuerung mit klarer Ownership und Milestone-Kontrolle.",
         svc_2_title: "Industrielle Automatisierung",
-        svc_2_desc: "PLC-zentrierte Unterstützung für industrielle Systeme, Steuerungslogik, Engineering-Workflows und zuverlässige Umsetzung an der Anlage.",
+        svc_2_desc: "PLC- und Commissioning-Support für zuverlässige industrielle Ausführung.",
         svc_3_title: "Mobile Product Execution",
-        svc_3_desc: "Saubere und skalierbare Mobile-Umsetzung mit Flutter-basierten Frontends und wartbarer Produktarchitektur.",
+        svc_3_desc: "Wartbare Web- und Flutter-Umsetzung für operative Produktanforderungen.",
 
         tools_kicker: "Tooling",
         tools_title: "Kern-Toolset",
@@ -4457,8 +3790,8 @@
         next: "Weiter",
 
         contact_section_kicker: "Projektstart",
-        contact_title: "Sagen Sie uns, was Sie liefern müssen",
-        contact_desc: "Teilen Sie den Projektkontext, die Delivery-Lücke oder den technischen Bedarf. Wir prüfen den Fit und melden uns mit dem praktikabelsten nächsten Schritt zurück.",
+        contact_title: "Projektgespräch starten",
+        contact_desc: "Teilen Sie Ihre Projektdaten. Wir antworten innerhalb von 24 Stunden.",
         label_name: "Name",
         label_email: "E-Mail",
         label_whatsapp: "Phone Number (Optional)",
@@ -4483,19 +3816,20 @@
         opt_automation: "Industrial Automation",
         opt_mobile: "Mobile Product Execution",
         send_btn: "Send",
-        contact_p1: "Teilen Sie Scope, Zeitrahmen und aktuellen Delivery-Kontext.",
-        contact_p2: "Wir prüfen Fit, Abhängigkeiten und ein passendes Engagement-Modell.",
-        contact_p3: "Ein fokussiertes Projektgespräch wird mit klaren nächsten Schritten terminiert.",
+        contact_p1: "Teilen Sie Scope und Zeitrahmen.",
+        contact_p2: "Wir prüfen Fit und Vorgehen.",
+        contact_p3: "Sie erhalten klare nächste Schritte.",
 
         contact_info_kicker: "Direkter Kontakt",
         contact_subbrand: "Independent Engineering Squad",
-        contact_info_title: "contact us",
-        contact_info_desc: "contact us",
-        fast_contact_btn: "Fast Contact (24 Hours)",
+        contact_info_title: "Business Contact",
+        contact_info_desc: "Teilen Sie Ihren Scope. Antwort in 24 Stunden.",
+        fast_contact_btn: "Schnellkontakt (24 Std.)",
+        fast_contact_note: "Kurzes Formular für eine Antwort innerhalb von 24 Stunden.",
         loc_de_label: "Bayern, Deutschland",
-        loc_de_value: "+49 (0) 157 550 16194",
+        loc_de_value: "+49 (0) 1575 501 ****",
         loc_pl_label: "Łódź, Polen",
-        loc_pl_value: "+48 50 30 80 268",
+        loc_pl_value: "+48 503 08****",
         digital_label: "Digital",
         messaging_label: "Messaging",
 
@@ -4520,26 +3854,6 @@
         catalog_sub: "Strukturierte Delivery-Koordination, industrielle Automatisierungsunterstützung und Mobile-Produktumsetzung für technische B2B-Arbeit.",
         catalog_about_heading: "Über KHALEDI",
         catalog_about_text: "KHALEDI ist eine kompakte B2B-Engineering-Marke, aufgebaut auf strukturierter Delivery, technischer Koordination und praxisnaher Umsetzungsunterstützung. Sie verbindet Softwareverständnis, industriellen Kontext und cross-funktionales Projekt-Follow-through für Teams, die klareren Fortschritt und verlässlichere Ergebnisse brauchen.",
-        founder_kicker: "Founder Profil",
-        founder_title: "Warum Kunden Alireza Khaledi vertrauen",
-        founder_intro: "Alireza Khaledi bringt über 10 Jahre Berufserfahrung aus Softwareentwicklung, Projektkoordination und Delivery Support mit. Sein Mehrwert ist keine generische Administration, sondern technisches Verständnis in Kombination mit strukturierter Ausführung, stärkerem Follow-through, klarerem Reporting und praxisnaher Koordination über bewegliche B2B-Workstreams hinweg.",
-        founder_stat_1_v: "10+ Jahre",
-        founder_stat_1_l: "Berufserfahrung in Software, Projektkoordination und Delivery Support",
-        founder_stat_2_v: "30%",
-        founder_stat_2_l: "Leistungssteigerung in Python-basierter Optimierungsarbeit",
-        founder_stat_3_v: "15%",
-        founder_stat_3_l: "Schnellere Zahlungsprozesse durch Workflow-Integration",
-        founder_stat_4_v: "30–40%",
-        founder_stat_4_l: "Schnellerer CRM-Datenabruf durch Backend-Implementierung",
-        founder_panel_title: "Was er einbringt",
-        founder_panel_1: "Technische Projektkoordination mit praktischem Delivery-Follow-up",
-        founder_panel_2: "Klare Stakeholder-Kommunikation und Fortschrittssichtbarkeit",
-        founder_panel_3: "Strukturierte Unterstützung für Software-, Web- und Business-Systeme",
-        founder_panel_4: "Ausführungsdisziplin ohne Agency-Overhead oder unnötige Komplexität",
-        founder_bestfit_title: "Passende Engagements",
-        founder_bestfit_1: "B2B-Projekte, die stärkere Struktur und besseren Ownership-Rhythmus brauchen",
-        founder_bestfit_2: "Teams, die klareres Reporting, Tracking und Follow-through benötigen",
-        founder_bestfit_3: "Software- oder operative Initiativen, in denen technische Arbeit bessere Koordination braucht",
         catalog_tags: ["Delivery Ops", "Automation", "Mobile", "B2B", "Mehrsprachig"],
         catalog_services_heading: "Leistungen",
         catalog_services: ["Delivery Operations · Stakeholder-Transparenz und Meilenstein-Steuerung", "Industrial Automation · PLC, HMI/SCADA, Commissioning", "Mobile Product Execution · Flutter-basierte Produkte"],
@@ -4614,7 +3928,7 @@
 
         evidence_kicker: "Evidence",
         evidence_title: "Kernkompetenzen",
-        evidence_intro: "Ein fokussierter Blick auf die wichtigsten Delivery-Stärken des Teams in Operations, Automation und Product Execution.",
+        evidence_intro: "Drei Kernfähigkeiten mit klarer Delivery-Verantwortung.",
 
         evidence_1_badge: "Delivery",
         evidence_1_value: "10+",
@@ -4642,7 +3956,7 @@
       },
 
       pl: {
-        brand_sub: "B2B Engineering Delivery",
+        brand_sub: "ENGINEERING DELIVERY GROUP",
         nav_team: "Eksperci",
         nav_services: "Rozwiązania",
         nav_stack: "Kompetencje",
@@ -4653,11 +3967,11 @@
         catalog_print: "Drukuj / Zapisz PDF",
         cta_explore: "Zobacz rozwiązania",
         bc_home: "Start",
-        bc_delivery: "B2B Engineering Delivery",
+        bc_delivery: "ENGINEERING DELIVERY GROUP",
 
         hero_kicker: "",
         hero_title: "Engineering Excellence. Delivered.",
-        hero_subtitle: "KHALEDI łączy koordynację delivery, wsparcie automatyki przemysłowej i wdrożenia mobile dla firm, które potrzebują jasnego ownership i rzetelnego follow-through.",
+        hero_subtitle: "Koordynacja delivery, automatyka przemysłowa i wdrożenia mobile z jasnym ownership i rzetelnym follow-through.",
         hero_panel_title: "Dlaczego klienci z nami pracują",
         hero_panel_1: "Uporządkowana kontrola delivery w technicznych strumieniach prac.",
         hero_panel_2: "Wsparcie automatyki powiązane z dyscypliną wykonania.",
@@ -4679,7 +3993,7 @@
         trust_4_l: "Szybsze pobieranie danych CRM dzięki backendowi",
 
         team_kicker: "Zespół",
-        team_title: "Leadership i Delivery Coverage",
+        team_title: "The people clients actually work with",
         leader_flag: "Founder",
         member_1_badge: "Group Director",
         member_1_name: "Alireza Khaledi",
@@ -4722,13 +4036,13 @@
         team_view_profile: "Zobacz profil",
 
         services_kicker: "Usługi",
-        services_title: "Za co klienci nas zatrudniają",
+        services_title: "What we deliver",
         svc_1_title: "Delivery Operations",
-        svc_1_desc: "Uporządkowana koordynacja projektu, widoczność dla interesariuszy, kontrola milestone’ów i zdyscyplinowana realizacja technicznych strumieni prac.",
+        svc_1_desc: "Uporządkowane delivery z jasnym ownership i kontrolą milestone’ów.",
         svc_2_title: "Automatyka przemysłowa",
-        svc_2_desc: "Wsparcie automatyki opartej na PLC dla systemów przemysłowych, logiki sterowania, workflow engineeringowych i niezawodnego wykonania po stronie zakładu.",
+        svc_2_desc: "Wsparcie PLC i commissioning dla niezawodnego wykonania przemysłowego.",
         svc_3_title: "Mobile Product Execution",
-        svc_3_desc: "Czysta i skalowalna realizacja mobile z frontendami opartymi na Flutterze i utrzymywalną architekturą produktu.",
+        svc_3_desc: "Utrzymywalna realizacja web i Flutter dla operacyjnych produktów.",
 
         tools_kicker: "Tooling",
         tools_title: "Główny stack roboczy",
@@ -4826,8 +4140,8 @@
         next: "Dalej",
 
         contact_section_kicker: "Start projektu",
-        contact_title: "Powiedz nam, co musisz dowieźć",
-        contact_desc: "Opisz kontekst projektu, lukę delivery albo potrzebę techniczną. Sprawdzimy dopasowanie i wrócimy z najbardziej praktycznym następnym krokiem.",
+        contact_title: "Rozpocznij rozmowę o projekcie",
+        contact_desc: "Prześlij dane projektu. Odpowiemy w ciągu 24 godzin.",
         label_name: "Imię i nazwisko",
         label_email: "Email",
         label_whatsapp: "Phone Number (Optional)",
@@ -4852,19 +4166,20 @@
         opt_automation: "Industrial Automation",
         opt_mobile: "Mobile Product Execution",
         send_btn: "Send",
-        contact_p1: "Prześlij scope, timeline i obecny kontekst delivery.",
-        contact_p2: "Sprawdzamy dopasowanie, zależności i właściwy model współpracy.",
-        contact_p3: "Umawiamy krótką rozmowę projektową z jasnymi następnymi krokami.",
+        contact_p1: "Prześlij scope i timeline.",
+        contact_p2: "Sprawdzamy dopasowanie i model współpracy.",
+        contact_p3: "Dostajesz jasne kolejne kroki.",
 
         contact_info_kicker: "Kontakt bezpośredni",
         contact_subbrand: "Independent Engineering Squad",
-        contact_info_title: "contact us",
-        contact_info_desc: "contact us",
-        fast_contact_btn: "Fast Contact (24 Hours)",
+        contact_info_title: "Business Contact",
+        contact_info_desc: "Prześlij zakres. Odpowiemy w 24 godziny.",
+        fast_contact_btn: "Szybki kontakt (24h)",
+        fast_contact_note: "Krótki formularz dla odpowiedzi w 24 godziny.",
         loc_de_label: "Bawaria, Niemcy",
-        loc_de_value: "+49 (0) 157 550 16194",
+        loc_de_value: "+49 (0) 1575 501 ****",
         loc_pl_label: "Łódź, Polska",
-        loc_pl_value: "+48 50 30 80 268",
+        loc_pl_value: "+48 503 08****",
         digital_label: "Digital",
         messaging_label: "Messaging",
 
@@ -4889,26 +4204,6 @@
         catalog_sub: "Uporządkowana koordynacja delivery, wsparcie automatyki przemysłowej i wykonanie mobile dla technicznych projektów B2B.",
         catalog_about_heading: "O KHALEDI",
         catalog_about_text: "KHALEDI to kompaktowa marka engineering B2B zbudowana wokół uporządkowanego delivery, technicznej koordynacji i praktycznego wsparcia wykonania. Łączy rozumienie software, kontekst przemysłowy i cross-functional follow-through dla zespołów, które potrzebują większej dynamiki i bardziej przewidywalnych rezultatów.",
-        founder_kicker: "Founder Profile",
-        founder_title: "Dlaczego klienci ufają Alirezie Khalediemu",
-        founder_intro: "Alireza Khaledi wnosi 10+ lat doświadczenia zawodowego w software development, project coordination i delivery support. Jego wartość to nie ogólna administracja, ale techniczne zrozumienie połączone ze structured execution, mocniejszym follow-through, czytelniejszym reportingiem i praktyczną koordynacją w ruchomych workstreamach B2B.",
-        founder_stat_1_v: "10+ lat",
-        founder_stat_1_l: "Doświadczenie zawodowe w software, project coordination i delivery support",
-        founder_stat_2_v: "30%",
-        founder_stat_2_l: "Poprawa wydajności w pracy optymalizacyjnej opartej na Pythonie",
-        founder_stat_3_v: "15%",
-        founder_stat_3_l: "Szybszy przepływ transakcji dzięki integracji payment workflow",
-        founder_stat_4_v: "30–40%",
-        founder_stat_4_l: "Szybsze pobieranie danych CRM dzięki implementacji backendu",
-        founder_panel_title: "Co wnosi",
-        founder_panel_1: "Techniczna koordynacja projektu z praktycznym follow-upem delivery",
-        founder_panel_2: "Jasna komunikacja ze stakeholderami i widoczność postępu",
-        founder_panel_3: "Uporządkowane wsparcie dla software, web i systemów biznesowych",
-        founder_panel_4: "Dyscyplina wykonania bez agency overhead i zbędnej złożoności",
-        founder_bestfit_title: "Najlepsze dopasowanie",
-        founder_bestfit_1: "Projekty B2B, które potrzebują mocniejszej struktury i rytmu ownership",
-        founder_bestfit_2: "Zespoły potrzebujące czytelniejszego reportingu, trackingu i follow-through",
-        founder_bestfit_3: "Inicjatywy software lub operacyjne, gdzie praca techniczna potrzebuje lepszej koordynacji",
         catalog_tags: ["Delivery Ops", "Automation", "Mobile", "B2B", "Wielojęzyczni"],
         catalog_services_heading: "Usługi",
         catalog_services: ["Delivery Operations · przejrzystość i kontrola kamieni milowych", "Industrial Automation · PLC, HMI/SCADA, commissioning", "Mobile Product Execution · produkty oparte na Flutter"],
@@ -4939,7 +4234,7 @@
 
         evidence_kicker: "Evidence",
         evidence_title: "Kluczowe kompetencje",
-        evidence_intro: "Skondensowany obraz głównych mocnych stron zespołu w operations, automatyce i product execution.",
+        evidence_intro: "Trzy kluczowe kompetencje realizowane z jasnym ownership.",
 
         evidence_1_badge: "Delivery",
         evidence_1_value: "10+",
@@ -4974,7 +4269,7 @@
         badge: "Founder · Technical Project Coordinator",
         name: "Alireza Khaledi",
         role: "Technical Project Coordinator",
-        quote: "Structured delivery, technical coordination, and more reliable execution across B2B software and operational projects.",
+        quote: "Structured delivery, technical coordination, and reliable execution across software and operational projects.",
         base: "Based in Poland | Open to Germany and the EU",
         experience: "10+ years experience",
         focus: "Technical project coordination",
@@ -4987,7 +4282,7 @@
           "Structured support for software, CRM-like systems, web platforms, and operational tools"
         ],
         fit: [
-          "B2B projects that need stronger coordination without enterprise bureaucracy",
+          "Projects that need stronger coordination without unnecessary bureaucracy",
           "Teams struggling with weak reporting, poor follow-through, or unclear ownership",
           "Software or technical initiatives that need more visibility and execution rhythm",
           "Remote or cross-functional environments where delivery discipline matters"
@@ -5033,7 +4328,7 @@
         base: "Germany",
         experience: "Industrial automation background",
         focus: "Siemens PLC / Control",
-        summary: "Reza covers the industrial automation side of the squad. His value for B2B clients comes from Siemens PLC engineering, commissioning, diagnostics, HMI / SCADA support, and practical plant-side implementation across manufacturing and industrial control systems.",
+        summary: "Reza covers the industrial automation side of the squad. His value comes from Siemens PLC engineering, commissioning, diagnostics, HMI / SCADA support, and practical plant-side implementation across manufacturing and industrial control systems.",
         handles: [
           "PLC programming with Siemens environments",
           "TIA Portal, Step7, WinCC / HMI engineering",
@@ -5086,7 +4381,7 @@
         base: "Remote collaboration",
         experience: "Software engineering background",
         focus: "Flutter / Frontend delivery",
-        summary: "Ali covers mobile and frontend execution. What makes his profile valuable for a B2B site is not generic app development, but Flutter-based business systems, responsive UI delivery, code quality discipline, and product implementation for operational use cases.",
+        summary: "Ali covers mobile and frontend execution. What makes his profile valuable is not generic app development, but Flutter-based business systems, responsive UI delivery, code quality discipline, and product implementation for operational use cases.",
         handles: [
           "Flutter-based mobile product development",
           "Responsive UI and maintainable frontend architecture",
@@ -5224,34 +4519,12 @@
     const snackClose = document.getElementById("snackClose");
     snackClose?.addEventListener("click", () => snackbar?.classList.remove("show"));
 
-    const testTrack = document.getElementById("testTrack");
-    const testNext = document.getElementById("testNext");
-    const testPrev = document.getElementById("testPrev");
-
-    if (testTrack && testNext && testPrev) {
-      testNext.addEventListener("click", () => { testTrack.scrollLeft += 292; });
-      testPrev.addEventListener("click", () => { testTrack.scrollLeft -= 292; });
-
-      if (!prefersReducedMotion) {
-        let testIndex = 0;
-        const cards = testTrack.querySelectorAll(".test-card");
-        if (cards.length) {
-          setInterval(() => {
-            testIndex = (testIndex + 1) % cards.length;
-            testTrack.scrollTo({ left: testIndex * 292, behavior: "smooth" });
-          }, 5600);
-        }
-      }
-    }
-
     const nav = document.getElementById("primaryNav");
     const navToggle = document.getElementById("navToggle");
     const contactForm = document.getElementById("contactForm");
     const fastContactForm = document.getElementById("fastContactForm");
     const contactModal = document.getElementById("contactModal");
-    const fastContactModal = document.getElementById("fastContactModal");
     const contactOpenButtons = document.querySelectorAll("[data-open-contact-modal]");
-    const fastContactButtons = document.querySelectorAll("[data-open-fast-modal]");
     const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbw_b8t-Y_KZwG-hu3tRoslCfTHwea3yNosOQrhThQpX00qN0oxwUgqnL3CByJQESWuQEg/exec";
     const startedAtInput = document.getElementById("startedAt");
 
@@ -5306,7 +4579,27 @@
     }
 
     contactOpenButtons.forEach(btn => btn.addEventListener("click", () => openSimpleModal(contactModal)));
-    fastContactButtons.forEach(btn => btn.addEventListener("click", () => openSimpleModal(fastContactModal)));
+
+    function toggleContactNumber(btn) {
+      const revealWrap = btn?.closest(".contact-reveal");
+      const phone = revealWrap?.querySelector("[data-reveal-phone-value]");
+      const phoneLast = revealWrap?.querySelector("[data-phone-last]");
+      if (!phone || !phoneLast) return;
+
+      const expanded = btn.getAttribute("data-expanded") === "true";
+      if (expanded) {
+        btn.setAttribute("data-expanded", "false");
+        phoneLast.textContent = phone.getAttribute("data-mask") || "****";
+        btn.setAttribute("aria-label", "Reveal phone number");
+      } else {
+        btn.setAttribute("data-expanded", "true");
+        const chunk1 = phone.getAttribute("data-k1") || "";
+        const chunk2 = phone.getAttribute("data-k2") || "";
+        phoneLast.textContent = `${chunk1}${chunk2}` || phoneLast.textContent;
+        btn.setAttribute("aria-label", "Hide phone number");
+      }
+    }
+    window.toggleContactNumber = toggleContactNumber;
 
     async function submitToLead(payloadObj, formEl, submitBtn, closeModalOnSuccess) {
       const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
@@ -5404,7 +4697,7 @@
           lang: currentLang,
           website: "",
           startedAt: String(Date.now())
-        }, fastContactForm, submitBtn, fastContactModal);
+        }, fastContactForm, submitBtn);
       });
     }
 
@@ -5510,7 +4803,7 @@
               </div>
               <div class="profile-fact">
                 <div class="profile-fact-label">Engagement</div>
-                <div class="profile-fact-value">Structured B2B delivery support with practical follow-through</div>
+                <div class="profile-fact-value">Structured project delivery support with practical follow-through</div>
               </div>
               <div class="profile-fact">
                 <div class="profile-fact-label">Style</div>
@@ -5522,7 +4815,7 @@
               <article class="profile-panel">
                 <h3>Bio</h3>
                 <p>
-                  Combines hands-on software background with structured project coordination, delivery support, stakeholder communication, and execution visibility across B2B software and operational workstreams.
+                  Combines hands-on software background with structured project coordination, delivery support, stakeholder communication, and execution visibility across software and operational workstreams.
                 </p>
               </article>
 
@@ -5538,7 +4831,7 @@
               <article class="profile-panel">
                 <h3>Best Fit</h3>
                 <ul>
-                  <li>B2B projects that need stronger coordination</li>
+                  <li>Projects that need stronger coordination</li>
                   <li>Teams with weak reporting or unclear ownership</li>
                   <li>Software initiatives needing better execution rhythm</li>
                 </ul>
@@ -5825,7 +5118,6 @@
   <script>
     /* ================= TEAM CARD -> PROFILE MODAL ================= */
 
-    const teamCards = document.querySelectorAll(".team-card");
     const teamViewButtons = document.querySelectorAll(".team-view-btn");
     const profileModalAlireza = document.getElementById("profileModalAlireza");
     const profileModalReza = document.getElementById("profileModalReza");
@@ -5850,16 +5142,18 @@
 
     let activeProfileModal = null;
 
-    function bindCardModal(btn, modal) {
-      if (!btn || !modal) return;
-      btn.addEventListener("click", () => openModal(modal));
-    }
+    const profileModalMap = {
+      alireza: profileModalAlireza,
+      reza: profileModalReza,
+      ali: profileModalAli
+    };
 
-    if (teamViewButtons.length >= 3) {
-      bindCardModal(teamViewButtons[0], profileModalReza);
-      bindCardModal(teamViewButtons[1], profileModalAlireza);
-      bindCardModal(teamViewButtons[2], profileModalAli);
-    }
+    teamViewButtons.forEach(btn => {
+      const key = btn.getAttribute("data-open-profile");
+      const targetModal = key ? profileModalMap[key] : null;
+      if (!targetModal) return;
+      btn.addEventListener("click", () => openModal(targetModal));
+    });
 
     function openModal(modal, keepActive = false) {
       if (!modal) return;
@@ -5920,12 +5214,12 @@
         lastName: "KHALEDI",
         roleLine: "PROJECT DELIVERY COORDINATOR",
         contacts: [
-          { mark: "M", value: "+49 1575 501 6194" },
+          { mark: "M", value: "Available on request" },
           { mark: "@", value: "info@khaledi.eu" },
           { mark: "W", value: "www.khaledi.eu" },
           { mark: "L", value: "Ingolstadt, Germany" }
         ],
-        summary: "Delivery-focused coordinator with 10+ years of experience in structured execution, stakeholder alignment, reporting discipline, and clear technical follow-through across B2B software environments.",
+        summary: "Delivery-focused coordinator with 10+ years of experience in structured execution, stakeholder alignment, reporting discipline, and clear technical follow-through across software environments.",
         experience: [
           {
             title: "Lead Project Coordinator",
@@ -5947,7 +5241,7 @@
           }
         ],
         projects: [
-          "Project recovery and delivery stabilization for software-heavy B2B initiatives.",
+          "Project recovery and delivery stabilization for software-heavy initiatives.",
           "Stakeholder reporting and execution control across distributed technical teams."
         ],
         education: [
@@ -5964,10 +5258,10 @@
           },
           {
             title: "Professional",
-            items: ["Risk Control", "Remote Coordination", "B2B Communication", "Execution Discipline"]
+            items: ["Risk Control", "Remote Coordination", "Client Communication", "Execution Discipline"]
           }
         ],
-        languages: ["English: Fluent", "German: Working", "Persian: Native"]
+        languages: ["English: Fluent", "German: Working", "Cross-cultural collaboration"]
       },
 
       reza: {
@@ -6024,7 +5318,7 @@
             items: ["Diagnostics", "HMI / SCADA", "Industrial Control", "IIoT"]
           }
         ],
-        languages: ["English: Working", "Persian: Native"]
+        languages: ["English: Working", "International collaboration"]
       },
 
       ali: {
@@ -6081,7 +5375,7 @@
             items: ["Clean Architecture", "Frontend Systems", "Business Workflows", "Mobile Delivery"]
           }
         ],
-        languages: ["English: Working", "Persian: Native"]
+        languages: ["English: Working", "International collaboration"]
       }
     };
 
