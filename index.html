@@ -1481,6 +1481,13 @@
       flex: 0 0 22px;
     }
 
+    .custom-option-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      display: block;
+    }
+
     .form input::placeholder,
     .form textarea::placeholder {
       color: color-mix(in srgb, var(--muted) 78%, #7f8a9a);
@@ -3714,30 +3721,6 @@
                     <span class="custom-option-label"></span>
                   </button>
                 </li>
-                <li>
-                  <button class="custom-option" type="button" data-option-value="Industrial Automation" data-option-i18n="opt_automation">
-                    <span class="custom-option-icon">⚙️</span>
-                    <span class="custom-option-label"></span>
-                  </button>
-                </li>
-                <li>
-                  <button class="custom-option" type="button" data-option-value="MatLab" data-option-i18n="opt_matlab">
-                    <span class="custom-option-icon">🧮</span>
-                    <span class="custom-option-label"></span>
-                  </button>
-                </li>
-                <li>
-                  <button class="custom-option" type="button" data-option-value="Web Developer" data-option-i18n="opt_webdev">
-                    <span class="custom-option-icon">🌐</span>
-                    <span class="custom-option-label"></span>
-                  </button>
-                </li>
-                <li>
-                  <button class="custom-option" type="button" data-option-value="Mobile Developer" data-option-i18n="opt_mobile">
-                    <span class="custom-option-icon">📱</span>
-                    <span class="custom-option-label"></span>
-                  </button>
-                </li>
               </ul>
             </div>
           </div>
@@ -5249,6 +5232,7 @@
     const projectTypeValue = document.getElementById("projectTypeValue");
     const projectTypeMenu = document.getElementById("projectTypeMenu");
     const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbxHTqpXOOfLr47dtCkX1DHoRDzEBAVr-EnoP48Qzu9Y8V5I3AQ05kscESYsuOY7q4bI/exec";
+    const projectTypesEndpoint = `${leadFormEndpoint}?action=projecttypes`;
     const startedAtInput = document.getElementById("startedAt");
 
     if (startedAtInput) startedAtInput.value = String(Date.now());
@@ -5319,6 +5303,75 @@
     contactOpenButtons.forEach(btn => btn.addEventListener("click", () => openSimpleModal(contactModal)));
 
     if (projectTypeSelect && projectTypeTrigger && projectTypeMenu && projectTypeHiddenInput && projectTypeValue) {
+      const escapeHtml = str => String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+      const getDefaultProjectTypeLabel = () => {
+        const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
+        return (translations[currentLang] && translations[currentLang].opt_type) || "Select project type";
+      };
+
+      const renderProjectTypeOptions = items => {
+        const defaultLabel = getDefaultProjectTypeLabel();
+        const rows = [
+          `<li>
+            <button class="custom-option" type="button" data-option-value="">
+              <span class="custom-option-icon">•</span>
+              <span class="custom-option-label">${escapeHtml(defaultLabel)}</span>
+            </button>
+          </li>`
+        ];
+
+        const resolveIconUrl = raw => {
+          const icon = String(raw || "").trim();
+          if (!icon) return "";
+          if (/^https?:\/\//i.test(icon) || /^data:image\//i.test(icon)) return icon;
+          if (icon.includes(":")) {
+            const [collection, name] = icon.split(":");
+            if (!collection || !name) return "";
+            return `https://api.iconify.design/${encodeURIComponent(collection)}/${encodeURIComponent(name)}.svg`;
+          }
+          return "";
+        };
+
+        items.forEach(item => {
+          const value = escapeHtml(item.value || item.label || "");
+          const label = escapeHtml(item.label || item.value || "");
+          const iconUrl = resolveIconUrl(item.icon);
+          const iconHtml = iconUrl
+            ? `<img src="${escapeHtml(iconUrl)}" alt="" loading="lazy" />`
+            : "•";
+          rows.push(
+            `<li>
+              <button class="custom-option" type="button" data-option-value="${value}">
+                <span class="custom-option-icon">${iconHtml}</span>
+                <span class="custom-option-label">${label}</span>
+              </button>
+            </li>`
+          );
+        });
+
+        projectTypeMenu.innerHTML = rows.join("");
+      };
+
+      const loadProjectTypes = async () => {
+        try {
+          const response = await fetch(projectTypesEndpoint, { method: "GET", cache: "no-store" });
+          if (!response.ok) return;
+          const data = await response.json();
+          if (!data || !data.ok || !Array.isArray(data.items)) return;
+          renderProjectTypeOptions(data.items);
+          projectTypeHiddenInput.value = "";
+          projectTypeValue.textContent = getDefaultProjectTypeLabel();
+        } catch (err) {
+          // Keep static fallback if API call fails.
+        }
+      };
+
       const setProjectType = optionBtn => {
         const value = optionBtn.getAttribute("data-option-value") || "";
         const label = optionBtn.querySelector(".custom-option-label")?.textContent || "";
@@ -5338,8 +5391,10 @@
         projectTypeTrigger.setAttribute("aria-expanded", String(isOpen));
       });
 
-      projectTypeMenu.querySelectorAll(".custom-option").forEach(optionBtn => {
-        optionBtn.addEventListener("click", () => setProjectType(optionBtn));
+      projectTypeMenu.addEventListener("click", event => {
+        const optionBtn = event.target.closest(".custom-option");
+        if (!optionBtn || !projectTypeMenu.contains(optionBtn)) return;
+        setProjectType(optionBtn);
       });
 
       document.addEventListener("click", e => {
@@ -5349,6 +5404,8 @@
           projectTypeTrigger.setAttribute("aria-expanded", "false");
         }
       });
+
+      loadProjectTypes();
     }
 
     function toggleContactNumber(btn) {
