@@ -9,7 +9,8 @@
   <meta property="og:description" content="A compact engineering team for automation, digital product delivery, and project execution support." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#1a73e8" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231a73e8'/%3E%3Cpath d='M18 20h28v6H35v18h-6V26H18z' fill='white'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f3f6fb'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Inter,Arial,sans-serif' font-size='30' font-weight='800' fill='%2318212b'%3E%5BK%3B%5D%3C/text%3E%3C/svg%3E" />
+  <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f3f6fb'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Inter,Arial,sans-serif' font-size='30' font-weight='800' fill='%2318212b'%3E%5BK%3B%5D%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -5247,7 +5248,7 @@
     const projectTypeTrigger = projectTypeSelect?.querySelector(".custom-select-trigger");
     const projectTypeValue = document.getElementById("projectTypeValue");
     const projectTypeMenu = document.getElementById("projectTypeMenu");
-    const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbw_b8t-Y_KZwG-hu3tRoslCfTHwea3yNosOQrhThQpX00qN0oxwUgqnL3CByJQESWuQEg/exec";
+    const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbxHTqpXOOfLr47dtCkX1DHoRDzEBAVr-EnoP48Qzu9Y8V5I3AQ05kscESYsuOY7q4bI/exec";
     const startedAtInput = document.getElementById("startedAt");
 
     if (startedAtInput) startedAtInput.value = String(Date.now());
@@ -5424,6 +5425,7 @@
           return;
         }
         await submitToLead({
+          formType: "contact_form",
           name,
           email,
           whatsapp,
@@ -5465,6 +5467,7 @@
           return;
         }
         await submitToLead({
+          formType: "fast_contact",
           name: "Fast Contact",
           email,
           whatsapp: "",
