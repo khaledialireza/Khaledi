@@ -686,7 +686,7 @@
 
     .evidence-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: var(--space-3);
       margin-top: var(--space-4);
     }
@@ -1215,6 +1215,60 @@
       height: 16px;
     }
 
+    #crm-mvp {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--section-surface-a) 0%, var(--section-surface-b) 100%);
+    }
+
+    .crm-mvp-card {
+      padding: clamp(18px, 2.4vw, 28px);
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--bg-2);
+      box-shadow: 0 8px 20px rgba(16,24,40,.05);
+    }
+
+    .crm-points {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0 14px;
+    }
+
+    .crm-point {
+      font-size: 14px;
+      color: var(--text);
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .crm-point::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .crm-form {
+      margin-top: 8px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .crm-form .row-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 860px) {
+      .crm-form .row-two {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .contact-band {
       grid-column: span 12;
@@ -1428,6 +1482,16 @@
       text-overflow: ellipsis;
     }
 
+    #projectTypeSelect .custom-select-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #projectTypeIcon[hidden] {
+      display: none !important;
+    }
+
     .custom-select-menu {
       position: absolute;
       left: 0;
@@ -1491,6 +1555,15 @@
     .form input::placeholder,
     .form textarea::placeholder {
       color: color-mix(in srgb, var(--muted) 78%, #7f8a9a);
+    }
+
+    .field:not(.has-value) input[type="date"]::-webkit-datetime-edit {
+      color: transparent;
+    }
+
+    .field.has-value input[type="date"]::-webkit-datetime-edit,
+    .field input[type="date"]:focus::-webkit-datetime-edit {
+      color: var(--text);
     }
 
     .form select option {
@@ -3447,6 +3520,10 @@
                 <h3 data-i18n="svc_3_title"></h3>
                 <p data-i18n="svc_3_desc"></p>
               </article>
+              <article class="service-card">
+                <h3 data-i18n="svc_4_title"></h3>
+                <p data-i18n="svc_4_desc"></p>
+              </article>
             </div>
           </div>
         </div>
@@ -3592,6 +3669,20 @@
               <div class="evidence-point" data-i18n="evidence_3_p3"></div>
             </div>
           </article>
+
+          <article class="evidence-card">
+            <div class="evidence-top">
+              <div class="evidence-badge" data-i18n="evidence_4_badge"></div>
+              <div class="evidence-value" data-i18n="evidence_4_value"></div>
+            </div>
+            <div class="evidence-title" data-i18n="evidence_4_title"></div>
+            <div class="evidence-copy" data-i18n="evidence_4_copy"></div>
+            <div class="evidence-points">
+              <div class="evidence-point" data-i18n="evidence_4_p1"></div>
+              <div class="evidence-point" data-i18n="evidence_4_p2"></div>
+              <div class="evidence-point" data-i18n="evidence_4_p3"></div>
+            </div>
+          </article>
         </div>
       </div>
 
@@ -3712,11 +3803,12 @@
             <div class="custom-select" id="projectTypeSelect">
               <input id="projectType" name="projectType" type="hidden" value="" />
               <button class="custom-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span class="custom-option-icon" id="projectTypeIcon">•</span>
                 <span class="custom-select-value" id="projectTypeValue"></span>
               </button>
               <ul class="custom-select-menu" id="projectTypeMenu" role="listbox" hidden>
                 <li>
-                  <button class="custom-option" type="button" data-option-value="" data-option-i18n="opt_type">
+                  <button class="custom-option" type="button" data-option-value="">
                     <span class="custom-option-icon">•</span>
                     <span class="custom-option-label"></span>
                   </button>
@@ -3925,6 +4017,8 @@
         svc_2_desc: "Siemens PLC and commissioning support for reliable plant execution.",
         svc_3_title: "Mobile Product Delivery",
         svc_3_desc: "Maintainable web and Flutter delivery for real operations.",
+        svc_4_title: "CRM Enablement",
+        svc_4_desc: "Lean CRM setup for lead capture, pipeline tracking, and practical follow-up.",
 
         tools_kicker: "Tooling",
         tools_title: "Core Working Stack",
@@ -4203,7 +4297,15 @@
         evidence_3_copy: "Web and mobile implementation with maintainable delivery quality.",
         evidence_3_p1: "Web builds",
         evidence_3_p2: "Flutter apps",
-        evidence_3_p3: "Internal tools"
+        evidence_3_p3: "Internal tools",
+
+        evidence_4_badge: "CRM",
+        evidence_4_value: "Pipeline",
+        evidence_4_title: "CRM Enablement",
+        evidence_4_copy: "Lean CRM setup for lead capture, tracking, and practical follow-up visibility.",
+        evidence_4_p1: "Lead intake structure",
+        evidence_4_p2: "Status tracking",
+        evidence_4_p3: "Follow-up flow"
       },
 
       de: {
@@ -4300,6 +4402,8 @@
         svc_2_desc: "PLC- und Commissioning-Support für zuverlässige industrielle Ausführung.",
         svc_3_title: "Mobile Product Execution",
         svc_3_desc: "Wartbare Web- und Flutter-Umsetzung für operative Produktanforderungen.",
+        svc_4_title: "CRM Enablement",
+        svc_4_desc: "Schlankes CRM-Setup für Lead-Erfassung, Pipeline-Tracking und praktischen Follow-up-Flow.",
 
         tools_kicker: "Tooling",
         tools_title: "Kern-Toolset",
@@ -4562,7 +4666,15 @@
         evidence_3_copy: "Schnelle Umsetzung für business-nahe Web- und Mobile-Produkte mit klarem Delivery-Fokus.",
         evidence_3_p1: "Web Builds",
         evidence_3_p2: "Flutter Apps",
-        evidence_3_p3: "Interne Tools"
+        evidence_3_p3: "Interne Tools",
+
+        evidence_4_badge: "CRM",
+        evidence_4_value: "Pipeline",
+        evidence_4_title: "CRM Enablement",
+        evidence_4_copy: "Schlankes CRM-Setup für Lead-Erfassung, Tracking und klare Follow-up-Sichtbarkeit.",
+        evidence_4_p1: "Lead intake Struktur",
+        evidence_4_p2: "Status Tracking",
+        evidence_4_p3: "Follow-up Flow"
       },
 
       pl: {
@@ -4659,6 +4771,8 @@
         svc_2_desc: "Wsparcie PLC i commissioning dla niezawodnego wykonania przemysłowego.",
         svc_3_title: "Mobile Product Execution",
         svc_3_desc: "Utrzymywalna realizacja web i Flutter dla operacyjnych produktów.",
+        svc_4_title: "CRM Enablement",
+        svc_4_desc: "Lekkie wdrożenie CRM do zbierania leadów, śledzenia pipeline i praktycznego follow-upu.",
 
         tools_kicker: "Tooling",
         tools_title: "Główny stack roboczy",
@@ -4877,7 +4991,15 @@
         evidence_3_copy: "Szybka implementacja dla business-facing produktów web i mobile z czystym focusem delivery.",
         evidence_3_p1: "Web builds",
         evidence_3_p2: "Flutter apps",
-        evidence_3_p3: "Internal tools"
+        evidence_3_p3: "Internal tools",
+
+        evidence_4_badge: "CRM",
+        evidence_4_value: "Pipeline",
+        evidence_4_title: "CRM Enablement",
+        evidence_4_copy: "Lekkie wdrożenie CRM do zbierania leadów, śledzenia statusu i widocznego follow-upu.",
+        evidence_4_p1: "Struktura lead intake",
+        evidence_4_p2: "Śledzenie statusu",
+        evidence_4_p3: "Flow follow-up"
       }
     };
 
@@ -5139,8 +5261,8 @@
         });
 
         const active = projectTypeSelectEl.querySelector(`.custom-option[data-option-value="${CSS.escape(projectTypeHiddenInputEl?.value || "")}"]`);
-        const activeKey = active?.getAttribute("data-option-i18n") || "opt_type";
-        projectTypeValueEl.textContent = t[activeKey] || "";
+        const activeKey = active?.getAttribute("data-option-i18n") || "";
+        projectTypeValueEl.textContent = activeKey ? (t[activeKey] || "") : "";
       }
 
       root.lang = lang;
@@ -5224,11 +5346,13 @@
     const navToggle = document.getElementById("navToggle");
     const contactForm = document.getElementById("contactForm");
     const fastContactForm = document.getElementById("fastContactForm");
+    const crmForm = document.getElementById("crmForm");
     const contactModal = document.getElementById("contactModal");
     const contactOpenButtons = document.querySelectorAll("[data-open-contact-modal]");
     const projectTypeSelect = document.getElementById("projectTypeSelect");
     const projectTypeHiddenInput = document.getElementById("projectType");
     const projectTypeTrigger = projectTypeSelect?.querySelector(".custom-select-trigger");
+    const projectTypeIcon = document.getElementById("projectTypeIcon");
     const projectTypeValue = document.getElementById("projectTypeValue");
     const projectTypeMenu = document.getElementById("projectTypeMenu");
     const leadFormEndpoint = "https://script.google.com/macros/s/AKfycbxHTqpXOOfLr47dtCkX1DHoRDzEBAVr-EnoP48Qzu9Y8V5I3AQ05kscESYsuOY7q4bI/exec";
@@ -5250,7 +5374,8 @@
         error: "Could not send now. Please try again.",
         invalidEmail: "Please enter a valid work email.",
         spamBlocked: "Please wait a few seconds and submit again.",
-        requiredFast: "Please enter both subject and message."
+        requiredFast: "Please enter both subject and message.",
+        requiredCrm: "Please complete all CRM fields."
       },
       de: {
         sending: "Wird gesendet...",
@@ -5258,7 +5383,8 @@
         error: "Senden nicht möglich. Bitte erneut versuchen.",
         invalidEmail: "Bitte geben Sie eine gültige geschäftliche E-Mail ein.",
         spamBlocked: "Bitte warten Sie einige Sekunden und senden Sie erneut.",
-        requiredFast: "Bitte Betreff und Nachricht eingeben."
+        requiredFast: "Bitte Betreff und Nachricht eingeben.",
+        requiredCrm: "Bitte alle CRM-Felder ausfüllen."
       },
       pl: {
         sending: "Wysyłanie...",
@@ -5266,7 +5392,8 @@
         error: "Nie udało się wysłać. Spróbuj ponownie.",
         invalidEmail: "Podaj poprawny adres e-mail służbowy.",
         spamBlocked: "Odczekaj kilka sekund i wyślij ponownie.",
-        requiredFast: "Uzupełnij temat i wiadomość."
+        requiredFast: "Uzupełnij temat i wiadomość.",
+        requiredCrm: "Uzupełnij wszystkie pola CRM."
       }
     };
 
@@ -5366,7 +5493,7 @@
           if (!data || !data.ok || !Array.isArray(data.items)) return;
           renderProjectTypeOptions(data.items);
           projectTypeHiddenInput.value = "";
-          projectTypeValue.textContent = getDefaultProjectTypeLabel();
+          projectTypeValue.textContent = "";
         } catch (err) {
           // Keep static fallback if API call fails.
         }
@@ -5375,8 +5502,18 @@
       const setProjectType = optionBtn => {
         const value = optionBtn.getAttribute("data-option-value") || "";
         const label = optionBtn.querySelector(".custom-option-label")?.textContent || "";
+        const selectedIcon = optionBtn.querySelector(".custom-option-icon");
         projectTypeHiddenInput.value = value;
         projectTypeValue.textContent = label;
+        if (projectTypeIcon) {
+          if (selectedIcon) {
+            projectTypeIcon.innerHTML = selectedIcon.innerHTML;
+            projectTypeIcon.hidden = false;
+          } else {
+            projectTypeIcon.innerHTML = "";
+            projectTypeIcon.hidden = true;
+          }
+        }
         projectTypeSelect.classList.remove("open");
         projectTypeMenu.hidden = true;
         projectTypeTrigger.setAttribute("aria-expanded", "false");
@@ -5406,6 +5543,7 @@
       });
 
       loadProjectTypes();
+      if (projectTypeIcon) projectTypeIcon.hidden = true;
     }
 
     function toggleContactNumber(btn) {
@@ -5537,6 +5675,46 @@
           website: "",
           startedAt: String(Date.now())
         }, fastContactForm, submitBtn);
+      });
+    }
+
+    if (crmForm) {
+      crmForm.addEventListener("submit", async event => {
+        event.preventDefault();
+        const currentLang = localStorage.getItem("lang") || getLangFromBrowser();
+        const feedback = feedbackByLang[currentLang] || feedbackByLang.en;
+        const name = document.getElementById("crmName")?.value.trim() || "";
+        const emailInput = document.getElementById("crmEmail");
+        const email = emailInput?.value.trim() || "";
+        const company = document.getElementById("crmCompany")?.value.trim() || "";
+        const teamSize = document.getElementById("crmTeamSize")?.value.trim() || "";
+        const submitBtn = crmForm.querySelector("button[type='submit']");
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+        if (!name || !company || !teamSize) {
+          showSnack(feedback.requiredCrm || "Please complete all CRM fields.");
+          return;
+        }
+        if (!emailPattern.test(email)) {
+          showSnack(feedback.invalidEmail);
+          emailInput?.focus();
+          return;
+        }
+
+        await submitToLead({
+          formType: "crm_lead",
+          name,
+          email,
+          whatsapp: "",
+          company,
+          projectType: "CRM Demo Request",
+          timeline: "",
+          budget: teamSize,
+          description: `CRM team size: ${teamSize}`,
+          lang: currentLang,
+          website: "",
+          startedAt: String(Date.now())
+        }, crmForm, submitBtn);
       });
     }
 
